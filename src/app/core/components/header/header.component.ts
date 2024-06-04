@@ -13,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  private selectedOptionSubject = new BehaviorSubject<string>('');
+  private selectedOptionSubject = new BehaviorSubject<string>('home');
   selectedOption$ = this.selectedOptionSubject.asObservable();
 
   selectedOption = '';
