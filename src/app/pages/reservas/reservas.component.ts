@@ -36,9 +36,10 @@ export class ReservasComponent {
   ){
     this.registrarReserva = this.formBuilder.group({
       nombre: ['', [Validators.required ]],
+      date: ['', [Validators.required ]],
       // password: ['', [Validators.required]],
       // repassword: ['', [Validators.required]],
-      // mail: ['', [Validators.required]],
+      mail: ['', [Validators.required]],
       // tlf: ['', [Validators.required]],
       // address: ['', [Validators.required]],
       // localidad: ['', [Validators.required]],
@@ -53,7 +54,9 @@ public onSubmit(): void {
   if (this.registrarReserva.valid) {
     // Crear un objeto de usuario con los datos del formulario
     const user: any = {
+      date: this.registrarReserva.get('date')?.value,
       nombre: this.registrarReserva.get('nombre')?.value,
+      mail: this.registrarReserva.get('mail')?.value,
       // password: this.registerUser.get('password')?.value,
       // repassword: this.registerUser.get('repassword')?.value,
       // mail: this.registerUser.get('mail')?.value,
