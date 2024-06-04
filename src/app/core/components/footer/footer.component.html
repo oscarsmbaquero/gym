@@ -1,0 +1,73 @@
+
+<footer class="text-center text-lg-start text-muted"
+[ngClass]="{ 'dark-theme': currentTheme === 'dark', 'light-theme': currentTheme === 'light' }"
+>
+  <!-- Section: Social media           37, 42, 42-->
+  <!-- style="background-color: rgb(37, 42, 42)" -->
+  <section
+    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+  >
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block" style="margin-bottom: 8px;">
+      <span 
+      [ngClass]="{ 'dark-theme': currentTheme === 'dark', 'light-theme': currentTheme === 'light' }"
+      >Síguenos en redes sociales:</span>
+    </div>
+    <div class="me-5 d-lg-block">
+      <a class="me-4 text-reset p-2"><img src="assets/images/instagram.png" style="width: 35px;"/></a>
+      <a class="me-4 text-reset p-2"><img src="assets/images/X.png" style="width: 35px;"/></a>
+      <a class="me-4 text-reset p-2"><img src="assets/images/facebook.png" style="width: 35px;"/></a>
+    </div>
+    <!-- Right -->
+  </section>
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Condiciones legales
+          </h6>
+          <a  routerLink="/privacy">Terminos y condiciones | Politica de privacidad | Politica de cookies</a>
+          <h6 class="text-uppercase fw-bold mb-4">
+            <img src="assets/images/logo.avif" width="130" height="130" alt="" />&nbsp;
+          </h6>
+          <!-- <p>
+            <img src="assets/images/reset.png" width="70" height="70" alt="" />
+          </p> -->
+        </div>
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Contact
+          </h6>
+          <p><i class="fas fa-home me-3"></i>&nbsp;Plasencia</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            why&#64;gmail.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> +34 608 722 702</p>
+          <p><i class="fas fa-print me-3"></i> +34 633 865 056</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © {{year}}&nbsp;App developed by OSMB
+    <!-- <img *ngIf="currentTheme === 'dark'" src="../../../assets/images/why_light_1.png" width="80" height="80" alt="" />
+    <img *ngIf="currentTheme === 'light'" src="../../../assets/images/why_dark_1.png" width="80" height="80" alt="" /> -->
+    <!-- <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Developed by OSMB</a> -->
+  </div>
+  <!-- Copyright -->
+</footer>

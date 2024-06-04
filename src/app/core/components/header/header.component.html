@@ -1,0 +1,189 @@
+<nav
+  class="navbar navbar-expand-md">
+  <div class="container-fluid">
+    <!-- rgb(37, 42, 42);  src="{{ logoUrl }}"-->
+    <!--style="background-color: rgb(37, 42, 42)"-->
+    <a>
+      <img 
+      [routerLink]="['']"
+      src="assets/images/logo.avif"
+      width="100"
+      height="100"
+      alt="logo"
+    />&nbsp;
+    </a>
+    <label
+      class="hamburger navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      style="border: none"
+    >
+      <!-- </button> -->
+      <input type="checkbox" />
+      <svg viewBox="0 0 32 32">
+        <path
+          class="line line-top-bottom"
+          d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+          [style.stroke]="currentTheme === 'dark' ? '#fff' : '#000'"
+        ></path>
+        <path
+          class="line"
+          [style.stroke]="currentTheme === 'dark' ? '#fff' : '#000'"
+          d="M7 16 27 16"
+        ></path>
+      </svg>
+    </label>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <!--primera lista-->
+      <ul
+        class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+        style="--bs-scroll-height: 100px"
+      >
+        <li class="nav-item" routerLinkActive="active"
+        (click)="selectOption('home')" [class.selected]="selectedOption === 'home'">
+          <a
+            class="nav-link"
+            [routerLink]="['']"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            ><span
+              [ngClass]="{
+                'dark-theme': currentTheme === 'dark',
+                'light-theme': currentTheme === 'light'
+              }"
+              >Inicio</span
+            ></a
+          >
+        </li>
+        <hr class="dropdown-divider" />
+        <li (click)="selectOption('productos')" [class.selected]="selectedOption === 'productos'" class="nav-item" routerLinkActive="active">
+          <a
+            class="nav-link"
+            [routerLink]="['/products']"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            ><span
+              [ngClass]="{
+                'dark-theme': currentTheme === 'dark',
+                'light-theme': currentTheme === 'light'
+              }"
+              >Reservas</span
+            ></a
+          >
+        </li>
+        <hr class="dropdown-divider" />
+      </ul>
+      <!--segunda lista-->
+      <ul
+        class="navbar-nav ml-auto my-2 my-lg-0 navbar-nav-scroll"
+        style="--bs-scroll-height: 100px"
+      >
+        <!--*****//TODO******************lupa y buscador-->
+        <!-- <div
+          (click)="initInputSearch()"
+          *ngIf="
+            activeUser && activeUser.data.rol === 'admin' && !showInputSearch
+          "
+          style="padding: 8px"
+        >
+          <img
+            src="../../../assets/images/search.png"
+            alt="search"
+            width="40px"
+          />
+        </div> -->
+
+        <!-- <form
+          *ngIf="
+            activeUser && activeUser.data.rol === 'admin' && showInputSearch
+          "
+          class="d-flex"
+          role="search"
+          #searchForm="ngForm"
+        >
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Navegar"
+            aria-label="Search"
+            [(ngModel)]="searchText"
+            name="search"
+            [ngb]="popoverContent"
+          />
+          <button
+            class="btn btn-outline-info"
+            type="submit"
+            (click)="realizarBusqueda()"
+            [ngbPopover]="popoverContent"
+          >
+            Aceptar
+          </button> 
+        </form>-->
+        <!--end *****//TODO****************** lupa y buscador-->
+
+        <div *ngIf="activeUser; else notUser">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/user']"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+            >
+              <span
+                (click)="logout()"
+                [ngClass]="{
+                  'dark-theme': currentTheme === 'dark',
+                  'light-theme': currentTheme === 'light'
+                }"
+                >Cerrar sesión</span
+              >
+            </a>
+          </li>
+        </div>
+
+        <ng-template #notUser>
+          <li (click)="selectOption('identificarse')" [class.selected]="selectedOption === 'identificarse'" class="nav-item" routerLinkActive="active">
+            <a
+              class="nav-link"
+              [routerLink]="['/user']"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+              ><span
+                [ngClass]="{
+                  'dark-theme': currentTheme === 'dark',
+                  'light-theme': currentTheme === 'light'
+                }"
+                >Login</span
+              ></a
+            >
+          </li>
+          <hr class="dropdown-divider" />
+        </ng-template>
+        <li>
+          <!-- <div class="daynight">
+            <div>
+              <div style="padding-right:15px">
+                <img src="../assets/images/luna.png" width="22px" />
+              </div>  
+            </div>
+            <div>
+              <p-inputSwitch
+                [(ngModel)]="checked"
+                (click)="chengeTheme()"
+                class="small-input-switch"
+              ></p-inputSwitch>
+            </div>
+            <div>
+              <img src="../assets/images/sol.png" width="25px" />
+            </div>
+          </div> -->
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
