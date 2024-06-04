@@ -1,33 +1,44 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-
+import { NavbarService } from '../../services/navbarService/navbar.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ CommonModule,RouterModule ],
+  imports: [ CommonModule, RouterLink ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+
+constructor(
+  private navbarService: NavbarService
+){
+   
+}
+
+
+
+
+
+
 openModal() {
 throw new Error('Method not implemented.');
 }
-showIconFeddback: any;
-chengeTheme() {
-throw new Error('Method not implemented.');
-}
+
 logout() {
 throw new Error('Method not implemented.');
 }
 toggleNavbar() {
-throw new Error('Method not implemented.');
+  this.navbarService.collapseNavbar();
 }
 selectedOption: any;
 activeUser: any;
 selectOption(arg0: string) {
-throw new Error('Method not implemented.');
+  this.selectedOption = arg0;
+    this.toggleNavbar();
+
 }
 currentTheme: any;
 

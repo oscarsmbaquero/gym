@@ -1,0 +1,42 @@
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  mat-card {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Establece el tamaño y el color de la sombra */
+    /* border: 1px solid grey; */
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Centrar el logo horizontalmente */
+  img[src="../../../assets/images/logo.jpg"] {
+    margin: 0 auto;
+    display: block;
+  }
+  
+  /* Estilos para centrar los inputs horizontalmente */
+  mat-form-field {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para centrar el botón horizontalmente */
+  button[mat-raised-button] {
+    display: block;
+    margin: 0 auto;
+  }
+  
+//   :host {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//   }

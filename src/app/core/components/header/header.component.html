@@ -1,11 +1,9 @@
 <nav
   class="navbar navbar-expand-md">
   <div class="container-fluid">
-    <!-- rgb(37, 42, 42);  src="{{ logoUrl }}"-->
-    <!--style="background-color: rgb(37, 42, 42)"-->
     <a>
       <img 
-      [routerLink]="['']"
+      routerLink=""
       src="assets/images/logo.avif"
       width="100"
       height="100"
@@ -50,28 +48,18 @@
             [routerLink]="['']"
             data-toggle="collapse"
             data-target=".navbar-collapse.show"
-            ><span
-              [ngClass]="{
-                'dark-theme': currentTheme === 'dark',
-                'light-theme': currentTheme === 'light'
-              }"
-              >Inicio</span
+            ><span>Inicio</span
             ></a
           >
         </li>
         <hr class="dropdown-divider" />
-        <li (click)="selectOption('productos')" [class.selected]="selectedOption === 'productos'" class="nav-item" routerLinkActive="active">
+        <li (click)="selectOption('reservas')" [class.selected]="selectedOption === 'reservas'" class="nav-item" routerLinkActive="active">
           <a
             class="nav-link"
-            [routerLink]="['/products']"
+            [routerLink]="['/reservas']"
             data-toggle="collapse"
             data-target=".navbar-collapse.show"
-            ><span
-              [ngClass]="{
-                'dark-theme': currentTheme === 'dark',
-                'light-theme': currentTheme === 'light'
-              }"
-              >Reservas</span
+            ><span>Reservas</span
             ></a
           >
         </li>
@@ -129,7 +117,7 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              [routerLink]="['/user']"
+              routerLink="['/user']"
               data-toggle="collapse"
               data-target=".navbar-collapse.show"
             >
@@ -149,7 +137,7 @@
           <li (click)="selectOption('identificarse')" [class.selected]="selectedOption === 'identificarse'" class="nav-item" routerLinkActive="active">
             <a
               class="nav-link"
-              [routerLink]="['/user']"
+              routerLink="['/user']"
               data-toggle="collapse"
               data-target=".navbar-collapse.show"
               ><span
