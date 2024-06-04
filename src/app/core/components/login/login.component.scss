@@ -1,0 +1,70 @@
+/* .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    
+  }
+  
+  mat-card {
+    max-width: 450px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 50px;
+    margin-left: 0px;
+    margin-top: 60px;
+    
+  } */
+  .loading{
+    width: 100%;
+
+  }
+  .login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  mat-card {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 10px 10px 20px #babecc, 10px 10px 20px  #babecc;
+    /* border: 1px solid grey; */
+    border-radius: 12px;
+    text-align: center;
+  }
+  
+  /* Centrar el logo horizontalmente */
+  img[src="../../../assets/images/logo.jpg"] {
+    margin: 0 auto;
+    display: block;
+  }
+  
+  /* Estilos para centrar los inputs horizontalmente */
+  mat-form-field {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para centrar el botón horizontalmente */
+  button[mat-raised-button] {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  /* Añade estilos adicionales según tus preferencias */
+ /* Estilos personalizados para el MatSnackBar */
+.custom-snackbar {
+  text-align: center; /* Centrar el texto */
+  background-color: #333; /* Color de fondo */
+  color: #fff; /* Color del texto */
+  border-radius: 8px; /* Bordes redondeados */
+  width: 300px; /* Ancho personalizado */
+  margin: 0 auto; /* Centrar horizontalmente */
+}
+ 

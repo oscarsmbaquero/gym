@@ -1,45 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarService } from '../../services/navbarService/navbar.service';
+import { NavbarService } from '../../services/navbar.service';
 import { RouterLink } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ CommonModule, RouterLink ],
+  imports: [CommonModule, RouterLink],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-constructor(
-  private navbarService: NavbarService
-){
-   
-}
+  private selectedOptionSubject = new BehaviorSubject<string>('');
+  selectedOption$ = this.selectedOptionSubject.asObservable();
 
-
+  selectedOption = '';
+  currentTheme : any;
 
 
 
+  constructor(private navbarService: NavbarService) {
+    const savedOption = localStorage.getItem('selectedOption');
+    if (savedOption) {
+      this.selectedOptionSubject.next(savedOption);
+    }
+  }
 
-openModal() {
-throw new Error('Method not implemented.');
-}
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    
+  }
 
-logout() {
-throw new Error('Method not implemented.');
-}
-toggleNavbar() {
-  this.navbarService.collapseNavbar();
-}
-selectedOption: any;
-activeUser: any;
-selectOption(arg0: string) {
-  this.selectedOption = arg0;
+  openModal() {
+    throw new Error('Method not implemented.');
+  }
+
+  logout() {
+    throw new Error('Method not implemented.');
+  }
+  toggleNavbar() {
+    this.navbarService.collapseNavbar();
+  }
+
+  activeUser: any;
+  selectOption(option: string) {
+    this.selectedOptionSubject.next(option);
+    localStorage.setItem('selectedOption', option); // Guardar en almacenamiento local
     this.toggleNavbar();
-
-}
-currentTheme: any;
-
+  }
+  // selectOption(arg0: string) {
+  //   this.selectedOption = arg0;
+  //   this.toggleNavbar();
+  // }
 }

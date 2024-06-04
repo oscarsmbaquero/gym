@@ -40,6 +40,8 @@ export class ReservasComponent {
       // password: ['', [Validators.required]],
       // repassword: ['', [Validators.required]],
       mail: ['', [Validators.required]],
+      tipo_reserva: ['',[Validators.required]],
+      comentario: ['',[Validators.required]],
       // tlf: ['', [Validators.required]],
       // address: ['', [Validators.required]],
       // localidad: ['', [Validators.required]],
@@ -50,23 +52,19 @@ export class ReservasComponent {
 
 
 public onSubmit(): void {
+  console.log('Entri');
+  
     // Si el formulario es valido
   if (this.registrarReserva.valid) {
-    // Crear un objeto de usuario con los datos del formulario
-    const user: any = {
+    //TODO TIPAR
+    const reserva: any = {
       date: this.registrarReserva.get('date')?.value,
       nombre: this.registrarReserva.get('nombre')?.value,
       mail: this.registrarReserva.get('mail')?.value,
-      // password: this.registerUser.get('password')?.value,
-      // repassword: this.registerUser.get('repassword')?.value,
-      // mail: this.registerUser.get('mail')?.value,
-      // tlf: this.registerUser.get('tlf')?.value,
-      // address: this.registerUser.get('address')?.value,
-      // localidad: this.registerUser.get('localidad')?.value,
-      // provincia: this.registerUser.get('provincia')?.value,
-      // cp: this.registerUser.get('cp')?.value,
+      tipo_reserva: this.registrarReserva.get('tipo_reserva')?.value,
+      comentario: this.registrarReserva.get('comentario')?.value,
     };
-    console.log(user);
+    console.log(reserva,'user');
     
   //this.loading = true;
   // El usuario ha pulsado en submit -> cambia a true submitted

@@ -42,7 +42,7 @@
         style="--bs-scroll-height: 100px"
       >
         <li class="nav-item" routerLinkActive="active"
-        (click)="selectOption('home')" [class.selected]="selectedOption === 'home'">
+        [class.selected]="(selectedOption$ | async) === 'home'" (click)="selectOption('home')">
           <a
             class="nav-link"
             [routerLink]="['']"
@@ -53,7 +53,7 @@
           >
         </li>
         <hr class="dropdown-divider" />
-        <li (click)="selectOption('reservas')" [class.selected]="selectedOption === 'reservas'" class="nav-item" routerLinkActive="active">
+        <li [class.selected]="(selectedOption$ | async) === 'reservas'" (click)="selectOption('reservas')" class="nav-item" routerLinkActive="active">
           <a
             class="nav-link"
             [routerLink]="['/reservas']"
@@ -70,49 +70,6 @@
         class="navbar-nav ml-auto my-2 my-lg-0 navbar-nav-scroll"
         style="--bs-scroll-height: 100px"
       >
-        <!--*****//TODO******************lupa y buscador-->
-        <!-- <div
-          (click)="initInputSearch()"
-          *ngIf="
-            activeUser && activeUser.data.rol === 'admin' && !showInputSearch
-          "
-          style="padding: 8px"
-        >
-          <img
-            src="../../../assets/images/search.png"
-            alt="search"
-            width="40px"
-          />
-        </div> -->
-
-        <!-- <form
-          *ngIf="
-            activeUser && activeUser.data.rol === 'admin' && showInputSearch
-          "
-          class="d-flex"
-          role="search"
-          #searchForm="ngForm"
-        >
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Navegar"
-            aria-label="Search"
-            [(ngModel)]="searchText"
-            name="search"
-            [ngb]="popoverContent"
-          />
-          <button
-            class="btn btn-outline-info"
-            type="submit"
-            (click)="realizarBusqueda()"
-            [ngbPopover]="popoverContent"
-          >
-            Aceptar
-          </button> 
-        </form>-->
-        <!--end *****//TODO****************** lupa y buscador-->
-
         <div *ngIf="activeUser; else notUser">
           <li class="nav-item">
             <a
@@ -123,10 +80,7 @@
             >
               <span
                 (click)="logout()"
-                [ngClass]="{
-                  'dark-theme': currentTheme === 'dark',
-                  'light-theme': currentTheme === 'light'
-                }"
+               
                 >Cerrar sesión</span
               >
             </a>
@@ -134,42 +88,17 @@
         </div>
 
         <ng-template #notUser>
-          <li (click)="selectOption('identificarse')" [class.selected]="selectedOption === 'identificarse'" class="nav-item" routerLinkActive="active">
+          <li [class.selected]="(selectedOption$ | async) === 'login'" (click)="selectOption('login')" class="nav-item" routerLinkActive="active" class="nav-item" routerLinkActive="active">
             <a
               class="nav-link"
-              routerLink="['/user']"
+              [routerLink]="['/login']"
               data-toggle="collapse"
               data-target=".navbar-collapse.show"
-              ><span
-                [ngClass]="{
-                  'dark-theme': currentTheme === 'dark',
-                  'light-theme': currentTheme === 'light'
-                }"
-                >Login</span
-              ></a
-            >
+              ><span>Login</span>
+            </a>
           </li>
           <hr class="dropdown-divider" />
         </ng-template>
-        <li>
-          <!-- <div class="daynight">
-            <div>
-              <div style="padding-right:15px">
-                <img src="../assets/images/luna.png" width="22px" />
-              </div>  
-            </div>
-            <div>
-              <p-inputSwitch
-                [(ngModel)]="checked"
-                (click)="chengeTheme()"
-                class="small-input-switch"
-              ></p-inputSwitch>
-            </div>
-            <div>
-              <img src="../assets/images/sol.png" width="25px" />
-            </div>
-          </div> -->
-        </li>
       </ul>
     </div>
   </div>

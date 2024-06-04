@@ -99,7 +99,7 @@ span {
     }
   
     .selected {
-      border-bottom: 2px solid blue; /* O cualquier estilo de subrayado deseado */
+      border-bottom: 3px solid rgb(255, 0, 123); /* O cualquier estilo de subrayado deseado */
     }
   
     .navbar-right {
@@ -112,31 +112,32 @@ span {
       font-weight: bold;
       /* O cualquier estilo de subrayado deseado */
     }
+    
   }
   
-  .prueba {
-    /* outline: 1px solid rgb(188, 185, 185); */
-    /* padding: 20px; */
-    margin: 10px;
-    /* background-color: rgb(49, 51, 51); */
-    border-radius: 12px;
-    /* box-shadow: 0 0 2px rgba(0, 0, 0, 0.9); */
-    /*border-radius: 12px; */
-    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
-  }
+  // .prueba {
+  //   /* outline: 1px solid rgb(188, 185, 185); */
+  //   /* padding: 20px; */
+  //   margin: 10px;
+  //   /* background-color: rgb(49, 51, 51); */
+  //   border-radius: 12px;
+  //   /* box-shadow: 0 0 2px rgba(0, 0, 0, 0.9); */
+  //   /*border-radius: 12px; */
+  //   /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
+  // }
   
-  .fading-hr {
-    width: 100%;
-    height: 1px; /* Grosor de la línea */
-    background: linear-gradient(to right, transparent, #000, transparent); /* Degradado de fondo */
-    margin: 0; /* Espacio alrededor del hr */
-    border: none; /* Elimina el borde */
-  }
+  // .fading-hr {
+  //   width: 100%;
+  //   height: 1px; /* Grosor de la línea */
+  //   background: linear-gradient(to right, transparent, #000, transparent); /* Degradado de fondo */
+  //   margin: 0; /* Espacio alrededor del hr */
+  //   border: none; /* Elimina el borde */
+  // }
   
-  .menum {
-    font-weight: bold;
-    font-size: 20px;
-  }
+  // .menum {
+  //   font-weight: bold;
+  //   font-size: 20px;
+  // }
   
   /* Menu hamburguesa */
   .hamburger {
@@ -179,32 +180,32 @@ span {
   }
   
   /* boton cambio aspecto */
-  .floating-theme {
-    /* position: fixed; 
-    top: 180px; 
-    left: 1px; */
-    background-color: transparent;
-    /* background-color: #007bff; 
-    color: #fff; */
-    border-radius: 50%;
-    border: none;
-    width: 35px;
-    height: 35px;
-    /* cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-    /* z-index: 1000; */
-  }
+  // .floating-theme {
+  //   /* position: fixed; 
+  //   top: 180px; 
+  //   left: 1px; */
+  //   background-color: transparent;
+  //   /* background-color: #007bff; 
+  //   color: #fff; */
+  //   border-radius: 50%;
+  //   border: none;
+  //   width: 35px;
+  //   height: 35px;
+  //   /* cursor: pointer;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  //   /* z-index: 1000; */
+  // }
   
-  /*Contenedor apariencia*/
-  .daynight {
-    display: flex;
-    flex-direction: row-reverse;
-    padding: 10px;
-    margin-right: 10px;
-  }
+  // /*Contenedor apariencia*/
+  // .daynight {
+  //   display: flex;
+  //   flex-direction: row-reverse;
+  //   padding: 10px;
+  //   margin-right: 10px;
+  // }
   
   //   .small-input-switch /deep/ .p-inputswitch-slider {
   //     margin-top: 4px !important;
@@ -213,19 +214,33 @@ span {
   //   }
   
   @media screen and (max-width: 768px) {
-    .daynight {
-      margin-left: 0;
-      flex-direction: row;
+    .selected {
+      border-bottom: 3px solid rgb(255, 0, 123); /* O cualquier estilo de subrayado deseado */
+      width: 40px;
+      font-weight: bold;
     }
+   
+    // .daynight {
+    //   margin-left: 0;
+    //   flex-direction: row;
+    // }
   }
   
-  span {
-    max-width: 52ch;
-    line-height: 1.5;
-    font-family: 'Red Hat Text', sans-serif;
-    /* font-weight: bold; */
-    /* padding: 1em; */
-  }
+  // span {
+  //   max-width: 52ch;
+  //   line-height: 1.5;
+  //   font-family: 'Red Hat Text', sans-serif;
+  //   /* font-weight: bold; */
+  //   /* padding: 1em; */
+  // }
   
   /*  */
-  
+  /* CSS personalizado */
+// @media (max-width: 767.98px) {
+//   .navbar-collapse {
+//     text-align: right;
+//   }
+//   .navbar-nav {
+//     float: right;
+//   }
+// }

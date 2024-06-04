@@ -52,7 +52,7 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Tipo de reserva</mat-label>
-            <mat-select>
+            <mat-select matInput formControlName="tipo_reserva">
               <mat-option value="paddle">Pista de paddle</mat-option>
               <mat-option value="tennis">Pista de tennis</mat-option>
               <mat-option value="gym">Gymnasio</mat-option>
@@ -60,7 +60,7 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Comentarios</mat-label>
-            <textarea matInput></textarea>
+            <textarea matInput formControlName="comentario"></textarea>
           </mat-form-field>
           <button>Enviar</button>
         </form>
