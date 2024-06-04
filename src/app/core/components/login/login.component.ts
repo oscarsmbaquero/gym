@@ -86,7 +86,8 @@ export class LoginComponent {
           //     duration: 3000,
           //   }
           // );
-          this.router.navigate(['home']);
+          alert('mal login')
+          this.router.navigate(['login']);
           }
           console.log(error.status,'status');
         }
