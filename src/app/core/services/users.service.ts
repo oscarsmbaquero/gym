@@ -1,6 +1,7 @@
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { IUser } from './models/user-models';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -33,7 +34,7 @@ export class UsersService {
   //   this.getOrderClient(this.activeUser);
   // }
   login(credentials: { user: string; password: string }): Observable<boolean> {
-    const endpoint = `${environment.apiUrlMock}users/login`;
+    const endpoint = `${environment.apiUrl}users/login`;
     return this.httpClient.post<IUser>(endpoint, credentials).pipe(
       map((user) => {
         if (user) {
@@ -52,7 +53,7 @@ export class UsersService {
  * @returns 
  */
   register(credentials: { user: string; password: string }): Observable<boolean> {
-    const endpoint = `${environment.apiUrlMock}users/register`;
+    const endpoint = `${environment.apiUrl}users/register`;
     return this.httpClient.post<IUser>(endpoint, credentials).pipe(
       map((user) => {
         if (user) {
@@ -82,35 +83,35 @@ export class UsersService {
 
   getOrderClient(userId: string): Observable<any> {
     //return this.httpClient.get(`URL_DE_TU_API/pedidos/${userId}`);
-    return this.httpClient.get<any[]>(`${environment.apiUrlMock}users/${userId}`);
+    return this.httpClient.get<any[]>(`${environment.apiUrl}users/${userId}`);
   }
 
   getUSers(){
-    return this.httpClient.get<IUser[]>(`${environment.apiUrlMock}users`);
+    return this.httpClient.get<IUser[]>(`${environment.apiUrl}users`);
   }
 
   getUSerById(id: string){
-    return this.httpClient.get<IUser[]>(`${environment.apiUrlMock}users/${id}`);
+    return this.httpClient.get<IUser[]>(`${environment.apiUrl}users/${id}`);
   }
   updatedUser(id: string, userData: any): Observable<IUser[]> {
     console.log(id,userData,98)
-    const url = `${environment.apiUrlMock}users/modify/${id}`;
+    const url = `${environment.apiUrl}users/modify/${id}`;
     return this.httpClient.put<IUser[]>(url, userData);
   }
 
   getUSerByMail(email: string){    
-    return this.httpClient.get<IUser>(`${environment.apiUrlMock}users/mail/${email}`);
+    return this.httpClient.get<IUser>(`${environment.apiUrl}users/mail/${email}`);
   }
 
   resetPassword(email: string): Observable<any> {
     console.log(email);
-    const url = `${environment.apiUrlMock}users/reset-password/${email}`;
+    const url = `${environment.apiUrl}users/reset-password/${email}`;
     return this.httpClient.post<IUser[]>(url, email);
   }
 
   changePassword(id: string, nuevaContrasena: string): Observable<any> {
     //console.log(id, nuevaContrasena );
     
-    return this.httpClient.post(`${environment.apiUrlMock}users/changePassword/${id}`,{ nuevaContrasena });
+    return this.httpClient.post(`${environment.apiUrl}users/changePassword/${id}`,{ nuevaContrasena });
   }
 }
