@@ -1,7 +1,18 @@
 .categoria{
-    padding-top:100px;
+    padding-top:30px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
+mat-card {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 10px 10px 20px #babecc, 10px 10px 20px  #babecc;
+    /* border: 1px solid grey; */
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+  }

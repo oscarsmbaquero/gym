@@ -1,0 +1,12 @@
+<div class="calendar">
+    <div class="calendar-container">
+        <p-calendar 
+        class="max-w-" 
+        [(ngModel)]="date" 
+        [inline]="true" 
+        [showWeek]="true" 
+        (ngModelChange)="onDateChange($event)"
+        />
+    </div>
+    
+</div>
