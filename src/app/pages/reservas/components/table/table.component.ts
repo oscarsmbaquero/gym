@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ReservasService } from '../../../../core/services/store.service';
 //primeng
 import { TableModule } from 'primeng/table';
 
@@ -18,10 +19,18 @@ export class TableComponent implements OnInit, OnChanges {
    */
   showChanges = false;
 
+  constructor(
+    private reservasService: ReservasService
+  ){
+
+  }
+
 
   ngOnInit(): void {
     console.log(this.dataSelected,'init');    
+    this.getReservas();
   }
+ 
 
   ngOnChanges(changes: SimpleChanges) {
     const change = changes["dataSelected"];
@@ -58,5 +67,12 @@ export class TableComponent implements OnInit, OnChanges {
     },
     
   ]
+
+  getReservas(){
+    this.reservasService.getReservas().subscribe((element)=>{
+      console.log(element);
+      
+    })
+  }
 
 }
