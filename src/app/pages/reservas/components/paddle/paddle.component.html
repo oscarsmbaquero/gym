@@ -8,5 +8,10 @@
         (ngModelChange)="onDateChange($event)"
         />
     </div>
+    @if(showTable){
+        <app-table
+        [dataSelected]="dateSelected"
+        ></app-table>
+    }
     
 </div>

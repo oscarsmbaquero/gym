@@ -5,5 +5,11 @@
     padding: 30px;
 }
 .calendar-container{
-    max-width: 300px;
+    min-width: 300px;
 }
+
+@media (max-width: 768px) {
+    .calendar{
+      flex-direction: column;
+    }
+    }
