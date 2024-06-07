@@ -21,4 +21,8 @@ export class ReservasService {
   public getReservas(): Observable<any[]> {
     return this.httpClient.get<any[]>(`${environment.apiUrl}reservas`);
   }
+
+  public getReservasByDate(date: string): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${environment.apiUrl}reservas/${date}`);
+  }
 }
