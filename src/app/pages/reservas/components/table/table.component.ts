@@ -5,14 +5,20 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ReservasService } from '../../../../core/services/reservas.service';
 //primeng
 import { TableModule } from 'primeng/table';
 
+interface Intervalo {
+  horaInicio: string;
+  horaFin: string;
+}
+
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule],
+  imports: [TableModule, CommonModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
@@ -29,6 +35,13 @@ export class TableComponent implements OnInit, OnChanges {
   isLoading = true;
   hasData = false;
 
+  pistas: string[] = ['Pista 1', 'Pista 2', 'Pista 3', 'Pista 4'];
+  startTime: string = '09:30';
+  interval: number = 1.5; // horas
+  //reservationSlots: string[] = this.generateReservationSlots(this.startTime, this.interval, 10); // 10 slots para 10 intervalos de 1.5h desde las 09:30
+  intervalos: Intervalo[] = [];
+
+
 
 
   constructor(private reservasService: ReservasService) {}
@@ -36,6 +49,10 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     console.log(this.dataSelected, 'init');
     //this.getReservas();
+    //this.reservationSlots = this.generateReservationSlots(this.startTime, this.interval, 10); // 10 slots para 10 intervalos de 1.5h desde las 09:30
+    this.intervalos = this.generateReservationSlots(this.startTime, this.interval, 10); // 10 slots para 10 intervalos de 1.5h desde las 09:30
+    //console.log(this.reservationSlots);
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -141,4 +158,31 @@ export class TableComponent implements OnInit, OnChanges {
       console.log(element);
     });
   }
+
+  generateReservationSlots(start: string, interval: number, count: number): Intervalo[] {
+    const slots: Intervalo[] = [];
+    let currentTime = new Date(`1970-01-01T${start}:00`);
+
+    for (let i = 0; i < count; i++) {
+      const startHour = currentTime.getHours().toString().padStart(2, '0');
+      const startMinutes = currentTime.getMinutes().toString().padStart(2, '0');
+      const horaInicio = `${startHour}:${startMinutes}`;
+
+      currentTime.setMinutes(currentTime.getMinutes() + interval * 60);
+
+      const endHour = currentTime.getHours().toString().padStart(2, '0');
+      const endMinutes = currentTime.getMinutes().toString().padStart(2, '0');
+      const horaFin = `${endHour}:${endMinutes}`;
+
+      slots.push({ horaInicio, horaFin });
+    }
+
+    return slots;
+  }
+
+  onCellClick( intervalo: any) {
+    console.log(`Clicked on ${0} at ${intervalo.horaInicio} - ${intervalo.horaFin}`);
+    // Aquí puedes manejar la lógica para reservar una pista
+  }
+  
 }
