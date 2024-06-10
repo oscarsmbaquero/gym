@@ -14,14 +14,30 @@ export class PaddleComponent {
 
   @Input() categoria: string | undefined;
 
-  date: Date[] | undefined;
+  
+
+  date:string = '' ;
 
   dateSelected = '';
 
   showTable = false;
 
   constructor() {
-    this.date = []; // Inicializa con un array vacío
+    //this.date = []; // Inicializa con un array vacío
+  }
+
+  ngOnInit(): void {
+    //this.date = this.obtenerFechaHoy();
+    this.dateSelected = this.obtenerFechaHoy();
+  }
+
+  obtenerFechaHoy(): string {
+    const hoy = new Date();
+    const dia = String(hoy.getDate()).padStart(2, '0');
+    const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Los meses comienzan desde 0
+    const año = hoy.getFullYear();
+
+    return `${dia}.${mes}.${año}`;
   }
 
   /**

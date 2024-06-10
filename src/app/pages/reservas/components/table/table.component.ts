@@ -89,6 +89,8 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   getInstalaciones(){
+    console.log('Entro');
+    
     this.instalacionesService.getInstalaciones().subscribe((element) =>{
       this.instalaciones = element.filter(instalacion => instalacion.tipo === this.categoria);
       console.log(this.instalaciones);

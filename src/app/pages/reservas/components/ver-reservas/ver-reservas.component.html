@@ -27,10 +27,14 @@
     </mat-card>
   </div>
 </div>
-<div>
+<div class="ventana-calendario">
   @if(showCalendar){
-    <app-paddle
-    [categoria]="categoria"
+    <h6>Selecciona una fecha</h6>
+    <div>
+      <app-paddle
+       [categoria]="categoria"
     ></app-paddle>
+    </div>
+      
   }
 </div>

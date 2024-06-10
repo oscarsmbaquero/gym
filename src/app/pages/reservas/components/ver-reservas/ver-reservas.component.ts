@@ -16,7 +16,7 @@ import {MatCardModule} from '@angular/material/card';
 })
 export class VerReservasComponent {
 
-  categoria = '';
+  categoria = 'paddle';
   showCalendar = false;
 
   category = [
