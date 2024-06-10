@@ -2,14 +2,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    // padding: 10px;
 }
 .calendar-container{
-    min-width: 300px;
+    // background-color: red;
+    // min-width: 300px;
+    //  border-radius: 18px;
+    // // background-color: white;
+    //  box-shadow: 10px 10px 20px #babecc, 10px 10px 20px  #babecc;
 }
+
+
+:host ::ng-deep .p-datepicker {  transform: scale(0.8);}
 
 @media (max-width: 768px) {
     .calendar{
       flex-direction: column;
+      :host ::ng-deep .p-datepicker {  transform: scale(0.5);}
     }
     }
