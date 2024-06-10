@@ -2,3 +2,24 @@
     min-height: 500px;
     background-color: aliceblue;
 }
+
+/*
+ * Boton scroll
+ */
+.floating-up{
+    position: fixed; 
+    bottom: 92px; 
+    right: 15px; 
+    background-color: #007bff; 
+    color: #fff; 
+    border: none;
+    border-radius: 50%; 
+    width: 50px; 
+    height: 50px; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    z-index: 1000; 
+  }

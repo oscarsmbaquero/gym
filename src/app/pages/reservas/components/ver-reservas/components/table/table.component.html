@@ -17,6 +17,7 @@
         </tr>
       </thead>
       <tbody>
+        <ng-container *ngIf="instalaciones && instalaciones.length > 0">
         <ng-container *ngFor="let hora of instalaciones[0].horas">
           <tr>
             <ng-container *ngFor="let pista of instalaciones">
@@ -24,6 +25,7 @@
             </ng-container>
           </tr>
         </ng-container>
+      </ng-container>
       </tbody>
     </table>
   </div>

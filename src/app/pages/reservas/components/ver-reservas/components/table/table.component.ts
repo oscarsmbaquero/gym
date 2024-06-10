@@ -60,7 +60,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.getInstalaciones();    
+    //this.getInstalaciones();    
   }
 
   ngOnChanges(changes: SimpleChanges) {
