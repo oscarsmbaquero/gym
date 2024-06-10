@@ -4,13 +4,13 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableComponent } from '../table/table.component';
 
 @Component({
-  selector: 'app-pista',
+  selector: 'app-calenadar',
   standalone: true,
   imports: [FormsModule, CalendarModule, TableComponent],
-  templateUrl: './pista.component.html',
-  styleUrl: './pista.component.scss'
+  templateUrl: './calendar.component.html',
+  styleUrl: './calendar.component.scss'
 })
-export class PistaComponent {
+export class CalendarioComponent {
 
   @Input() categoria: string | undefined;
 
