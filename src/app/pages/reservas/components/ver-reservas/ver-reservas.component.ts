@@ -4,7 +4,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 //COMPONENTES
-import { PistaComponent } from '../pista/pista.component';
+import { PistaComponent } from './components/pista/pista.component';
 
 import {MatCardModule} from '@angular/material/card';
 @Component({
@@ -16,7 +16,7 @@ import {MatCardModule} from '@angular/material/card';
 })
 export class VerReservasComponent {
 
-  categoria = 'paddle';
+  categoria = '';
   showCalendar = false;
 
   category = [
@@ -26,10 +26,9 @@ export class VerReservasComponent {
     'Otro',
   ];
 
-  selectCategory(event: any){
+  selectCategory(event: string){    
     this.showCalendar = true;
     this.categoria = event;
-    console.log('Entro',event);
   }
 
 }
