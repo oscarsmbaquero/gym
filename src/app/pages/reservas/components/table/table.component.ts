@@ -72,6 +72,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     const change = changes['dataSelected'];
+    const changeCategoria = changes['categoria'];
 
     if (change) {
       //this.showChanges = true;
@@ -79,6 +80,10 @@ export class TableComponent implements OnInit, OnChanges {
       this.dataSelected = `${change.currentValue}`;
       console.log(this.dataSelected);
       this.obtenerReservasByDate(this.dataSelected);
+      this.getInstalaciones();
+    }
+    if(changeCategoria){
+      //this.obtenerReservasByDate(this.dataSelected);
       this.getInstalaciones();
     }
   }
