@@ -7,25 +7,38 @@
 
 @if(!isLoading && hasData){
     <div class="card">
-        <p-table 
-            [value]="reservasByDate" 
-            styleClass="p-datatable-striped" 
-            [tableStyle]="{'min-width': '40rem'}">
-                <ng-template pTemplate="header">
+        <!-- <p-table [value]="instalaciones " styleClass="p-datatable-striped" [tableStyle]="{'min-width': '40rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Pistas</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-pista>
+                <tr>
+                   
+                    <td *ngFor="let hora of pista.horas">{{ hora }}</td>
+                </tr>
+            </ng-template>
+        </p-table> -->
+        <table class="p-datatable-striped" style="min-width: 30rem">
+            <thead>
+                <tr>
+                    <ng-container *ngFor="let pista of instalaciones">
+                        <th>{{ pista.nombre }}</th>
+                    </ng-container>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let hora of instalaciones[0].horas">
                     <tr>
-                        <th style="background-color: rgb(3, 90, 90); color:white" *ngFor="let pista of pistas">{{ pista }}</th>
+                        <ng-container *ngFor="let pista of instalaciones">
+                            <td (click)="reservar(hora, pista.nombre)">{{ hora }}</td>
+                        </ng-container>
                     </tr>
-                </ng-template>
-                <ng-template pTemplate="body">
-                    <tr *ngFor="let intervalo of intervalos">
-                      <td>{{ intervalo.horaInicio }}-{{ intervalo.horaFin }}</td>
-                      <!-- <td>{{ intervalo.horaFin }}</td> -->
-                      <td>
-                        <button pButton type="button" label="Reservar" (click)="onCellClick( intervalo)"></button>
-                      </td>
-                    </tr>
-                  </ng-template>
-        </p-table>
+                </ng-container>
+            </tbody>
+        </table>
+        
     </div> 
 }
 
