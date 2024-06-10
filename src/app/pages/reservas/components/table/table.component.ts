@@ -27,6 +27,7 @@ interface Intervalo {
 export class TableComponent implements OnInit, OnChanges {
 [x: string]: any;
   @Input() dataSelected: string | undefined;
+  @Input() categoria: string | undefined;
 
   horasIndices: number[] | undefined;
 
@@ -78,14 +79,14 @@ export class TableComponent implements OnInit, OnChanges {
       this.dataSelected = `${change.currentValue}`;
       console.log(this.dataSelected);
       this.obtenerReservasByDate(this.dataSelected);
+      this.getInstalaciones();
     }
   }
 
   getInstalaciones(){
     this.instalacionesService.getInstalaciones().subscribe((element) =>{
-      this.instalaciones = element;
+      this.instalaciones = element.filter(instalacion => instalacion.tipo === this.categoria);
       console.log(this.instalaciones);
-      
     })
   }
   

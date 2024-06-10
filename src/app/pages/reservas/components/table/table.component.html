@@ -1,11 +1,11 @@
 @if(isLoading){
     <div>Cargando...</div>
 }
-@if(!isLoading && !hasData){
+<!-- @if(!isLoading && !hasData){
     <div>No hay datos disponibles.</div>
-}
+} -->
 
-@if(!isLoading && hasData){
+@if(!isLoading){
     <div class="card">
         <!-- <p-table [value]="instalaciones " styleClass="p-datatable-striped" [tableStyle]="{'min-width': '40rem'}">
             <ng-template pTemplate="header">
@@ -20,25 +20,28 @@
                 </tr>
             </ng-template>
         </p-table> -->
-        <table class="p-datatable-striped" style="min-width: 30rem">
-            <thead>
-                <tr>
-                    <ng-container *ngFor="let pista of instalaciones">
-                        <th>{{ pista.nombre }}</th>
-                    </ng-container>
-                </tr>
-            </thead>
-            <tbody>
-                <ng-container *ngFor="let hora of instalaciones[0].horas">
+        <div class="calendario">
+            <table class="p-datatable-striped" style="min-width: 25rem">
+                <thead>
                     <tr>
                         <ng-container *ngFor="let pista of instalaciones">
-                            <td (click)="reservar(hora, pista.nombre)">{{ hora }}</td>
+                            <th>{{ pista.nombre }}</th>
                         </ng-container>
                     </tr>
-                </ng-container>
-            </tbody>
-        </table>
-        
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let hora of instalaciones[0].horas">
+                        <tr>
+                            <ng-container *ngFor="let pista of instalaciones">
+                                <td (click)="reservar(hora, pista.nombre)">{{ hora }}</td>
+                            </ng-container>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+    
+        </div>
+                
     </div> 
 }
 

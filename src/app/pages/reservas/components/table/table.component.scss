@@ -2,9 +2,15 @@
     margin:50px;
 }
 
+.calendario{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Estilos para la tabla */
 table {
-    width: 100%;
+    // width: 90%;
     border-collapse: collapse;
   }
   

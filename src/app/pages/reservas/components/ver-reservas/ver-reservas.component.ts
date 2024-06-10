@@ -17,6 +17,7 @@ import {MatCardModule} from '@angular/material/card';
 export class VerReservasComponent {
 
   categoria = '';
+  showCalendar = false;
 
   category = [
     'Paddel',
@@ -26,12 +27,9 @@ export class VerReservasComponent {
   ];
 
   selectCategory(event: any){
-    console.log('Entro');
+    this.showCalendar = true;
     this.categoria = event;
-    
-    console.log(event,'18');
-    
-
+    console.log('Entro',event);
   }
 
 }

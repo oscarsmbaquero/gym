@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { TableComponent } from '../table/table.component';
@@ -11,6 +11,8 @@ import { TableComponent } from '../table/table.component';
   styleUrl: './paddle.component.scss'
 })
 export class PaddleComponent {
+
+  @Input() categoria: string | undefined;
 
   date: Date[] | undefined;
 

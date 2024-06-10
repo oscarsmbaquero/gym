@@ -28,7 +28,9 @@
   </div>
 </div>
 <div>
-  @if( categoria === 'paddle'){
-    <app-paddle></app-paddle>
+  @if(showCalendar){
+    <app-paddle
+    [categoria]="categoria"
+    ></app-paddle>
   }
 </div>
