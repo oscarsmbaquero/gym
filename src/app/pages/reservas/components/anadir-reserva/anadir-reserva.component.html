@@ -59,6 +59,22 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field>
+              <mat-label>Selecciona Pista</mat-label>
+              <mat-select matInput formControlName="n_pista" [disabled]="true">
+                <mat-option *ngFor="let pista of pistasDisponibles" [value]="pista.nombre">
+                  {{ pista.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Elige hora</mat-label>
+              <mat-select matInput formControlName="hora" [disabled]="true">
+                <mat-option *ngFor="let pista of horasDisponiblesPorPista" [value]="pista">
+                  {{ pista }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>            
+            <mat-form-field>
               <mat-label>Comentarios</mat-label>
               <textarea matInput formControlName="comentario"></textarea>
             </mat-form-field>

@@ -22,7 +22,7 @@ export class InstalacionesService {
     return this.httpClient.get<any[]>(`${environment.apiUrl}instalaciones`);
   }
 
-//   public getReservasByDate(date: string): Observable<any[]> {
-//     return this.httpClient.get<any[]>(`${environment.apiUrl}reservas/${date}`);
-//   }
+  public getInstalacionesByType(tipo: string): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${environment.apiUrl}instalaciones/${tipo}`);
+  }
 }
