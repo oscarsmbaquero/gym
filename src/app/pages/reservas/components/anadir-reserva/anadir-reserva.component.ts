@@ -51,11 +51,11 @@ export class AnadirReservaComponent implements OnInit {
   value: string | undefined;
 
   pistasDisponibles: any[] = [];
-
   reservasPorDia: any;
-
   horasDisponibles: any[] = [];
   horasDisponiblesPorPista: any[] = [];
+
+  reservasDefecto =['09:30-11:00', '11:00-12:30', '12:30-14:00', '14:00-15:30', '15:30-15:00', '15:00-16:30', '16:30-18:00', '18:00-19:30', '19:30-21:00', '21:00-22:30']
 
   constructor(
     private formBuilder: FormBuilder,
@@ -153,6 +153,10 @@ export class AnadirReservaComponent implements OnInit {
     return horasPorPistaArray;
   }
 
+  /**
+   * Obtiene las pistas filtrado por el campo tipo de reserva, pinta el select "Selecciona Pista"
+   * @param tipo_reserva 
+   */
   actualizarPistasDisponibles(tipo_reserva: string) {
     if (tipo_reserva) {
       this.instalacionesService
@@ -168,8 +172,14 @@ export class AnadirReservaComponent implements OnInit {
       this.registrarReserva.get('n_pista')?.setValue('');
     }
   }
-
+  
+  /**
+   * Filtra las reservas disponibles 
+   * @param pistaBuscada 
+   * @returns 
+   */
   horasDisponiblesPista(pistaBuscada: string): any | undefined {
+     const ejemplo = ['09:30-11:00', '09:30-11:00']
     const pistaBuscadaNormalized = pistaBuscada.trim().toLowerCase();
     console.log('Buscando:', pistaBuscadaNormalized);
     for (const pista of this.horasDisponibles) {
@@ -179,8 +189,10 @@ export class AnadirReservaComponent implements OnInit {
         return pista.horas;
       }
     }
-    return undefined;
+    return this.reservasDefecto;
   }
+
+
   public onSubmit(): void {
     // Si el formulario es valido
     if (this.registrarReserva.valid) {
@@ -196,6 +208,8 @@ export class AnadirReservaComponent implements OnInit {
       };
       //convertir la fecha 
       reserva.date = this.convertDate(reserva.date);
+      console.log(reserva);
+      
     }
   }
   /**
