@@ -209,6 +209,10 @@ export class AnadirReservaComponent implements OnInit {
       //convertir la fecha 
       reserva.date = this.convertDate(reserva.date);
       console.log(reserva);
+      this.reservasService.addReserva(reserva).subscribe((element) =>{
+        console.log(element);
+        
+      })
       
     }
   }

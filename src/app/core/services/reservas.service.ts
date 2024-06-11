@@ -25,4 +25,24 @@ export class ReservasService {
   public getReservasByDate(date: string): Observable<any[]> {
     return this.httpClient.get<any[]>(`${environment.apiUrl}reservas/${date}`);
   }
+
+
+  addReserva(body: any): Observable<any> {
+    const formData = new FormData();
+    console.log(body, 'bodyasdad');
+    formData.append('date', body.date);
+    formData.append('nombre', body.nombre);
+    formData.append('mail', body.mail);
+    formData.append('n_pista', body.n_pista);
+    formData.append('tipo_reserva', body.tipo_reserva);
+    // formData.append('iva', body.iva);
+    // formData.append('priceFinal', body.priceFinal);
+    // formData.append('image', body.image);
+    //formData.append('date', body.date);
+
+    return this.httpClient.post<any>(
+      `${environment.apiUrl}reservas/addReserva`,
+      formData
+    );
+  }
 }
