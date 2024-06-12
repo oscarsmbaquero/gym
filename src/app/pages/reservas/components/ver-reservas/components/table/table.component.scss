@@ -35,5 +35,15 @@ table {
   /* Estilos para las celdas al pasar el ratón */
   td:hover {
     background-color: #e5e5e5;
+    // cursor: pointer;
   }
   
+
+  .reserved {
+    background-color: #e5e5;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+  .not-reserved{
+    cursor: pointer;
+  }

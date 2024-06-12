@@ -6,28 +6,31 @@
 } -->
 
 @if(!isLoading){
-<div class="card">
-  <div class="calendario">
-    <table class="p-datatable-striped">
-      <thead>
-        <tr>
-          <ng-container *ngFor="let pista of instalaciones">
-            <th>{{ pista.nombre }}</th>
-          </ng-container>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngIf="instalaciones && instalaciones.length > 0">
-        <ng-container *ngFor="let hora of instalaciones[0].horas">
+  <div class="card">
+    <div class="calendario">
+      <table class="p-datatable-striped">
+        <thead>
           <tr>
             <ng-container *ngFor="let pista of instalaciones">
-              <td (click)="reservar(hora, pista.nombre)">{{ hora }}</td>
+              <th>{{ pista.nombre }}</th>
             </ng-container>
           </tr>
-        </ng-container>
-      </ng-container>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="instalaciones && instalaciones.length > 0">
+            <ng-container *ngFor="let hora of instalaciones[0].horas; let i = index">
+              <tr>
+                <ng-container *ngFor="let pista of instalaciones; let j = index">
+                  <td [ngClass]="{'reserved': pista.horas[i]?.reserved, 'not-reserved': !pista.horas[i]?.reserved}"
+                      (click)="reservar(pista.horas[i], pista.nombre)">
+                    {{ pista.horas[i]?.time }}
+                  </td>
+                </ng-container>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 }
