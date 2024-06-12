@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 import {
   FormBuilder,
   FormControl,
@@ -18,6 +19,8 @@ import { UsersService } from '../../../../core/services/users.service';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 //ANGULAR MATERIAL
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -41,6 +44,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatButtonModule,
     MatTabsModule,
     CommonModule,
+    MessagesModule,
   ],
   providers: [DatePipe],
   templateUrl: './anadir-reserva.component.html',
@@ -59,15 +63,27 @@ export class AnadirReservaComponent implements OnInit {
   userName: string = '';
   userMail: string = '';
   userId: string = '';
+  messages!: Message[];
+  showMessage = false;
 
-  reservasDefecto =['09:30-11:00', '11:00-12:30', '12:30-14:00', '14:00-15:30', '15:30-17:00', '17:00-18:30', '18:30-20:00', '20:00-21:30']
+  reservasDefecto = [
+    '09:30-11:00',
+    '11:00-12:30',
+    '12:30-14:00',
+    '14:00-15:30',
+    '15:30-17:00',
+    '17:00-18:30',
+    '18:30-20:00',
+    '20:00-21:30',
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
     private instalacionesService: InstalacionesService,
     private reservasService: ReservasService,
     private datePipe: DatePipe,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private router: Router,
   ) {
     this.registrarReserva = this.formBuilder.group({
       nombre: ['', [Validators.required]],
@@ -89,29 +105,33 @@ export class AnadirReservaComponent implements OnInit {
         this.actualizarPistasDisponibles(value);
         //this.verHorasDisponiblesReservas();
       });
-      //suscribimos a los campos del n de pista
+    //suscribimos a los campos del n de pista
     this.registrarReserva.get('n_pista')?.valueChanges.subscribe((value) => {
-      this.horasDisponiblesPorPista = this.horasDisponiblesPista(value);      
+      this.horasDisponiblesPorPista = this.horasDisponiblesPista(value);
     });
   }
 
   ngOnInit(): void {
     this.usersService.getCurrentUser().subscribe((user) => {
-      this.activeUser = user;        
+      this.activeUser = user;
       this.userName = this.activeUser.data.user;
       this.userMail = this.activeUser.data.mail;
       this.userId = this.activeUser.data.id;
       //emitimos los valores para pintar los valores de mail y nombre
       this.registrarReserva.patchValue({
         nombre: this.userName,
-        mail: this.userMail
+        mail: this.userMail,
       });
     });
+
+    // this.messages = [
+    //   { severity: 'info', detail: 'Info Message' },
+    //   { severity: 'success', detail: 'Success Message' },]
   }
 
   /**
    * Obtiene las reservas por fecha
-   * @param fecha 
+   * @param fecha
    */
   reservasByDate(fecha: string) {
     fecha = this.convertDate(fecha);
@@ -120,50 +140,56 @@ export class AnadirReservaComponent implements OnInit {
       this.horasDisponibles = this.obtenerHorasDisponibles(this.reservasPorDia);
     });
   }
-  
+
   /**
    * Obtiene las horas disponibles de cada pista
-   * @param reservas 
-   * @returns 
+   * @param reservas
+   * @returns
    */
-  obtenerHorasDisponibles(reservas: any[]): { pista: string; id: any; horas: string[] }[] {    
+  obtenerHorasDisponibles(
+    reservas: any[]
+  ): { pista: string; id: any; horas: string[] }[] {
     // Crear un objeto para almacenar las horas disponibles agrupadas por pista
-    let horasPorPista: { [key: string]: { id: string; horas: string[] } } = {};  
+    let horasPorPista: { [key: string]: { id: string; horas: string[] } } = {};
     // Iterar sobre cada reserva para excluir las horas no disponibles
     reservas.forEach((reserva) => {
       // Obtener el identificador y nombre de la pista de la reserva actual
       const pista = reserva.instalacion.nombre;
-      const pistaId = reserva.instalacion._id;  
+      const pistaId = reserva.instalacion._id;
       // Obtener el rango de horas de la reserva
       const horaInicioReserva = reserva.horaInicio;
-      const horaFinReserva = reserva.horaFin;  
+      const horaFinReserva = reserva.horaFin;
       // Inicializa las horas de la pista si aún no está en el objeto
       if (!horasPorPista[pista]) {
         horasPorPista[pista] = {
           id: pistaId,
-          horas: [...reserva.instalacion.horas]
+          horas: [...reserva.instalacion.horas],
         };
-      }  
+      }
       // Verifica si el número de usuarios apuntados y el número máximo de usuarios permitidos son iguales
       if (reserva.usuarios_apuntados === reserva.n_usuario) {
         // Eliminar el rango de horas de la reserva de la lista de horas disponibles
-        horasPorPista[pista].horas = horasPorPista[pista].horas.filter((hora: string) => {
-          const [horaInicio, horaFin] = hora.split('-').map((h) => h.trim());
-          return !(horaInicio === horaInicioReserva && horaFin === horaFinReserva);
-        });
+        horasPorPista[pista].horas = horasPorPista[pista].horas.filter(
+          (hora: string) => {
+            const [horaInicio, horaFin] = hora.split('-').map((h) => h.trim());
+            return !(
+              horaInicio === horaInicioReserva && horaFin === horaFinReserva
+            );
+          }
+        );
       }
-    });  
+    });
     // Convertir el objeto a un array de resultados
     return Object.entries(horasPorPista).map(([pista, data]) => ({
       pista: pista,
       id: data.id,
       horas: data.horas,
     }));
-  }  
+  }
 
   /**
    * Obtiene las pistas filtrado por el campo tipo de reserva, pinta el select "Selecciona Pista"
-   * @param tipo_reserva 
+   * @param tipo_reserva
    */
   actualizarPistasDisponibles(tipo_reserva: string) {
     if (tipo_reserva) {
@@ -180,18 +206,18 @@ export class AnadirReservaComponent implements OnInit {
       this.registrarReserva.get('n_pista')?.setValue('');
     }
   }
-  
+
   /**
-   * Filtra las reservas disponibles 
-   * @param pistaBuscada 
-   * @returns 
+   * Filtra las reservas disponibles
+   * @param pistaBuscada
+   * @returns
    */
   horasDisponiblesPista(pistaBuscada: string): any | undefined {
     const pistaBuscadaNormalized = pistaBuscada.trim().toLowerCase();
     console.log('Buscando:', pistaBuscadaNormalized);
     for (const pista of this.horasDisponibles) {
       console.log(pista);
-      
+
       const pistaNormalized = pista.id.trim().toLowerCase();
       console.log('Comparando con:', pistaNormalized);
       if (pistaNormalized === pistaBuscadaNormalized) {
@@ -200,7 +226,6 @@ export class AnadirReservaComponent implements OnInit {
     }
     return this.reservasDefecto;
   }
-
 
   public onSubmit(): void {
     // Si el formulario es valido
@@ -216,11 +241,30 @@ export class AnadirReservaComponent implements OnInit {
         comentario: this.registrarReserva.get('comentario')?.value,
         hora: this.registrarReserva.get('hora')?.value,
       };
-      //convertir la fecha 
+      //convertir la fecha
       reserva.date = this.convertDate(reserva.date);
       console.log(reserva);
-      this.reservasService.addReserva(reserva).subscribe((element) =>{        
-      });      
+      this.reservasService.addReserva(reserva).subscribe((element) => {
+        console.log(element.data);
+        if (element.status === 201) {
+          console.log(201);
+          this.showMessage = true;
+          this.messages = [
+            // { severity: 'info', detail: 'Info Message' },
+            { severity: 'success', detail: 'Reserva efectuada con exito' },
+          ];
+        }
+        if (element.status === 200) {
+          this.showMessage = true;
+          this.messages = [
+            // { severity: 'info', detail: 'Info Message' },
+            { severity: 'info', detail: 'Has sido añadido a la reserva' },
+          ];
+        }
+        setTimeout(() => {
+          this.router.navigate(['home'])
+        }, 1000);
+      });
     }
   }
   /**

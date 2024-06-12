@@ -9,7 +9,7 @@
             height="100"
             alt="logo"
           />&nbsp;
-        </mat-card-title>
+        </mat-card-title>       
         <mat-card-content>
           <form
             novalidate
@@ -78,6 +78,11 @@
               <mat-label>Comentarios</mat-label>
               <textarea matInput formControlName="comentario"></textarea>
             </mat-form-field>
+            @if(showMessage){
+              <!-- <div class="card"> -->
+                <p-messages [(value)]="messages" [enableService]="false" />
+            <!-- </div> -->
+            }
             <button>Enviar</button>
           </form>
         </mat-card-content>
