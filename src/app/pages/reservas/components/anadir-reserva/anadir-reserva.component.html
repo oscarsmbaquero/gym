@@ -61,7 +61,7 @@
             <mat-form-field>
               <mat-label>Selecciona Pista</mat-label>
               <mat-select matInput formControlName="n_pista" [disabled]="true">
-                <mat-option *ngFor="let pista of pistasDisponibles" [value]="pista.nombre">
+                <mat-option *ngFor="let pista of pistasDisponibles" [value]="pista._id">
                   {{ pista.nombre }}
                 </mat-option>
               </mat-select>

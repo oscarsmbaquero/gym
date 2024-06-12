@@ -58,6 +58,7 @@ export class AnadirReservaComponent implements OnInit {
   activeUser: any;
   userName: string = '';
   userMail: string = '';
+  userId: string = '';
 
   reservasDefecto =['09:30-11:00', '11:00-12:30', '12:30-14:00', '14:00-15:30', '15:30-17:00', '17:00-18:30', '18:30-20:00', '20:00-21:30']
 
@@ -99,12 +100,11 @@ export class AnadirReservaComponent implements OnInit {
       this.activeUser = user;        
       this.userName = this.activeUser.data.user;
       this.userMail = this.activeUser.data.mail;
+      this.userId = this.activeUser.data.id;
       this.registrarReserva.patchValue({
         nombre: this.userName,
         mail: this.userMail
-      });
-      console.log(this.userName, this.userMail,'user');
-        
+      });      
       
       // if (this.activeUser) {
       //   this.activeUserName = this.activeUser.data.user;
@@ -117,11 +117,11 @@ export class AnadirReservaComponent implements OnInit {
     fecha = this.convertDate(fecha);
     this.reservasService.getReservasByDate(fecha).subscribe((fecha) => {
       this.reservasPorDia = fecha;
-      //console.log(this.reservasPorDia);
+      console.log(this.reservasPorDia,122);
       this.horasDisponibles = this.obtenerHorasDisponibles(this.reservasPorDia);
     });
   }
-  obtenerHorasDisponibles(
+  obtenerHorasDisponiblesOld(
     reservas: any[]
   ): { pista: string; horas: string[] }[] {
     // Crear un objeto para almacenar las horas disponibles agrupadas por pista
@@ -135,7 +135,6 @@ export class AnadirReservaComponent implements OnInit {
         // Obtener el rango de horas de la reserva
         const horaInicioReserva = reserva.horaInicio;
         const horaFinReserva = reserva.horaFin;
-
         // Eliminar el rango de horas de la reserva de la lista de horas disponibles
         if (!horasPorPista[pista]) {
           // Si la pista aún no está en el objeto, inicializar su array de horas
@@ -172,6 +171,59 @@ export class AnadirReservaComponent implements OnInit {
     return horasPorPistaArray;
   }
 
+  obtenerHorasDisponibles(reservas: any[]
+  ): { pista: string; id: any; horas: string[] }[] {
+    console.log(reservas,'reservas');
+    
+    // Crear un objeto para almacenar las horas disponibles agrupadas por pista
+    let horasPorPista: { [key: string]: { id: string; horas: string[] } } = {};
+  
+    // Iterar sobre cada reserva para excluir las horas no disponibles
+    reservas.forEach((reserva) => {
+      // Obtener el identificador y nombre de la pista de la reserva actual
+      const pista = reserva.instalacion.nombre;
+      const pistaId = reserva.instalacion._id;     
+  
+      // Verificar si el número de usuarios apuntados y el número máximo de usuarios permitidos son iguales
+      if (reserva.usuarios_apuntados === reserva.n_usuarios) {
+        // Obtener el rango de horas de la reserva
+        const horaInicioReserva = reserva.horaInicio;
+        const horaFinReserva = reserva.horaFin;
+  
+        // Eliminar el rango de horas de la reserva de la lista de horas disponibles
+        if (!horasPorPista[pista]) {
+          // Si la pista aún no está en el objeto, inicializar su array de horas
+          horasPorPista[pista] = {
+            id: pistaId,
+            horas: reserva.instalacion.horas.filter((hora: string) => {
+              const [horaInicio, horaFin] = hora.split('-').map((h) => h.trim());
+              return !(
+                horaInicio === horaInicioReserva && horaFin === horaFinReserva
+              );
+            }),
+          };
+        } else {
+          // Si la pista ya está en el objeto, filtrar sus horas disponibles
+          horasPorPista[pista].horas = horasPorPista[pista].horas.filter(
+            (hora) => {
+              const [horaInicio, horaFin] = hora.split('-').map((h) => h.trim());
+              return !(
+                horaInicio === horaInicioReserva && horaFin === horaFinReserva
+              );
+            }
+          );
+        }
+      }
+    });
+  
+    // Convertir el objeto a un array de resultados
+    return Object.entries(horasPorPista).map(([pista, data]) => ({
+      pista: pista,
+      id: data.id,
+      horas: data.horas,
+    }));
+  }
+
   /**
    * Obtiene las pistas filtrado por el campo tipo de reserva, pinta el select "Selecciona Pista"
    * @param tipo_reserva 
@@ -198,11 +250,13 @@ export class AnadirReservaComponent implements OnInit {
    * @returns 
    */
   horasDisponiblesPista(pistaBuscada: string): any | undefined {
-     const ejemplo = ['09:30-11:00', '09:30-11:00']
+     //const ejemplo = ['09:30-11:00', '09:30-11:00']
     const pistaBuscadaNormalized = pistaBuscada.trim().toLowerCase();
     console.log('Buscando:', pistaBuscadaNormalized);
     for (const pista of this.horasDisponibles) {
-      const pistaNormalized = pista.pista.trim().toLowerCase();
+      console.log(pista);
+      
+      const pistaNormalized = pista.id.trim().toLowerCase();
       console.log('Comparando con:', pistaNormalized);
       if (pistaNormalized === pistaBuscadaNormalized) {
         return pista.horas;
@@ -218,7 +272,8 @@ export class AnadirReservaComponent implements OnInit {
       //TODO TIPAR
       const reserva: any = {
         date: this.registrarReserva.get('date')?.value,
-        nombre: this.registrarReserva.get('nombre')?.value,
+        //nombre: this.registrarReserva.get('nombre')?.value,
+        nombre: this.userId,
         mail: this.registrarReserva.get('mail')?.value,
         tipo_reserva: this.registrarReserva.get('tipo_reserva')?.value,
         n_pista: this.registrarReserva.get('n_pista')?.value,

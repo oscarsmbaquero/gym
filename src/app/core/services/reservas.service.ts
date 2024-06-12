@@ -26,7 +26,7 @@ export class ReservasService {
     return this.httpClient.get<any[]>(`${environment.apiUrl}reservas/${date}`);
   }
 
-  addReserva(venta: any) {
+  addReserva(reserva: any) {
     // const user = localStorage.getItem('user');
     // if (user !== null) {
     //   const objetoJSON = JSON.parse(user);
@@ -36,7 +36,7 @@ export class ReservasService {
     // Agrega el ID de usuario y la venta al payload
     const payload = {
       //idUser: this.idUser,
-      reserva: venta,
+      reserva: reserva,
     };
     return this.httpClient.post<any>(
       `${environment.apiUrl}reservas/addReserva`,
