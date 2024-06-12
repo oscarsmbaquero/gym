@@ -12,6 +12,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 //SERVICIOS
 import { InstalacionesService } from '../../../../core/services/instalaciones-services';
 import { ReservasService } from '../../../../core/services/reservas.service';
+import { UsersService } from '../../../../core/services/users.service';
 
 //PRIMENG
 import { CalendarModule } from 'primeng/calendar';
@@ -54,14 +55,18 @@ export class AnadirReservaComponent implements OnInit {
   reservasPorDia: any;
   horasDisponibles: any[] = [];
   horasDisponiblesPorPista: any[] = [];
+  activeUser: any;
+  userName: string = '';
+  userMail: string = '';
 
-  reservasDefecto =['09:30-11:00', '11:00-12:30', '12:30-14:00', '14:00-15:30', '15:30-15:00', '15:00-16:30', '16:30-18:00', '18:00-19:30', '19:30-21:00', '21:00-22:30']
+  reservasDefecto =['09:30-11:00', '11:00-12:30', '12:30-14:00', '14:00-15:30', '15:30-17:00', '17:00-18:30', '18:30-20:00', '20:00-21:30', '21:30-23:00']
 
   constructor(
     private formBuilder: FormBuilder,
     private instalacionesService: InstalacionesService,
     private reservasService: ReservasService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private usersService: UsersService
   ) {
     this.registrarReserva = this.formBuilder.group({
       nombre: ['', [Validators.required]],
@@ -90,9 +95,23 @@ export class AnadirReservaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.reservasService.getReservas;
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    this.usersService.getCurrentUser().subscribe((user) => {
+      this.activeUser = user;        
+      this.userName = this.activeUser.data.user;
+      this.userMail = this.activeUser.data.mail;
+      this.registrarReserva.patchValue({
+        nombre: this.userName,
+        mail: this.userMail
+      });
+      console.log(this.userName, this.userMail,'user');
+        
+      
+      // if (this.activeUser) {
+      //   this.activeUserName = this.activeUser.data.user;
+      //   this.lettersAvatar(this.activeUserName);
+      //   this.obtenerPedidos();
+      // }
+    });
   }
   reservasByDate(fecha: string) {
     fecha = this.convertDate(fecha);

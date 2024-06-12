@@ -38,7 +38,7 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Nombre</mat-label>
-              <input type="text" matInput formControlName="nombre" />
+              <input type="text" matInput formControlName="nombre" readonly/>
               @if (registrarReserva.hasError('nombre') &&
               !registrarReserva.hasError('required')) {
               <mat-error>Please enter a valid email address</mat-error>
@@ -48,7 +48,7 @@
             </mat-form-field>
             <mat-form-field>
               <mat-label>Mail</mat-label>
-              <input matInput formControlName="mail" />
+              <input matInput formControlName="mail" readonly/>
             </mat-form-field>
             <mat-form-field>
               <mat-label>Tipo de reserva</mat-label>
@@ -61,7 +61,7 @@
             <mat-form-field>
               <mat-label>Selecciona Pista</mat-label>
               <mat-select matInput formControlName="n_pista" [disabled]="true">
-                <mat-option *ngFor="let pista of pistasDisponibles" [value]="pista._id">
+                <mat-option *ngFor="let pista of pistasDisponibles" [value]="pista.nombre">
                   {{ pista.nombre }}
                 </mat-option>
               </mat-select>
