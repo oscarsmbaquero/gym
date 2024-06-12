@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarService } from '../../services/navbar.service';
+import { UsersService } from '../../services/users.service';
 import { RouterLink } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -18,10 +20,14 @@ export class HeaderComponent implements OnInit {
 
   selectedOption = '';
   currentTheme : any;
+  activeUser: any;
 
 
-
-  constructor(private navbarService: NavbarService) {
+  constructor(
+    private navbarService: NavbarService,
+    private usersService: UsersService,
+    private router: Router,
+  ) {
     const savedOption = localStorage.getItem('selectedOption');
     if (savedOption) {
       this.selectedOptionSubject.next(savedOption);
@@ -29,8 +35,15 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    this.usersService.getCurrentUser().subscribe((user) => {
+      this.activeUser = user;    
+      
+      // if (this.activeUser) {
+      //   this.activeUserName = this.activeUser.data.user;
+      //   this.lettersAvatar(this.activeUserName);
+      //   this.obtenerPedidos();
+      // }
+    });
     
   }
 
@@ -39,13 +52,15 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    throw new Error('Method not implemented.');
+    this.navbarService.collapseNavbar();
+    this.usersService.clearCurrentUser();
+    this.router.navigate(['/']);
   }
   toggleNavbar() {
     this.navbarService.collapseNavbar();
   }
 
-  activeUser: any;
+  
   selectOption(option: string) {
     this.selectedOptionSubject.next(option);
     localStorage.setItem('selectedOption', option); // Guardar en almacenamiento local

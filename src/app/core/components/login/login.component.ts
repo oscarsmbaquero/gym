@@ -50,8 +50,6 @@ export class LoginComponent {
   }
 
   public onSubmit(): void {
-    console.log('Entri');
-
     // Si el formulario es valido
     if (this.loginUser.valid) {
       //TODO TIPAR
@@ -59,12 +57,10 @@ export class LoginComponent {
         mail: this.loginUser.get('mail')?.value,
         password: this.loginUser.get('password')?.value,
       };
-      console.log(user, 'user');
       this.usersService.login(user).subscribe(
         (response) => {
           //this.loading = false;
           console.log(response,'response');
-          console.log('Datos enviados con éxito');
           // this.snackBar.open(
           //   'Usurio Logueado Correctamente',
           //   'Cerrar',

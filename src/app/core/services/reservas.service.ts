@@ -26,23 +26,40 @@ export class ReservasService {
     return this.httpClient.get<any[]>(`${environment.apiUrl}reservas/${date}`);
   }
 
+  addReserva(venta: any) {
+    // const user = localStorage.getItem('user');
+    // if (user !== null) {
+    //   const objetoJSON = JSON.parse(user);
+    //   this.idUser = objetoJSON.data.id;
+    // }
 
-  addReserva(body: any): Observable<any> {
-    const formData = new FormData();
-    console.log(body, 'bodyasdad');
-    formData.append('date', body.date);
-    formData.append('nombre', body.nombre);
-    formData.append('mail', body.mail);
-    formData.append('n_pista', body.n_pista);
-    formData.append('tipo_reserva', body.tipo_reserva);
-    // formData.append('iva', body.iva);
-    // formData.append('priceFinal', body.priceFinal);
-    // formData.append('image', body.image);
-    //formData.append('date', body.date);
-
+    // Agrega el ID de usuario y la venta al payload
+    const payload = {
+      //idUser: this.idUser,
+      reserva: venta,
+    };
     return this.httpClient.post<any>(
       `${environment.apiUrl}reservas/addReserva`,
-      formData
+      payload
     );
   }
+
+  // addReserva(body: any): Observable<any> {
+  //   const formData = new FormData();
+  //   console.log(body, 'bodyasdad');
+  //   formData.append('date', body.date);
+  //   formData.append('nombre', body.nombre);
+  //   formData.append('mail', body.mail);
+  //   formData.append('n_pista', body.n_pista);
+  //   formData.append('tipo_reserva', body.tipo_reserva);
+  //   // formData.append('iva', body.iva);
+  //   // formData.append('priceFinal', body.priceFinal);
+  //   // formData.append('image', body.image);
+  //   //formData.append('date', body.date);
+
+  //   return this.httpClient.post<any>(
+  //     `${environment.apiUrl}reservas/addReserva`,
+  //     formData
+  //   );
+  // }
 }
