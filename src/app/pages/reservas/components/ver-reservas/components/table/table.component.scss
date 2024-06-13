@@ -11,36 +11,65 @@
 
 /* Estilos para la tabla */
 table {
-    // width: 90%;
-    border-collapse: collapse;
-  }
-  
-  /* Estilos para las celdas de la tabla */
-  th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  /* Estilos para el encabezado de la tabla */
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  /* Estilos para las filas impares */
-  tr:nth-child(odd) {
-    background-color: #f9f9f9;
-  }
-  
-  /* Estilos para las celdas al pasar el ratón */
-  td:hover {
-    background-color: #e5e5e5;
-    // cursor: pointer;
-  }
+  width: 100%; /* Ancho completo */
+  border-collapse: collapse;
+  // margin-bottom: 20px; /* Espacio inferior */
+  // box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Estilos para las celdas de la tabla */
+th, td {
+  padding: 15px; /* Aumentar el espacio interno */
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* Estilos para el encabezado de la tabla */
+th {
+  background-color: #f2f2f2;
+  color: #333; /* Color de texto más oscuro */
+  text-transform: uppercase; /* Texto en mayúsculas */
+}
+
+/* Estilos para las filas impares */
+tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Estilos para las celdas al pasar el ratón */
+td:hover {
+  background-color: #e5e5e5;
+  cursor: pointer; /* Cambiar a un cursor de puntero */
+}
+
+/* Estilos para el borde de la tabla */
+table {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Estilos para los márgenes de las celdas */
+th, td {
+  margin: 6px;
+}
+
+/* Estilos para la fuente de los textos */
+td {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+h6{
+  font-family: Arial, sans-serif;
+}
+
+
   
 
   .reserved {
-    background-color: #e5e5;
+    background-color: rgba(233, 14, 79, 0.333);
     pointer-events: none;
     cursor: not-allowed;
   }
