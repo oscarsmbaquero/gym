@@ -61,30 +61,31 @@ export class TableComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     //this.getInstalaciones();   
-    window.scroll(0, 0);
+    // window.scroll(0, 0);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     const change = changes['dataSelected'];
     const changeCategoria = changes['categoria'];
 
-    if (change) {
-      //this.showChanges = true;
+    if (change || changeCategoria) {
+      this.isLoading = true;
       console.log(`New value: ${change.currentValue}`);
       this.dataSelected = `${change.currentValue}`;
       console.log(this.dataSelected);
       this.obtenerReservasByDate(this.dataSelected);
+      this.getInstalaciones();
       // this.checkReservations(); 
       //this.getInstalaciones();
     }
-    if(changeCategoria){
-      //this.obtenerReservasByDate(this.dataSelected);
-      this.getInstalaciones();
-      setTimeout(() => {
-        this.checkReservations();   
-      }, 5000);
+    // if(changeCategoria){
+    //   //this.obtenerReservasByDate(this.dataSelected);
+    //   this.getInstalaciones();
+    //   setTimeout(() => {
+    //     this.checkReservations();   
+    //   }, 5000);
       
-    }
+    // }
   }
 
   /**
@@ -93,9 +94,11 @@ export class TableComponent implements OnInit, OnChanges {
   getInstalaciones(){    
     this.instalacionesService.getInstalaciones().subscribe((element) =>{
       this.instalaciones = element.filter(instalacion => instalacion.tipo === this.categoria);
-      console.log(this.instalaciones);
     });
-     
+    setTimeout(() => {
+      this.checkReservations();   
+    }, 2000);
+    
   }
   
   /**
@@ -106,14 +109,14 @@ export class TableComponent implements OnInit, OnChanges {
     this.reservasService.getReservasByDate(date).subscribe(
       (response: any) => {
         this.reservasByDate = response;
-        this.hasData = this.reservasByDate && this.reservasByDate.length > 0;
-        this.isLoading = false;
+        //this.hasData = this.reservasByDate && this.reservasByDate.length > 0;
+        //this.isLoading = false;
         console.log(this.reservasByDate,'reservasByDate');
         
       },
       (error: any) => {
         console.error('Error al obtener los datos', error);
-        this.isLoading = false;
+        //this.isLoading = false;
       }
     );   
   }
@@ -163,10 +166,10 @@ export class TableComponent implements OnInit, OnChanges {
    
   // }
   checkReservations(): void {
-    if (this.instalaciones.length && this.reservasByDate.length) {
+    if (this.instalaciones.length) {
       console.log('Instalaciones antes de actualizar:', this.instalaciones);
       console.log('Reservas por fecha:', this.reservasByDate);
-  
+    
       this.instalaciones.forEach(instalacion => {
         instalacion.horas = instalacion.horas.map((hora: string) => {
           // Verificar si la hora está reservada
@@ -183,7 +186,7 @@ export class TableComponent implements OnInit, OnChanges {
           };
         });
       });
-  
+      this.isLoading = false;
       console.log('Instalaciones después de actualizar:', this.instalaciones);
     }
   }
