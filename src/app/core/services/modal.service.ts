@@ -45,7 +45,8 @@ export class EventService {
   }
 
   openModalDetalleOpiniones(){
-    this.abrirModalDetalleSubject.next();
+    console.log(('Entro ?'));    
+    this.abrirModalSubject.next();
   }
 
   closeModalDetalleOpiniones() {

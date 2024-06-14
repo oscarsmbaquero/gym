@@ -35,7 +35,7 @@
                       'reserved': pista.horas[i]?.reserved,
                       'reserved-partial': pista.horas[i]?.reservedPartial,
                      
-                    }"
+                    }"(click)="openModal()"
                     (click)="reservar(pista.horas[i], pista.nombre)">
                   {{ pista.horas[i]?.time }}
                   @if(pista.horas[i]?.reservedPartial === true){

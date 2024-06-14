@@ -1,14 +1,13 @@
 <app-header></app-header>
 <div class="main">
-    <router-outlet />  
-   
-    
+    <router-outlet />      
 </div>
-<app-modal-jugadores></app-modal-jugadores>
+@if(modalAbierto){
+    <app-modal-jugadores [isVisible]="modalAbierto"></app-modal-jugadores>
+}
 @if(scrollPosition > 400){
     <button (click)="scrollToTop()">
         <img src="../assets/images/up.png" class="floating-up" />
       </button>
 }  
-
 <app-footer></app-footer>
