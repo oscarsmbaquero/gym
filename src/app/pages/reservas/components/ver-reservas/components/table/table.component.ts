@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 //SERVICIOS
 import { ReservasService } from '../../../../../../core/services/reservas.service';
 import { InstalacionesService } from '../../../../../../core/services/instalaciones-services';
+import { EventService } from '../../../../../../core/services/modal.service';
 //primeng
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -55,7 +56,8 @@ export class TableComponent implements OnInit, OnChanges {
 
   constructor(
     private reservasService: ReservasService,
-    private instalacionesService :InstalacionesService
+    private instalacionesService :InstalacionesService,
+    private eventService: EventService
   ) {
 
     
@@ -257,6 +259,10 @@ export class TableComponent implements OnInit, OnChanges {
     } else {
       return 'Hacer clic para reservar';
     }
+  }
+
+  openModal(){
+    this.eventService.openModalDetalleOpiniones();
   }
 }
   

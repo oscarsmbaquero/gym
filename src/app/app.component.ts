@@ -2,12 +2,13 @@ import { Component, HostListener } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { HeaderComponent } from './core/components/header/header.component';
 import { FooterComponent } from './core/components/footer/footer.component';
+import { ModalJugadoresComponent } from './pages/reservas/components/modal-jugadores/modal-jugadores.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, RouterLink],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, RouterLink, ModalJugadoresComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
