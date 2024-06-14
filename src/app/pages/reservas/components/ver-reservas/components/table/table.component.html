@@ -23,10 +23,22 @@
             <ng-container *ngFor="let hora of instalaciones[0].horas; let i = index">
               <tr>
                 <ng-container *ngFor="let pista of instalaciones; let j = index">
-                  <td [ngClass]="{'reserved': pista.horas[i]?.reserved, 'not-reserved': !pista.horas[i]?.reserved}"
-                      (click)="reservar(pista.horas[i], pista.nombre)">
-                    {{ pista.horas[i]?.time }}
-                  </td>
+                    <!-- <td [ngClass]="{'reserved': pista.horas[i]?.reserved, 'not-reserved': !pista.horas[i]?.reserved}"
+                        (click)="reservar(pista.horas[i], pista.nombre)">
+                      {{ pista.horas[i]?.time }}
+                        'not-reserved': !pista.horas[i]?.reserved && !pista.horas[i]?.reservedPartial
+                    </td> -->
+                    <td 
+                        [pTooltip]="getTooltipText(pista.horas[i])"
+                        pTooltip="Este es mi tooltip" tooltipPosition="top" 
+                        [ngClass]="{
+                      'reserved': pista.horas[i]?.reserved,
+                      'reserved-partial': pista.horas[i]?.reservedPartial,
+                     
+                    }"
+                    (click)="reservar(pista.horas[i], pista.nombre)">
+                  {{ pista.horas[i]?.time }}
+                </td>
                 </ng-container>
               </tr>
             </ng-container>

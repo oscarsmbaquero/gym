@@ -11,6 +11,7 @@ import { ReservasService } from '../../../../../../core/services/reservas.servic
 import { InstalacionesService } from '../../../../../../core/services/instalaciones-services';
 //primeng
 import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 
 interface Intervalo {
   horaInicio: string;
@@ -20,7 +21,7 @@ interface Intervalo {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, CommonModule],
+  imports: [TableModule, CommonModule, TooltipModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
@@ -47,6 +48,7 @@ export class TableComponent implements OnInit, OnChanges {
   //reservationSlots: string[] = this.generateReservationSlots(this.startTime, this.interval, 10); // 10 slots para 10 intervalos de 1.5h desde las 09:30
   intervalos: Intervalo[] = [];
   instalaciones!: any[];
+  diferenciaUsuarios = 0;
 
 
 
@@ -178,11 +180,24 @@ export class TableComponent implements OnInit, OnChanges {
             reserva.horaInicio + '-' + reserva.horaFin === hora &&
             reserva.n_usuario === reserva.usuarios_apuntados
           );
+
+          const isReservedPartial = this.reservasByDate.some((reserva: { instalacion: { _id: any; }; horaInicio: string; horaFin: string; n_usuario: any; usuarios_apuntados: any; }) =>
+            reserva.instalacion._id === instalacion._id &&
+            reserva.horaInicio + '-' + reserva.horaFin === hora &&
+            reserva.usuarios_apuntados > 0 && 
+            !isReserved
+          );
+          // if (isReservedPartial) {
+          //   this.diferenciaUsuarios = isReservedPartial.n_usuarios - isReservedPartial.usuarios_apuntados;
+          // } else {
+          //   this.diferenciaUsuarios = 0; // Opcional: Puedes establecer un valor por defecto si no hay reserva parcial
+          // }
   
           // Crear un objeto con el string de la hora y el booleano reserved
           return {
             time: hora,
-            reserved: isReserved
+            reserved: isReserved,
+            reservedPartial : isReservedPartial
           };
         });
       });
@@ -190,7 +205,17 @@ export class TableComponent implements OnInit, OnChanges {
       console.log('Instalaciones después de actualizar:', this.instalaciones);
     }
   }
-  
+
+  getTooltipText(hora: any): string {
+    
+    if (hora.reserved) {
+      return 'Esta hora está completamente reservada';
+    } else if (hora.reservedPartial) {
+      return `${this.diferenciaUsuarios}`;
+    } else {
+      return 'Hacer clic para reservar';
+    }
+  }
 }
   
   

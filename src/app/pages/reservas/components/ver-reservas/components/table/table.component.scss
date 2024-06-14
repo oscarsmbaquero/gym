@@ -69,10 +69,12 @@ h6{
   
 
   .reserved {
-    background-color: rgba(233, 14, 79, 0.333);
+    background-color: rgba(233, 14, 14, 0.925);
     pointer-events: none;
     cursor: not-allowed;
   }
-  .not-reserved{
+
+  .reserved-partial{
     cursor: pointer;
+    background-color: rgb(235, 235, 9);
   }
