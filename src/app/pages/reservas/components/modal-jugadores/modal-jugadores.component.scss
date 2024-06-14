@@ -1,14 +1,17 @@
-body {
+// body {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     background-color: #f0f0f0;
+//     margin: 0;
+// }
+.padel-court {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
-    margin: 0;
-}
-.padel-court {
     position: relative;
-    width: 400px; /* Dimensiones ajustadas */
-    height: 400px; /* Dimensiones ajustadas */
+    width: 350px; /* Dimensiones ajustadas */
+    height: 350px; /* Dimensiones ajustadas */
     background-color: #006400;
     border: 5px solid white;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
