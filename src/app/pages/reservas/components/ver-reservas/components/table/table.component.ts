@@ -48,7 +48,7 @@ export class TableComponent implements OnInit, OnChanges {
   //reservationSlots: string[] = this.generateReservationSlots(this.startTime, this.interval, 10); // 10 slots para 10 intervalos de 1.5h desde las 09:30
   intervalos: Intervalo[] = [];
   instalaciones!: any[];
-  diferenciaUsuarios = 0;
+  plazasLibres = 0;
 
 
 
@@ -167,51 +167,93 @@ export class TableComponent implements OnInit, OnChanges {
   //   }
    
   // }
+  // checkReservations(): void {
+  //   if (this.instalaciones.length) {
+  //     console.log('Instalaciones antes de actualizar:', this.instalaciones);
+  //     console.log('Reservas por fecha:', this.reservasByDate);
+  //      const plazasLibres = this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number }) => {
+  //       reserva.usuarios_restantes = reserva.n_usuario - reserva.usuarios_apuntados;
+  //       console.log(reserva.usuarios_restantes);
+        
+  //     });
+      
+      
+    
+  //     this.instalaciones.forEach(instalacion => {
+  //       instalacion.horas = instalacion.horas.map((hora: string) => {
+  //         // Verificar si la hora está reservada
+  //         const isReserved = this.reservasByDate.some((reserva: { instalacion: { _id: any; }; horaInicio: string; horaFin: string; n_usuario: any; usuarios_apuntados: any; }) =>
+  //           reserva.instalacion._id === instalacion._id &&
+  //           reserva.horaInicio + '-' + reserva.horaFin === hora &&
+  //           reserva.n_usuario === reserva.usuarios_apuntados
+  //         );
+
+  //         const isReservedPartial = this.reservasByDate.some((reserva: { instalacion: { _id: any; }; horaInicio: string; horaFin: string; n_usuario: any; usuarios_apuntados: any; }) =>
+  //           reserva.instalacion._id === instalacion._id &&
+  //           reserva.horaInicio + '-' + reserva.horaFin === hora &&
+  //           reserva.usuarios_apuntados > 0 && 
+  //           !isReserved
+  //         );
+          
+  
+  //         // Crear un objeto con el string de la hora y el booleano reserved
+  //         return {
+  //           time: hora,
+  //           reserved: isReserved,
+  //           reservedPartial : isReservedPartial,
+  //           plazasLibres: plazasLibres.usuarios_restantes
+  //         };
+  //       });
+  //     });
+  //     this.isLoading = false;
+  //     console.log('Instalaciones después de actualizar:', this.instalaciones);
+  //   }
+  // }
   checkReservations(): void {
     if (this.instalaciones.length) {
       console.log('Instalaciones antes de actualizar:', this.instalaciones);
       console.log('Reservas por fecha:', this.reservasByDate);
-    
+      
+      // Añadir el campo "usuarios_restantes" a cada reserva
+      this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number }) => {
+        reserva.usuarios_restantes = reserva.n_usuario - reserva.usuarios_apuntados;
+      });
+      
       this.instalaciones.forEach(instalacion => {
         instalacion.horas = instalacion.horas.map((hora: string) => {
-          // Verificar si la hora está reservada
-          const isReserved = this.reservasByDate.some((reserva: { instalacion: { _id: any; }; horaInicio: string; horaFin: string; n_usuario: any; usuarios_apuntados: any; }) =>
+          // Encontrar la reserva correspondiente para la instalación y la hora
+          const reserva = this.reservasByDate.find((reserva: { instalacion: { _id: any; }; horaInicio: string; horaFin: string; }) =>
             reserva.instalacion._id === instalacion._id &&
-            reserva.horaInicio + '-' + reserva.horaFin === hora &&
-            reserva.n_usuario === reserva.usuarios_apuntados
+            reserva.horaInicio + '-' + reserva.horaFin === hora
           );
-
-          const isReservedPartial = this.reservasByDate.some((reserva: { instalacion: { _id: any; }; horaInicio: string; horaFin: string; n_usuario: any; usuarios_apuntados: any; }) =>
-            reserva.instalacion._id === instalacion._id &&
-            reserva.horaInicio + '-' + reserva.horaFin === hora &&
-            reserva.usuarios_apuntados > 0 && 
-            !isReserved
-          );
-          // if (isReservedPartial) {
-          //   this.diferenciaUsuarios = isReservedPartial.n_usuarios - isReservedPartial.usuarios_apuntados;
-          // } else {
-          //   this.diferenciaUsuarios = 0; // Opcional: Puedes establecer un valor por defecto si no hay reserva parcial
-          // }
   
-          // Crear un objeto con el string de la hora y el booleano reserved
+          // Verificar si la hora está reservada
+          const isReserved = reserva && reserva.n_usuario === reserva.usuarios_apuntados;
+          const isReservedPartial = reserva && reserva.usuarios_apuntados > 0 && reserva.n_usuario !== reserva.usuarios_apuntados;
+          const plazasLibres = reserva ? reserva.usuarios_restantes : 0;
+          
+          // Crear un objeto con el string de la hora y el booleano reserved, incluyendo usuarios_restantes si existe
           return {
             time: hora,
-            reserved: isReserved,
-            reservedPartial : isReservedPartial
+            reserved: !!isReserved,
+            reservedPartial: !!isReservedPartial,
+            usuarios_restantes: plazasLibres
           };
         });
       });
+      
       this.isLoading = false;
       console.log('Instalaciones después de actualizar:', this.instalaciones);
     }
   }
+  
 
   getTooltipText(hora: any): string {
     
     if (hora.reserved) {
       return 'Esta hora está completamente reservada';
     } else if (hora.reservedPartial) {
-      return `${this.diferenciaUsuarios}`;
+      return `Plazas disponibles:${hora.usuarios_restantes}`;
     } else {
       return 'Hacer clic para reservar';
     }
