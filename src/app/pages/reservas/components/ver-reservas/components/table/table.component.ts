@@ -10,9 +10,11 @@ import { CommonModule } from '@angular/common';
 import { ReservasService } from '../../../../../../core/services/reservas.service';
 import { InstalacionesService } from '../../../../../../core/services/instalaciones-services';
 import { EventService } from '../../../../../../core/services/modal.service';
+import { SetinstalacionesService } from '../../../../../../core/services/set.instalaciones.services';
 //primeng
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+
 
 interface Intervalo {
   horaInicio: string;
@@ -57,7 +59,8 @@ export class TableComponent implements OnInit, OnChanges {
   constructor(
     private reservasService: ReservasService,
     private instalacionesService :InstalacionesService,
-    private eventService: EventService
+    private eventService: EventService,
+    private setinstalacionesService: SetinstalacionesService
   ) {
 
     
@@ -101,7 +104,7 @@ export class TableComponent implements OnInit, OnChanges {
     });
     setTimeout(() => {
       this.checkReservations();   
-    }, 2000);
+    }, 3000);
     
   }
   
@@ -220,7 +223,14 @@ export class TableComponent implements OnInit, OnChanges {
       this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number }) => {
         reserva.usuarios_restantes = reserva.n_usuario - reserva.usuarios_apuntados;
       });
-      
+      //Añadir usuario a cada reserva//TODO-TIPAR USUARIO
+      this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number, usuario: any }) => {
+        reserva.usuario;
+      });
+      //Añadir el array de usuarios
+      this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number, usuario: any }) => {
+        reserva.usuario;
+      });
       this.instalaciones.forEach(instalacion => {
         instalacion.horas = instalacion.horas.map((hora: string) => {
           // Encontrar la reserva correspondiente para la instalación y la hora
@@ -232,26 +242,28 @@ export class TableComponent implements OnInit, OnChanges {
           // Verificar si la hora está reservada
           const isReserved = reserva && reserva.n_usuario === reserva.usuarios_apuntados;
           const isReservedPartial = reserva && reserva.usuarios_apuntados > 0 && reserva.n_usuario !== reserva.usuarios_apuntados;
-          const plazasLibres = reserva ? reserva.usuarios_restantes : 0;
-          
+          const plazasLibres = reserva ? reserva.usuarios_restantes : 4;
+          const usuariosReservado = reserva ? reserva.usuario : ''
+          //Seteamos los usuarios para pintarlos en la modal
+          // this.setinstalacionesService.setUsuariosReserva(usuariosReservado)
           // Crear un objeto con el string de la hora y el booleano reserved, incluyendo usuarios_restantes si existe
           return {
             time: hora,
             reserved: !!isReserved,
             reservedPartial: !!isReservedPartial,
-            usuarios_restantes: plazasLibres
+            usuarios_restantes: plazasLibres,
+            usuarios_apuntados: usuariosReservado,
           };
         });
       });
-      
+      this.setinstalacionesService.setUsuariosReserva(this.instalaciones)
       this.isLoading = false;
       console.log('Instalaciones después de actualizar:', this.instalaciones);
     }
   }
   
 
-  getTooltipText(hora: any): string {
-    
+  getTooltipText(hora: any): string {    
     if (hora.reserved) {
       return 'Esta hora está completamente reservada';
     } else if (hora.reservedPartial) {
@@ -262,7 +274,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   openModal(){
-    this.eventService.openModalDetalleOpiniones();
+    this.eventService.openModal();
   }
 }
   

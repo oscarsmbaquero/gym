@@ -26,30 +26,11 @@ export class EventService {
   setOpiniones$ = this.setOpinionesSubject.asObservable();
   getOpiniones$ = this.getOpinionesSubject.asObservable();
 
-  openModalOpiniones() {
+  openModal() {
     this.abrirModalSubject.next();
   }
 
   closeModal() {
     this.cerrarModalSubject.next();
-  }
-
-   // Método para establecer las opiniones
-   setOpiniones(opiniones: any[]) {
-    this.opinionesSubject.next(opiniones);
-  }
-
-  // Método para obtener las opiniones como un observable
-  getOpiniones(): Observable<any[]> {
-    return this.opinionesSubject.asObservable();
-  }
-
-  openModalDetalleOpiniones(){
-    console.log(('Entro ?'));    
-    this.abrirModalSubject.next();
-  }
-
-  closeModalDetalleOpiniones() {
-    this.cerrarModalDetalleSubject.next();
   }
 }

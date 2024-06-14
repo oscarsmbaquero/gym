@@ -25,4 +25,6 @@ export class InstalacionesService {
   public getInstalacionesByType(tipo: string): Observable<any[]> {
     return this.httpClient.get<any[]>(`${environment.apiUrl}instalaciones/${tipo}`);
   }
+
+  
 }
