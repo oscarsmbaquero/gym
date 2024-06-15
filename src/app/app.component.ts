@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
   }
 
   abrirModal(){
-    this.modalAbierto = true;
+    //this.modalAbierto = true;
     }
 
     

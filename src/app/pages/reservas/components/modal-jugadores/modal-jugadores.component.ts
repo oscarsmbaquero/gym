@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 //PRIMENG
 import { DialogModule } from 'primeng/dialog';
 import { AvatarModule } from 'primeng/avatar';
@@ -10,7 +11,7 @@ import { SetinstalacionesService } from '../../../../core/services/set.instalaci
 @Component({
   selector: 'app-modal-jugadores',
   standalone: true,
-  imports: [DialogModule, AvatarModule],
+  imports: [DialogModule, AvatarModule, CommonModule],
   templateUrl: './modal-jugadores.component.html',
   styleUrl: './modal-jugadores.component.scss'
 })
@@ -18,9 +19,17 @@ export class ModalJugadoresComponent implements OnInit{
 
   @Input() isVisible: boolean = false;
 
+  @Input() reservaSeleccionada: any | undefined;
+
+  @Output() close = new EventEmitter<void>();
+
   visible: boolean = true;
 
   instalaciones: any[] = [];
+
+  horaPista = '';
+  jugadorePista = 0 ;
+  jugadores : any;
 
   constructor(
     private eventService : EventService,
@@ -31,23 +40,17 @@ export class ModalJugadoresComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.setinstalacionesService.getUsuariosReserva().subscribe(
-      instalaciones => {
-        console.log('Instalaciones obtenidas en el componente:', instalaciones);
-        this.instalaciones = instalaciones;
-        console.log('Instalaciones actualizadas en el componente:', this.instalaciones);
-      },
-      error => {
-        console.error('Error al obtener las instalaciones:', error);
-      }
-    );
+    console.log(this.reservaSeleccionada.usuarios_apuntados);
+    this.horaPista = this.reservaSeleccionada.time;
+    this.jugadores = this.reservaSeleccionada.usuarios_apuntados;
   }
-  // openModal(){    
-  //   this.eventService.openModalDetalleOpiniones();
-  // }
 
   onCloseModal() {
-    this.eventService.closeModal();
+    console.log('Cierro Modal');
+    
+    //this.eventService.closeModal();
+    this.visible = false;
+    this.close.emit();
   }
 
 }

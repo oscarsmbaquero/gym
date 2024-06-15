@@ -14,6 +14,8 @@ import { SetinstalacionesService } from '../../../../../../core/services/set.ins
 //primeng
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+//COMPONENTES
+import { ModalJugadoresComponent } from '../../../modal-jugadores/modal-jugadores.component';
 
 
 interface Intervalo {
@@ -24,7 +26,7 @@ interface Intervalo {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, CommonModule, TooltipModule],
+  imports: [TableModule, CommonModule, TooltipModule, ModalJugadoresComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
@@ -52,6 +54,8 @@ export class TableComponent implements OnInit, OnChanges {
   intervalos: Intervalo[] = [];
   instalaciones!: any[];
   plazasLibres = 0;
+  showModal = false;
+  reservaSeleccionada : any;
 
 
 
@@ -145,6 +149,7 @@ export class TableComponent implements OnInit, OnChanges {
    */
   reservar(element: any, nombre: string){
     console.log('Entro', element, nombre);
+    this.reservaSeleccionada = element;
     
   }
 
@@ -256,7 +261,7 @@ export class TableComponent implements OnInit, OnChanges {
           };
         });
       });
-      this.setinstalacionesService.setUsuariosReserva(this.instalaciones)
+      //this.setinstalacionesService.setUsuariosReserva(this.instalaciones)
       this.isLoading = false;
       console.log('Instalaciones después de actualizar:', this.instalaciones);
     }
@@ -274,7 +279,15 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   openModal(){
-    this.eventService.openModal();
+    this.showModal = true;
+    //this.eventService.openModal();
+  }
+  closeModal() {
+    console.log('Entro');
+    
+    this.showModal = false;
+    console.log(this.showModal);
+    
   }
 }
   

@@ -4,6 +4,12 @@
 <!-- @if(!hasData){
     <div>No hay datos disponibles.</div>
 } -->
+    @if(showModal){
+      <app-modal-jugadores
+      [reservaSeleccionada]="reservaSeleccionada"
+      (close)="closeModal()"
+      ></app-modal-jugadores>
+    }
 
 @if(!isLoading){
   <h6>{{dataSelected}}</h6>
