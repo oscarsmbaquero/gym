@@ -31,6 +31,11 @@ export class ModalJugadoresComponent implements OnInit{
   jugadorePista = 0 ;
   jugadores : any;
 
+   /**
+   * fijar las letras en el avatar
+   */
+   palabrasAvatar = '';
+
   constructor(
     private eventService : EventService,
     private setinstalacionesService: SetinstalacionesService
@@ -43,6 +48,7 @@ export class ModalJugadoresComponent implements OnInit{
     console.log(this.reservaSeleccionada.usuarios_apuntados);
     this.horaPista = this.reservaSeleccionada.time;
     this.jugadores = this.reservaSeleccionada.usuarios_apuntados;
+    this.agregarIniciales(this.jugadores)
   }
 
   onCloseModal() {
@@ -52,5 +58,18 @@ export class ModalJugadoresComponent implements OnInit{
     this.visible = false;
     this.close.emit();
   }
+
+   agregarIniciales(array: any) {
+    array.forEach((item: { user: string; iniciales: any; }) => {
+        let partesNombre = item.user.split(' ');
+        let inicialNombre = partesNombre[0].charAt(0);
+        let inicialApellido = partesNombre[1].charAt(0);
+        item.iniciales = inicialNombre + inicialApellido;
+    });
+    console.log(array);
+    
+}
+
+
 
 }

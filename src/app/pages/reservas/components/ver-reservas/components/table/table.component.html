@@ -45,7 +45,7 @@
                     (click)="reservar(pista.horas[i], pista.nombre)">
                   {{ pista.horas[i]?.time }}
                   @if(pista.horas[i]?.reservedPartial === true){
-                    -{{pista.horas[i]?.usuarios_restantes}}
+                    ({{pista.horas[i]?.usuarios_restantes}})
                   }
                 </td>
                 </ng-container>
