@@ -4,7 +4,8 @@
         class="max-w-200px" 
         [(ngModel)]="date" 
         [inline]="true" 
-        [showWeek]="true" 
+        [showWeek]="false" 
+        [minDate]="minDateValue"
         (ngModelChange)="onDateChange($event)"
         />
     </div>

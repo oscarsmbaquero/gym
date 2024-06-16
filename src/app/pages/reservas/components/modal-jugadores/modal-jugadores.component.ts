@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 //SERVICIOS
 import { EventService } from '../../../../core/services/modal.service';
 import { SetinstalacionesService } from '../../../../core/services/set.instalaciones.services';
+import { ReservasService } from '../../../../core/services/reservas.service';
 
 
 @Component({
@@ -46,7 +47,8 @@ export class ModalJugadoresComponent implements OnInit{
   constructor(
     private eventService : EventService,
     private setinstalacionesService: SetinstalacionesService,
-    private router: Router
+    private router: Router,
+    private reservasService: ReservasService
   ){
 
   }
@@ -55,7 +57,10 @@ export class ModalJugadoresComponent implements OnInit{
   ngOnInit(): void {
     this.horaPista = this.reservaSeleccionada.time;
     this.jugadores = this.reservaSeleccionada.usuarios_apuntados;
-    this.agregarIniciales(this.jugadores);
+    if(this.jugadores){
+      this.agregarIniciales(this.jugadores);
+    }
+    
     const storedData = localStorage.getItem('user');
     if (storedData) {
       const parsedData = JSON.parse(storedData);
@@ -79,7 +84,6 @@ export class ModalJugadoresComponent implements OnInit{
         let inicialApellido = partesNombre[1].charAt(0);
         item.iniciales = inicialNombre + inicialApellido;
     });
-    console.log(array);
     
 }
 
@@ -90,8 +94,13 @@ handleClick(){
   this.visibleInscripcion = true;  
 }
 reservar(){
+  let reserva ;
   console.log('reservar');
   this.visibleInscripcion = false;
+  this.reservasService.addReserva(reserva).subscribe((element) =>{
+    console.log(element);
+    
+  })
   
 }
 

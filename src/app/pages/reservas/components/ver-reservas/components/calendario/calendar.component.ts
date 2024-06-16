@@ -22,6 +22,8 @@ export class CalendarioComponent {
 
   showTable = false;
 
+  minDateValue : any;
+
   constructor() {
     //this.date = []; // Inicializa con un array vacío
   }
@@ -29,6 +31,7 @@ export class CalendarioComponent {
   ngOnInit(): void {
     //this.date = this.obtenerFechaHoy();
     this.dateSelected = this.obtenerFechaHoy();
+    this.minDateValue = new Date();
   }
 
   obtenerFechaHoy(): string {
@@ -46,7 +49,6 @@ export class CalendarioComponent {
    */
   onDateChange(event: Date | Date[]) {
     let fechaFormateada: string;
-
     if (Array.isArray(event) && event.length > 0) {
         fechaFormateada = this.formatearFecha(event[0]);
     } else if (!Array.isArray(event)) {
@@ -67,7 +69,6 @@ formatearFecha(fecha: Date): string {
     const mes = String(fecha.getMonth() + 1).padStart(2, '0');
     const dia = String(fecha.getDate()).padStart(2, '0');
     const año = fecha.getFullYear();
-
     return `${dia}.${mes}.${año}`;
 }
 

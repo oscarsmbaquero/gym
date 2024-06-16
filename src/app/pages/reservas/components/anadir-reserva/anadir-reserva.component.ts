@@ -134,10 +134,14 @@ export class AnadirReservaComponent implements OnInit {
    * @param fecha
    */
   reservasByDate(fecha: string) {
+    console.log('reservas entro ');
+    
     fecha = this.convertDate(fecha);
     this.reservasService.getReservasByDate(fecha).subscribe((fecha) => {
       this.reservasPorDia = fecha;
       this.horasDisponibles = this.obtenerHorasDisponibles(this.reservasPorDia);
+      console.log(this.horasDisponibles,'horas Disponibles');
+      
     });
   }
 
@@ -243,11 +247,8 @@ export class AnadirReservaComponent implements OnInit {
       };
       //convertir la fecha
       reserva.date = this.convertDate(reserva.date);
-      console.log(reserva);
       this.reservasService.addReserva(reserva).subscribe((element) => {
-        console.log(element.data);
         if (element.status === 201) {
-          console.log(201);
           this.showMessage = true;
           this.messages = [
             // { severity: 'info', detail: 'Info Message' },
@@ -277,4 +278,36 @@ export class AnadirReservaComponent implements OnInit {
     const transformedDate = this.datePipe.transform(date, 'dd.MM.yyyy');
     return transformedDate ? transformedDate : ''; // Maneja el caso en que transformedDate es null
   }
+
+   filtrarHorasAnteriores(arrayHoras: any) {
+    // Obtener la hora actual
+    let horaActual = new Date();
+
+    // Filtrar los rangos de horas
+    let horasFiltradas = arrayHoras.filter((rango: string) => {
+        // Dividir el rango en inicio y fin
+        let partes = rango.split('-');
+        let horaInicio = partes[0].trim();
+        let horaFin = partes[1].trim();
+
+        // Convertir las horas a objetos Date
+        let horaInicioDate = new Date();
+        let horaFinDate = new Date();
+
+        // Establecer horas y minutos para cada objeto Date
+        horaInicioDate.setHours(parseInt(horaInicio.split(':')[0]));
+        horaInicioDate.setMinutes(parseInt(horaInicio.split(':')[1]));
+
+        horaFinDate.setHours(parseInt(horaFin.split(':')[0]));
+        horaFinDate.setMinutes(parseInt(horaFin.split(':')[1]));
+
+        // Comparar con la hora actual
+        return horaFinDate > horaActual;
+    });
+
+    // Formatear las horas filtradas de nuevo a strings
+    let horasFiltradasStrings = horasFiltradas.map((rango: any) => rango);
+
+    return horasFiltradasStrings;
+}
 }

@@ -4,56 +4,58 @@
 <!-- @if(!hasData){
     <div>No hay datos disponibles.</div>
 } -->
-    @if(showModal){
-      <app-modal-jugadores
-      [reservaSeleccionada]="reservaSeleccionada"
-      (close)="closeModal()"
-      ></app-modal-jugadores>
-    }
-
-@if(!isLoading){
-  <h6>{{dataSelected}}</h6>
-  <div class="card">
-   
-    <div class="calendario">
-      <table class="p-datatable-striped">
-        <thead>
-          <tr>
-            <ng-container *ngFor="let pista of instalaciones">
-              <th>{{ pista.nombre }}</th>
-            </ng-container>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngIf="instalaciones && instalaciones.length > 0">
-            <ng-container *ngFor="let hora of instalaciones[0].horas; let i = index">
-              <tr>
-                <ng-container *ngFor="let pista of instalaciones; let j = index">
-                    <!-- <td [ngClass]="{'reserved': pista.horas[i]?.reserved, 'not-reserved': !pista.horas[i]?.reserved}"
+@if(showModal){
+<app-modal-jugadores
+  [reservaSeleccionada]="reservaSeleccionada"
+  (close)="closeModal()"
+></app-modal-jugadores>
+} @if(!isLoading){
+<h6>{{ dataSelected }}</h6>
+<div class="card">
+  <div class="calendario">
+    <table class="p-datatable-striped">
+      <thead>
+        <tr>
+          <ng-container *ngFor="let pista of instalaciones">
+            <th>{{ pista.nombre }}</th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="instalaciones && instalaciones.length > 0">
+          <ng-container
+            *ngFor="let hora of instalaciones[0].horas; let i = index"
+          >
+            <tr>
+              <ng-container *ngFor="let pista of instalaciones; let j = index">
+                <!-- <td [ngClass]="{'reserved': pista.horas[i]?.reserved, 'not-reserved': !pista.horas[i]?.reserved}"
                         (click)="reservar(pista.horas[i], pista.nombre)">
                       {{ pista.horas[i]?.time }}
                         'not-reserved': !pista.horas[i]?.reserved && !pista.horas[i]?.reservedPartial
                     </td> -->
-                    <td 
-                        [pTooltip]="getTooltipText(pista.horas[i])"
-                        pTooltip="Este es mi tooltip" tooltipPosition="top" 
-                        [ngClass]="{
+                <td
+                  [pTooltip]="getTooltipText(pista.horas[i])"
+                 
+                  tooltipPosition="top"
+                  [ngClass]="{
                       'reserved': pista.horas[i]?.reserved,
                       'reserved-partial': pista.horas[i]?.reservedPartial,
                      
-                    }"(click)="openModal()"
-                    (click)="reservar(pista.horas[i], pista.nombre)">
+                    }"
+                  (click)="openModal()"
+                  (click)="reservar(pista.horas[i], pista.nombre)"
+                >
                   {{ pista.horas[i]?.time }}
-                  @if(pista.horas[i]?.reservedPartial === true){
-                    ({{pista.horas[i]?.usuarios_restantes}})
-                  }
+                  @if(pista.horas[i]?.reservedPartial === true){ ({{
+                    pista.horas[i]?.usuarios_restantes
+                  }}) }
                 </td>
-                </ng-container>
-              </tr>
-            </ng-container>
+              </ng-container>
+            </tr>
           </ng-container>
-        </tbody>
-      </table>
-    </div>
+        </ng-container>
+      </tbody>
+    </table>
   </div>
+</div>
 }
