@@ -17,13 +17,14 @@ import {MatTabsModule} from '@angular/material/tabs';
 //COMPONENTES
 import { AnadirReservaComponent } from './components/anadir-reserva/anadir-reserva.component';
 import { VerReservasComponent } from './components/ver-reservas/ver-reservas.component';
+import { MisReservasComponent } from './components/mis.reservas/mis.reservas.component';
 
 
 @Component({
   selector: 'app-reservas',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [MatTabsModule, AnadirReservaComponent, VerReservasComponent ],
+  imports: [MatTabsModule, AnadirReservaComponent, VerReservasComponent, MisReservasComponent ],
   templateUrl: './reservas.component.html',
   styleUrl: './reservas.component.scss'
 })

@@ -26,6 +26,10 @@ export class ReservasService {
     return this.httpClient.get<any[]>(`${environment.apiUrl}reservas/${date}`);
   }
 
+  public getMisReservas(id: string): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${environment.apiUrl}reservas/user/${id}`);
+  }
+
   addReserva(reserva: any) {
     // const user = localStorage.getItem('user');
     // if (user !== null) {
