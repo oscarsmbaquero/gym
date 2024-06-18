@@ -1,4 +1,6 @@
-<p-table [value]="misReservas" [tableStyle]="{'min-width': '30rem'}">
+<p-table 
+        [value]="misReservas" 
+        [tableStyle]="{'min-width': '25rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th>Fecha</th>
@@ -8,7 +10,9 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
-        <tr [ngClass]="{'proxima-reserva': product.proxima, 'vencida': product.vencida}"
+        <tr 
+        *ngIf="!product.vencida"
+        [ngClass]="{'proxima-reserva': product.proxima}"
         >
             <td>{{product.fecha}}</td>
             <td>{{product.horaInicio}}-{{product.horaFin}}</td>
