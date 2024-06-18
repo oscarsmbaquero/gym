@@ -1,6 +1,12 @@
 .main{
     min-height: 500px;
     background-color: white;
+    background-color: red;
+    min-height: 600px;
+    padding: 20px;
+     background-image: url('/assets/images/fonfo.JPG');
+    background-size: cover;       /* Hace que la imagen cubra toda la pantalla */
+    background-position: center;  /* Centra la imagen */
 }
 
 /*

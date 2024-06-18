@@ -46,7 +46,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     CommonModule,
     MessagesModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, provideNativeDateAdapter()],
   templateUrl: './anadir-reserva.component.html',
   styleUrl: './anadir-reserva.component.scss',
 })
@@ -65,6 +65,9 @@ export class AnadirReservaComponent implements OnInit {
   userId: string = '';
   messages!: Message[];
   showMessage = false;
+  private readonly _currentYear = new Date().getFullYear();
+  readonly minDate = new Date();
+  minDateValue : any;
 
   reservasDefecto = [
     '09:30-11:00',
@@ -92,7 +95,7 @@ export class AnadirReservaComponent implements OnInit {
       tipo_reserva: ['', [Validators.required]],
       n_pista: [{ value: '', disabled: true }],
       comentario: [''],
-      hora: ['', [Validators.required]],
+      hora: [{value :'',  disabled: true}, [Validators.required]],
     });
     //suscribimos a los campos del campo fecha
     this.registrarReserva.get('date')?.valueChanges.subscribe((value) => {
@@ -108,6 +111,7 @@ export class AnadirReservaComponent implements OnInit {
     //suscribimos a los campos del n de pista
     this.registrarReserva.get('n_pista')?.valueChanges.subscribe((value) => {
       this.horasDisponiblesPorPista = this.horasDisponiblesPista(value);
+      this.registrarReserva.get('hora')?.enable();
     });
   }
 
@@ -123,7 +127,7 @@ export class AnadirReservaComponent implements OnInit {
         mail: this.userMail,
       });
     });
-
+    this.minDateValue = new Date();
     // this.messages = [
     //   { severity: 'info', detail: 'Info Message' },
     //   { severity: 'success', detail: 'Success Message' },]
@@ -263,7 +267,7 @@ export class AnadirReservaComponent implements OnInit {
           ];
         }
         setTimeout(() => {
-          this.router.navigate(['home'])
+          // this.router.navigate(['home'])
         }, 1000);
       });
     }

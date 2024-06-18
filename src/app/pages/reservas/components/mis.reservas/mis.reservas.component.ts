@@ -40,8 +40,6 @@ export class MisReservasComponent implements OnInit {
         reserva['vencida'] = fechaReserva < hoy;
         return reserva;
       });
-    });
-    console.log(this.misReservas);
-    
+    });    
   }
 }
