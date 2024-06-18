@@ -1,5 +1,5 @@
 <div class="calendar">
-    <div class="calendar-container">
+    <div>
         <p-calendar 
         class="max-w-200px" 
         [(ngModel)]="date" 
@@ -9,11 +9,13 @@
         (ngModelChange)="onDateChange($event)"
         />
     </div>
+    <div>
     <!-- @if(showTable){ -->
         <app-table
         [dataSelected]="dateSelected"
         [categoria]="categoria"
         ></app-table>
+    </div>
     <!-- } -->
     
 </div>
