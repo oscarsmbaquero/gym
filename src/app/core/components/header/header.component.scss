@@ -1,16 +1,19 @@
 span {
     font-size: 16px;
     font-family: 'Open Sans', sans-serif;
+    color:white;
   }
   
   @media (max-width: 768px) {
     span {
       font-size: 13px;
+      font-family: 'Open Sans', sans-serif;
+      color:white;
     }
   }
 
   .fondo{
-    background-color:white;
+    background-color:rgb(24, 22, 22);
   }
   
   /* @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;700&display=swap'); */

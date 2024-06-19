@@ -1,15 +1,16 @@
-<nav
-  class="navbar navbar-expand-md fondo">
+<nav class="navbar navbar-expand-md fondo">
   <div class="container-fluid">
+    <!--logo-->
     <a>
       <img 
-      routerLink=""
-      src="assets/images/padel.webp"
-      width="60"
-      height="60"
-      alt="logo"
-    />&nbsp;
+        routerLink=""
+        src="assets/images/padel.webp"
+        width="60"
+        height="60"
+        alt="logo"
+      />&nbsp;
     </a>
+    <!--botón hamburguesa-->
     <label
       class="hamburger navbar-toggler"
       type="button"
@@ -26,81 +27,61 @@
         <path
           class="line line-top-bottom"
           d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
-          [style.stroke]="currentTheme === 'dark' ? '#fff' : '#000'"
+          [style.stroke]="currentTheme === 'dark' ? '#fff' : '#fff'"
         ></path>
         <path
           class="line"
-          [style.stroke]="currentTheme === 'dark' ? '#fff' : '#000'"
+          [style.stroke]="currentTheme === 'dark' ? '#fff' : '#fff'"
           d="M7 16 27 16"
         ></path>
       </svg>
     </label>
     <div class="collapse navbar-collapse" id="navbarScroll">
       <!--primera lista-->
-      <ul
-        class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-        style="--bs-scroll-height: 100px"
-      >
-        <li class="nav-item" routerLinkActive="active"
-        [class.selected]="(selectedOption$ | async) === 'home'" (click)="selectOption('home')">
-          <a
-            class="nav-link"
-            [routerLink]="['inicio']"
-            data-toggle="collapse"
-            data-target=".navbar-collapse.show"
-            ><span>Inicio</span
-            ></a
-          >
+      <ul class="navbar-nav me-auto my-2 my-lg-0">
+        <li class="nav-item" routerLinkActive="active" [class.selected]="(selectedOption$ | async) === 'home'" (click)="selectOption('home')">
+          <a class="nav-link" [routerLink]="['inicio']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <span>Inicio</span>
+          </a>
         </li>
-        <hr class="dropdown-divider" />
-        <li [class.selected]="(selectedOption$ | async) === 'reservas'" (click)="selectOption('reservas')" class="nav-item" routerLinkActive="active">
-          <a
-            class="nav-link"
-            [routerLink]="['/reservas']"
-            data-toggle="collapse"
-            data-target=".navbar-collapse.show"
-            ><span>Reservas</span
-            ></a
-          >
+        <li class="nav-item" routerLinkActive="active" [class.selected]="(selectedOption$ | async) === 'reservas'" (click)="selectOption('reservas')">
+          <a class="nav-link" [routerLink]="['/reservas']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <span>Reservas</span>
+          </a>
         </li>
-        <hr class="dropdown-divider" />
+        <li class="nav-item" routerLinkActive="active" [class.selected]="(selectedOption$ | async) === 'reservar'" (click)="selectOption('reservar')">
+          <a class="nav-link" [routerLink]="['/reservar']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <span>Reservar</span>
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" [class.selected]="(selectedOption$ | async) === 'calendario'" (click)="selectOption('calendario')">
+          <a class="nav-link" [routerLink]="['/calendario']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <span>Calendario</span>
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" [class.selected]="(selectedOption$ | async) === 'mis-reservas'" (click)="selectOption('mis-reservas')">
+          <a class="nav-link" [routerLink]="['/mis-reservas']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <span>Mis Reservas</span>
+          </a>
+        </li>
       </ul>
       <!--segunda lista-->
-      <ul
-        class="navbar-nav ml-auto my-2 my-lg-0 navbar-nav-scroll"
-        style="--bs-scroll-height: 100px"
-      >
+      <ul class="navbar-nav ml-auto my-2 my-lg-0">
         <div *ngIf="activeUser; else notUser">
           <li class="nav-item">
-            <a
-              class="nav-link"
-              routerLink="['/user']"
-              data-toggle="collapse"
-              data-target=".navbar-collapse.show"
-            >
-              <span
-                (click)="logout()"
-               
-                >Cerrar sesión</span
-              >
+            <a class="nav-link" routerLink="['/user']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+              <span (click)="logout()">Cerrar sesión</span>
             </a>
           </li>
         </div>
-
         <ng-template #notUser>
-          <li [class.selected]="(selectedOption$ | async) === 'login'" (click)="selectOption('login')" class="nav-item" routerLinkActive="active" class="nav-item" routerLinkActive="active">
-            <a
-              class="nav-link"
-              [routerLink]="['/login']"
-              data-toggle="collapse"
-              data-target=".navbar-collapse.show"
-              ><span>Login</span>
+          <li class="nav-item" routerLinkActive="active" [class.selected]="(selectedOption$ | async) === 'login'" (click)="selectOption('login')">
+            <a class="nav-link" [routerLink]="['/login']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+              <span>Login</span>
             </a>
           </li>
-          <hr class="dropdown-divider" />
         </ng-template>
       </ul>
     </div>
   </div>
 </nav>
-
