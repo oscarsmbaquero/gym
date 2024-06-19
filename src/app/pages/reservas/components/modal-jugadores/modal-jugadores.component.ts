@@ -31,6 +31,7 @@ export class ModalJugadoresComponent implements OnInit{
   instalaciones: any[] = [];
 
   horaPista = '';
+  nombrePista = '';
   jugadorePista = 0 ;
   jugadores : any;
 
@@ -55,7 +56,10 @@ export class ModalJugadoresComponent implements OnInit{
 
 
   ngOnInit(): void {
+    console.log(this.reservaSeleccionada);
+    
     this.horaPista = this.reservaSeleccionada.time;
+    this.nombrePista = this.reservaSeleccionada.nombre;
     this.jugadores = this.reservaSeleccionada.usuarios_apuntados;
     if(this.jugadores){
       this.agregarIniciales(this.jugadores);

@@ -10,7 +10,6 @@
   (close)="closeModal()"
 ></app-modal-jugadores>
 } @if(!isLoading){
-
 <div class="card">
   <div>
     <div class="title-container">
@@ -51,9 +50,9 @@
                   (click)="reservar(pista.horas[i], pista.nombre)"
                 >
                   {{ pista.horas[i]?.time }}
-                  @if(pista.horas[i]?.reservedPartial === true){ ({{
+                  <!-- @if(pista.horas[i]?.reservedPartial === true){ ({{
                     pista.horas[i]?.usuarios_restantes
-                  }}) }
+                  }}) } -->
                 </td>
               </ng-container>
             </tr>

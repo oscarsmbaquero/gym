@@ -149,7 +149,7 @@ export class TableComponent implements OnInit, OnChanges {
    */
   reservar(element: any, nombre: string){
     console.log('Entro', element, nombre);
-    this.reservaSeleccionada = element;
+    this.reservaSeleccionada = {...element,nombre };
     
   }
   /**

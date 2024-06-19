@@ -5,11 +5,12 @@ import { UsersService } from '../../services/users.service';
 import { RouterLink } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, AvatarModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -21,6 +22,10 @@ export class HeaderComponent implements OnInit {
   selectedOption = '';
   currentTheme : any;
   activeUser: any;
+   /**
+   * fijar las letras en el avatar
+   */
+   palabrasAvatar = '';
 
 
   constructor(
@@ -37,6 +42,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.getCurrentUser().subscribe((user) => {
       this.activeUser = user;    
+      console.log(this.activeUser.data.user);
+      this.lettersAvatar(this.activeUser.data.user)
+      
       
       // if (this.activeUser) {
       //   this.activeUserName = this.activeUser.data.user;
@@ -65,6 +73,23 @@ export class HeaderComponent implements OnInit {
     this.selectedOptionSubject.next(option);
     localStorage.setItem('selectedOption', option); // Guardar en almacenamiento local
     this.toggleNavbar();
+  }
+
+  /**
+   * funcion para pintar el nombre del avatar, solo la primera letra de las dos primeras palabras
+   * @param cadena
+   * @param cantidadLetras
+   */
+  lettersAvatar(cadena: string, cantidadLetras = 1) {
+    const palabras = cadena.split(' ');
+    // Solo las dos primeras palabras
+    const primerasDosPalabras = palabras.slice(0, 2);
+    // Iterar sobre cada palabra y extraer las letras especificadas
+    const letrasExtraidas = primerasDosPalabras.map((palabra) => {
+      return palabra.slice(0, cantidadLetras);
+    });
+    const resultado = letrasExtraidas.join('');
+    this.palabrasAvatar = resultado;
   }
   // selectOption(arg0: string) {
   //   this.selectedOption = arg0;
