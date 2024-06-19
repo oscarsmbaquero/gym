@@ -1,42 +1,42 @@
 <div class="contenedor-reservas">
-<div class="categoria">
   <div>
-    <h6>Selecciona Categoria</h6>
-  </div>
-  <div>
-    <mat-card style="height: 350px;">
-      <mat-card-title>
-        <img 
-        routerLink=""
-        src="assets/images/padel.webp"
-        width="60"
-        height="60"
-        alt="logo"
-      />&nbsp;
-      </mat-card-title>
-      <mat-card-content>
-        <mat-form-field>
-          <mat-label>Seleccione una categoría</mat-label>
-          <mat-select required (selectionChange)="selectCategory($event.value)">
-            <mat-option value="paddle">Padle</mat-option>
-            <mat-option value="tennis">Tennis</mat-option>
-            <mat-option value="gym">Gym</mat-option>
-            <!-- <mat-option value="otro">Otro</mat-option> -->
-          </mat-select>
-        </mat-form-field>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
-<div class="ventana-calendario">
-  @if(showCalendar){
-    <h6>Selecciona una fecha</h6>
+    <!-- <div>
+      <h6>Selecciona Categoria</h6>
+    </div> -->
     <div>
-      <app-calenadar
-       [categoria]="categoria"
-    ></app-calenadar>
+      <mat-card style="height: 250px">
+        <mat-card-title>
+          <img
+            routerLink=""
+            src="assets/images/padel.webp"
+            width="60"
+            height="60"
+            alt="logo"
+          />&nbsp;
+        </mat-card-title>
+        <mat-card-content>
+          <mat-form-field>
+            <mat-label>Seleccione una categoría</mat-label>
+            <mat-select
+              required
+              (selectionChange)="selectCategory($event.value)"
+            >
+              <mat-option value="paddle">Padle</mat-option>
+              <mat-option value="tennis">Tennis</mat-option>
+              <mat-option value="gym">Gym</mat-option>
+              <!-- <mat-option value="otro">Otro</mat-option> -->
+            </mat-select>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
     </div>
-      
-  }
-</div>
+  </div>
+  <div>
+    @if(showCalendar){
+    <!-- <h6>Selecciona una fecha</h6> -->
+    <div>
+      <app-calenadar [categoria]="categoria"> </app-calenadar>
+    </div>
+    }
+  </div>
 </div>

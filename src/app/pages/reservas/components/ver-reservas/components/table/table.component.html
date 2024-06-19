@@ -10,11 +10,16 @@
   (close)="closeModal()"
 ></app-modal-jugadores>
 } @if(!isLoading){
-<h6 style="color:white">{{ dataSelected }}</h6>
+
 <div class="card">
-  <div class="calendario">
+  <div>
+    <div class="title-container">
+      <div class="title-table">
+        <h6>{{ dataSelected }}</h6>
+      </div>
+    </div>
     <table class="p-datatable-striped">
-      <thead>
+      <thead>       
         <tr>
           <ng-container *ngFor="let pista of instalaciones">
             <th>{{ pista.nombre }}</th>

@@ -3,24 +3,45 @@
     // padding: 25px;
 }
 
-.calendario{
+/* Contenedor del título */
+.title-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px; /* Espacio entre el título y la tabla */
+}
+
+.title-table {
+  background-color: #2e2c2b; /* Tomate */
+  padding: 10px 20px;
+  border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 600px; /* Máximo ancho */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title-table h6 {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  color: white;
 }
 
 /* Estilos para la tabla */
 table {
-  width: 100%; /* Ancho completo */
+  width: 100%;
   border-collapse: collapse;
-  // margin-bottom: 20px; /* Espacio inferior */
-  // box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-  border-radius: 8px; /* Bordes redondeados */
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden; /* Para que el borde redondeado funcione */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos para las celdas de la tabla */
 th, td {
-  padding: 15px; /* Aumentar el espacio interno */
+  padding: 15px;
   border: 1px solid #ddd;
   text-align: center;
 }
@@ -28,8 +49,10 @@ th, td {
 /* Estilos para el encabezado de la tabla */
 th {
   background-color: #f2f2f2;
-  color: #333; /* Color de texto más oscuro */
-  text-transform: uppercase; /* Texto en mayúsculas */
+  color: #333;
+  text-transform: uppercase;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
 }
 
 /* Estilos para las filas impares */
@@ -40,30 +63,16 @@ tr:nth-child(odd) {
 /* Estilos para las celdas al pasar el ratón */
 td:hover {
   background-color: #e5e5e5;
-  cursor: pointer; /* Cambiar a un cursor de puntero */
-}
-
-/* Estilos para el borde de la tabla */
-table {
-  border: 2px solid #ccc;
-  border-radius: 8px;
-}
-
-/* Estilos para los márgenes de las celdas */
-th, td {
-  margin: 6px;
+  cursor: pointer;
 }
 
 /* Estilos para la fuente de los textos */
 td {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   font-size: 14px;
   color: #333;
 }
 
-h6{
-  font-family: Arial, sans-serif;
-}
 
 
   
