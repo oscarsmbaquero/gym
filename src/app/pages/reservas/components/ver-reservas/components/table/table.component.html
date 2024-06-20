@@ -47,7 +47,7 @@
                      
                     }"
                   (click)="openModal()"
-                  (click)="reservar(pista.horas[i], pista.nombre)"
+                  (click)="reservar(pista.horas[i], pista.nombre, pista)"
                 >
                   {{ pista.horas[i]?.time }}
                   <!-- @if(pista.horas[i]?.reservedPartial === true){ ({{

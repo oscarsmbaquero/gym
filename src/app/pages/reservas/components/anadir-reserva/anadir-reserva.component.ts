@@ -137,15 +137,11 @@ export class AnadirReservaComponent implements OnInit {
    * Obtiene las reservas por fecha
    * @param fecha
    */
-  reservasByDate(fecha: string) {
-    console.log('reservas entro ');
-    
+  reservasByDate(fecha: string) {    
     fecha = this.convertDate(fecha);
     this.reservasService.getReservasByDate(fecha).subscribe((fecha) => {
       this.reservasPorDia = fecha;
-      this.horasDisponibles = this.obtenerHorasDisponibles(this.reservasPorDia);
-      console.log(this.horasDisponibles,'horas Disponibles');
-      
+      this.horasDisponibles = this.obtenerHorasDisponibles(this.reservasPorDia);      
     });
   }
 

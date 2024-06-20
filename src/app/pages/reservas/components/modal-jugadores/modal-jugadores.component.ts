@@ -36,6 +36,7 @@ export class ModalJugadoresComponent implements OnInit{
   jugadores : any;
 
   userActive = '';
+  userMail = '';
   visibleInscripcion = false;
 
   slots = Array(4).fill(null);
@@ -68,7 +69,8 @@ export class ModalJugadoresComponent implements OnInit{
     const storedData = localStorage.getItem('user');
     if (storedData) {
       const parsedData = JSON.parse(storedData);
-      this.userActive = parsedData.data?.id;      
+      this.userActive = parsedData.data?.id;  
+      this.userMail = parsedData.data?.mail;    
     }
     
   }
@@ -98,13 +100,37 @@ handleClick(){
   this.visibleInscripcion = true;  
 }
 reservar(){
-  let reserva ;
-  console.log('reservar');
-  this.visibleInscripcion = false;
-  this.reservasService.addReserva(reserva).subscribe((element) =>{
-    console.log(element);
-    
-  })
+  const reserva: any = {
+    date: this.reservaSeleccionada.fecha,
+    nombre: this.userActive,
+    mail: this.userMail,
+    tipo_reserva : this.reservaSeleccionada.tipo,
+    numero_pista : this.reservaSeleccionada.nombre,
+    hora: this.reservaSeleccionada.time,
+    idPista : this.reservaSeleccionada.idPista,
+    //nombre: this.registrarReserva.get('nombre')?.value,
+  };
+  this.reservasService.addReserva(reserva).subscribe((element) => {
+    // if (element.status === 201) {
+    //   this.showMessage = true;
+    //   this.messages = [
+    //     // { severity: 'info', detail: 'Info Message' },
+    //     { severity: 'success', detail: 'Reserva efectuada con exito' },
+    //   ];
+    // }
+    if (element.status === 200) {
+      console.log('ok');
+      
+      // this.showMessage = true;
+      // this.messages = [
+      //   // { severity: 'info', detail: 'Info Message' },
+      //   { severity: 'info', detail: 'Has sido añadido a la reserva' },
+      // ];
+    }
+    setTimeout(() => {
+      // this.router.navigate(['home'])
+    }, 1000);
+  });
   
 }
 

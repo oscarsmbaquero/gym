@@ -147,8 +147,8 @@ export class TableComponent implements OnInit, OnChanges {
    * @param element 
    * @param nombre 
    */
-  reservar(element: any, nombre: string){
-    console.log('Entro', element, nombre);
+  reservar(element: any, nombre: string, pista: any){
+    console.log('Entro', element, nombre,pista);
     this.reservaSeleccionada = {...element,nombre };
     
   }
@@ -184,7 +184,10 @@ export class TableComponent implements OnInit, OnChanges {
           const isReserved = reserva && reserva.n_usuario === reserva.usuarios_apuntados;
           const isReservedPartial = reserva && reserva.usuarios_apuntados > 0 && reserva.n_usuario !== reserva.usuarios_apuntados;
           const plazasLibres = reserva ? reserva.usuarios_restantes : 4;
-          const usuariosReservado = reserva ? reserva.usuario : ''
+          const usuariosReservado = reserva ? reserva.usuario : '';
+          const fechaReserva = reserva ? reserva.fecha : '';
+          const tipoPista = reserva ? reserva.instalacion.tipo : '';
+          const idPista = reserva ? reserva.instalacion._id : '';
           //Seteamos los usuarios para pintarlos en la modal
           // this.setinstalacionesService.setUsuariosReserva(usuariosReservado)
           // Crear un objeto con el string de la hora y el booleano reserved, incluyendo usuarios_restantes si existe
@@ -194,13 +197,16 @@ export class TableComponent implements OnInit, OnChanges {
             reservedPartial: !!isReservedPartial,
             usuarios_restantes: plazasLibres,
             usuarios_apuntados: usuariosReservado,
+            fecha : fechaReserva,
+            tipo : tipoPista,
+            idPista : idPista,
           };
         });
       });
       // console.log(this.reservaSeleccionada);
       
       // this.reservaSeleccionada = [...this.instalaciones]
-      // console.log(this.reservaSeleccionada,201);
+       console.log(this.instalaciones,201);
       
       //this.setinstalacionesService.setUsuariosReserva(this.instalaciones)
       this.isLoading = false;
