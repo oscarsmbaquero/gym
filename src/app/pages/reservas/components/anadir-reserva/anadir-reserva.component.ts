@@ -263,7 +263,7 @@ export class AnadirReservaComponent implements OnInit {
           ];
         }
         setTimeout(() => {
-          // this.router.navigate(['home'])
+          this.router.navigate(['home'])
         }, 1000);
       });
     }
