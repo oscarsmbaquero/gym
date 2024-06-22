@@ -3,11 +3,12 @@ import { ReservasService } from '../../../../core/services/reservas.service';
 import { CommonModule } from '@angular/common';
 //PRIMENG
 import { TableModule } from 'primeng/table';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-mis-reservas',
   standalone: true,
-  imports: [TableModule, CommonModule],
+  imports: [TableModule, CommonModule, BadgeModule],
   templateUrl: './mis.reservas.component.html',
   styleUrl: './mis.reservas.component.scss',
 })
@@ -37,7 +38,10 @@ export class MisReservasComponent implements OnInit {
         const [dia, mes, anio] = reserva.fecha.split('.').map(Number);
         const fechaReserva = new Date(anio, mes - 1, dia);
         reserva['proxima'] = fechaReserva < dosDiasDespues;
-        reserva['vencida'] = fechaReserva < hoy;
+        reserva['hora'] = `${reserva.horaInicio} - ${reserva.horaFin}`;
+        reserva['esHoy'] = fechaReserva.toDateString() === hoy.toDateString();
+        //se comentan las vencidas
+        // reserva['vencida'] = fechaReserva < hoy;
         return reserva;
       });
     });    

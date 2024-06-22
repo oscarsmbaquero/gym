@@ -5,9 +5,9 @@
         [tableStyle]="{'min-width': '35rem'}">
     <ng-template pTemplate="header">
         <tr>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Pista</th>
+            <th style="color:cadetblue">Fecha</th>
+            <th style="color:cadetblue">Hora</th>
+            <th style="color:cadetblue">Pista</th>
             <!-- <th>Quantity</th> -->
         </tr>
     </ng-template>
@@ -16,9 +16,18 @@
         *ngIf="!product.vencida"
         [ngClass]="{'proxima-reserva': product.proxima}"
         >
-            <td>{{product.fecha}}</td>
-            <td>{{product.horaInicio}}-{{product.horaFin}}</td>
-            <td>{{product.instalacion.nombre}}</td>
+        <td>
+            <p-badge *ngIf="product.esHoy" [value]="product.fecha" severity="info"></p-badge>
+            <span *ngIf="!product.esHoy">{{ product.fecha }}</span>
+          </td>
+          <td>
+            <p-badge *ngIf="product.esHoy" [value]="product.hora" severity="info"></p-badge>
+            <span *ngIf="!product.esHoy">{{ product.hora }}</span>
+          </td>
+          <td>
+            <p-badge *ngIf="product.esHoy" [value]="product.instalacion.nombre" severity="info"></p-badge>
+            <span *ngIf="!product.esHoy">{{ product.instalacion.nombre }}</span>
+          </td>
             <!-- <td>
                 <div [ngClass]="{'outofstock': product.quantity === 0, 'lowstock': (product.quantity > 0 && product.quantity < 10),'instock': product.quantity > 10}">
                     {{product.quantity}}

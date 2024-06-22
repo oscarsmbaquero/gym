@@ -133,30 +133,19 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Obtiene las reservas//TODO COMENTAR
-   */
-  // getReservas() {
-  //   this.reservasService.getReservas().subscribe((element) => {
-  //     console.log(element);
-  //   });    
-  // }
-
-
-  /**
    * 
    * @param element 
    * @param nombre 
    */
   reservar(element: any, nombre: string, pista: any){
     console.log('Entro', element, nombre,pista);
-    this.reservaSeleccionada = {...element,nombre };
-    
+    this.reservaSeleccionada = {...element,nombre };    
   }
   /**
    * 
    */
   checkReservations(): void {
-    if (this.instalaciones.length) {
+    if ( this.instalaciones && this.instalaciones.length && this.reservasByDate) {
       console.log('Instalaciones antes de actualizar:', this.instalaciones);
       console.log('Reservas por fecha:', this.reservasByDate);
       
@@ -229,12 +218,16 @@ export class TableComponent implements OnInit, OnChanges {
     this.showModal = true;
     //this.eventService.openModal();
   }
-  closeModal() {
-    console.log('Entro');
-    
+  closeModal() {    
     this.showModal = false;
-    console.log(this.showModal);
     
+  }
+
+  handleClick(hora: any, nombre: string, pista: any): void {
+    if (hora?.reservedPartial) {
+      this.openModal();
+      this.reservar(hora, nombre, pista);
+    }
   }
 }
   

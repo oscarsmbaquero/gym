@@ -46,10 +46,13 @@
                       'reserved-partial': pista.horas[i]?.reservedPartial,
                      
                     }"
-                  (click)="openModal()"
-                  (click)="reservar(pista.horas[i], pista.nombre, pista)"
+                     (click)="handleClick(pista.horas[i], pista.nombre, pista)"
+                
                 >
                   {{ pista.horas[i]?.time }}
+
+                  <!--  (click)="openModal()"
+                  (click)="reservar(pista.horas[i], pista.nombre, pista)"-->
                   <!-- @if(pista.horas[i]?.reservedPartial === true){ ({{
                     pista.horas[i]?.usuarios_restantes
                   }}) } -->

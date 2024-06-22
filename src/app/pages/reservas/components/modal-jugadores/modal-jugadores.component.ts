@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { EventService } from '../../../../core/services/modal.service';
 import { SetinstalacionesService } from '../../../../core/services/set.instalaciones.services';
 import { ReservasService } from '../../../../core/services/reservas.service';
+import { catchError, of } from 'rxjs';
 
 
 @Component({
@@ -21,20 +22,16 @@ import { ReservasService } from '../../../../core/services/reservas.service';
 export class ModalJugadoresComponent implements OnInit{
 
   @Input() isVisible: boolean = false;
-
   @Input() reservaSeleccionada: any | undefined;
-
   @Output() close = new EventEmitter<void>();
 
   visible: boolean = true;
-
   instalaciones: any[] = [];
 
   horaPista = '';
   nombrePista = '';
   jugadorePista = 0 ;
   jugadores : any;
-
   userActive = '';
   userMail = '';
   visibleInscripcion = false;
@@ -94,12 +91,78 @@ export class ModalJugadoresComponent implements OnInit{
 }
 
 handleClick(){
-  console.log('Entro');
+
   console.log(this.reservaSeleccionada);
-  console.log(this.userActive);
   this.visibleInscripcion = true;  
+  // this.visible = false;
 }
-reservar(){
+
+// reservar() {
+//   const reserva: any = {
+//     date: this.reservaSeleccionada.fecha,
+//     nombre: this.userActive,
+//     mail: this.userMail,
+//     tipo_reserva: this.reservaSeleccionada.tipo,
+//     numero_pista: this.reservaSeleccionada.nombre,
+//     hora: this.reservaSeleccionada.time,
+//     idPista: this.reservaSeleccionada.idPista,
+//   };
+
+//   this.reservasService.addReserva(reserva).pipe(
+//     catchError(error => {
+//       console.error('Error during reservation:', error);
+//       // Manejo del error, puedes mostrar un mensaje al usuario
+//       return of(null); // Retorna un observable vacío para continuar la cadena
+//     })
+//   ).subscribe((element) => {
+//     if (element) {
+//       console.log(element);
+//       this.router.navigate(['reservar']).then(() => {
+//         window.scrollTo(0, 0);
+//       });
+//     } else {
+//       console.log('Reservation failed');
+//     }
+//   });
+// }
+reservar() {
+  const reserva: any = {
+    date: this.reservaSeleccionada.fecha,
+    nombre: this.userActive,
+    mail: this.userMail,
+    tipo_reserva: this.reservaSeleccionada.tipo,
+    numero_pista: this.reservaSeleccionada.nombre,
+    hora: this.reservaSeleccionada.time,
+    idPista: this.reservaSeleccionada.idPista,
+  };
+
+  this.reservasService.addReserva(reserva).pipe(
+    catchError(error => {
+      console.error('Error during reservation:', error);
+      // Manejo del error, puedes mostrar un mensaje al usuario
+      return of(null); // Retorna un observable vacío para continuar la cadena
+    })
+  ).subscribe((element) => {
+    if (element) {
+      console.log(element);
+      this.visibleInscripcion = false;
+      this.visible = true; 
+      this.router.navigate(['mis-reservas']).then(() => {
+        window.scrollTo(0, 0);
+        document.body.style.overflow = 'auto'; // Restablecer el overflow
+        console.log('Scroll position:', window.scrollY);
+        console.log('Body overflow:', window.getComputedStyle(document.body).overflow);
+      });
+    } else {
+      console.log('Reservation failed');
+    }
+  });
+}
+
+
+
+
+reservarold(){
   const reserva: any = {
     date: this.reservaSeleccionada.fecha,
     nombre: this.userActive,
@@ -111,25 +174,33 @@ reservar(){
     //nombre: this.registrarReserva.get('nombre')?.value,
   };
   this.reservasService.addReserva(reserva).subscribe((element) => {
+    console.log(element);
+    this.router.navigate(['home']).then(() => {
+      // Desplazarse a la parte superior de la página después de la navegación
+      window.scrollTo(0, 0);
+    });
+    
     // if (element.status === 201) {
-    //   this.showMessage = true;
-    //   this.messages = [
-    //     // { severity: 'info', detail: 'Info Message' },
-    //     { severity: 'success', detail: 'Reserva efectuada con exito' },
-    //   ];
+    //   console.log('ok');
+    //   //this.showMessage = true;
+    //   // this.messages = [
+    //   //   // { severity: 'info', detail: 'Info Message' },
+    //   //   { severity: 'success', detail: 'Reserva efectuada con exito' },
+    //   // ];
     // }
-    if (element.status === 200) {
-      console.log('ok');
+    // if (element.status === 200) {
+    //   console.log('ok');
       
-      // this.showMessage = true;
-      // this.messages = [
-      //   // { severity: 'info', detail: 'Info Message' },
-      //   { severity: 'info', detail: 'Has sido añadido a la reserva' },
-      // ];
-    }
-    setTimeout(() => {
-       this.router.navigate(['home'])
-    }, 1000);
+    //   // this.showMessage = true;
+    //   // this.messages = [
+    //   //   // { severity: 'info', detail: 'Info Message' },
+    //   //   { severity: 'info', detail: 'Has sido añadido a la reserva' },
+    //   // ];
+    // }
+    //this.router.navigate(['home'])
+    // setTimeout(() => {
+     
+    // }, 1000);
   });
   
 }
