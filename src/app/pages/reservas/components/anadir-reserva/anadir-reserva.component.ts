@@ -218,12 +218,8 @@ export class AnadirReservaComponent implements OnInit {
    */
   horasDisponiblesPista(pistaBuscada: string): any | undefined {
     const pistaBuscadaNormalized = pistaBuscada.trim().toLowerCase();
-    console.log('Buscando:', pistaBuscadaNormalized);
     for (const pista of this.horasDisponibles) {
-      console.log(pista);
-
       const pistaNormalized = pista.id.trim().toLowerCase();
-      console.log('Comparando con:', pistaNormalized);
       if (pistaNormalized === pistaBuscadaNormalized) {
         return pista.horas;
       }
