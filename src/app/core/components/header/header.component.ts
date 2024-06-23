@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -44,14 +45,11 @@ export class HeaderComponent implements OnInit {
       this.activeUser = user;    
       console.log(this.activeUser.data.user);
       this.lettersAvatar(this.activeUser.data.user)
-      
-      
-      // if (this.activeUser) {
-      //   this.activeUserName = this.activeUser.data.user;
-      //   this.lettersAvatar(this.activeUserName);
-      //   this.obtenerPedidos();
-      // }
     });
+    this.selectOption('home') ;
+    setTimeout(() => {
+      this.navbarService.collapseNavbar();
+    }, 0);
     
   }
 

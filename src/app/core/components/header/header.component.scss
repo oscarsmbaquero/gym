@@ -14,6 +14,7 @@ span {
 
   .fondo{
     background-color: #0e0d0c;
+    padding: 15px;
   }
   
   /* @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;700&display=swap'); */
@@ -106,7 +107,7 @@ span {
     }
   
     .selected {
-      border-bottom: 3px solid rgb(0, 60, 255); /* O cualquier estilo de subrayado deseado */
+      border-bottom: 3px solid rgb(231, 18, 18); 
     }
   
     .navbar-right {
@@ -222,7 +223,7 @@ span {
   
   @media screen and (max-width: 768px) {
     .selected {
-      border-bottom: 3px solid rgb(255, 0, 123); /* O cualquier estilo de subrayado deseado */
+      border-bottom: 3px solid rgb(231, 18, 18); /* O cualquier estilo de subrayado deseado */
       width: 40px;
       font-weight: bold;
     }
