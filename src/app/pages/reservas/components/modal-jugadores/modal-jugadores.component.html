@@ -61,14 +61,14 @@
       </div>
   </p-dialog>
   <p-dialog 
-    header="Reserva de plaza" 
+  [header]="userName" 
     [modal]="true"
     [(visible)]="visibleInscripcion" 
     [style]="{ width: '50rem' }" 
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
     [maximizable]="true">
         <p>
-            Te vas a registrar en la hora {{reservaSeleccionada.time}}
+            Vas a reservar plaza en la {{reservaSeleccionada.nombre}}, el dia {{fechaReserva}} en horario {{reservaSeleccionada.time}}
         </p>
         <div class="flex justify-content-center">
           <!-- <p-button label="Cancel" severity="secondary" (click)="visible = false" /> -->

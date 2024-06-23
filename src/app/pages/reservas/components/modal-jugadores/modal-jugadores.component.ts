@@ -34,6 +34,8 @@ export class ModalJugadoresComponent implements OnInit{
   jugadores : any;
   userActive = '';
   userMail = '';
+  userName = '';
+  fechaReserva = '';
   visibleInscripcion = false;
 
   slots = Array(4).fill(null);
@@ -57,6 +59,7 @@ export class ModalJugadoresComponent implements OnInit{
     this.horaPista = this.reservaSeleccionada.time;
     this.nombrePista = this.reservaSeleccionada.nombre;
     this.jugadores = this.reservaSeleccionada.usuarios_apuntados;
+    this.fechaReserva = this.reservaSeleccionada.fecha;
     if(this.jugadores){
       this.agregarIniciales(this.jugadores);
     }
@@ -65,6 +68,7 @@ export class ModalJugadoresComponent implements OnInit{
     if (storedData) {
       const parsedData = JSON.parse(storedData);
       this.userActive = parsedData.data?.id;  
+      this.userName = parsedData.data?.user;
       this.userMail = parsedData.data?.mail;    
     }
     
