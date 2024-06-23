@@ -82,7 +82,6 @@ export class UsersService {
   }
 
   getOrderClient(userId: string): Observable<any> {
-    //return this.httpClient.get(`URL_DE_TU_API/pedidos/${userId}`);
     return this.httpClient.get<any[]>(`${environment.apiUrl}users/${userId}`);
   }
 
@@ -94,7 +93,6 @@ export class UsersService {
     return this.httpClient.get<IUser[]>(`${environment.apiUrl}users/${id}`);
   }
   updatedUser(id: string, userData: any): Observable<IUser[]> {
-    console.log(id,userData,98)
     const url = `${environment.apiUrl}users/modify/${id}`;
     return this.httpClient.put<IUser[]>(url, userData);
   }
@@ -104,14 +102,11 @@ export class UsersService {
   }
 
   resetPassword(email: string): Observable<any> {
-    console.log(email);
     const url = `${environment.apiUrl}users/reset-password/${email}`;
     return this.httpClient.post<IUser[]>(url, email);
   }
 
-  changePassword(id: string, nuevaContrasena: string): Observable<any> {
-    //console.log(id, nuevaContrasena );
-    
+  changePassword(id: string, nuevaContrasena: string): Observable<any> {    
     return this.httpClient.post(`${environment.apiUrl}users/changePassword/${id}`,{ nuevaContrasena });
   }
 }

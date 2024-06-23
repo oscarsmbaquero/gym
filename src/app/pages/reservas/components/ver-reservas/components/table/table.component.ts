@@ -119,11 +119,7 @@ export class TableComponent implements OnInit, OnChanges {
   obtenerReservasByDate(date: string) {
     this.reservasService.getReservasByDate(date).subscribe(
       (response: any) => {
-        this.reservasByDate = response;
-        //this.hasData = this.reservasByDate && this.reservasByDate.length > 0;
-        //this.isLoading = false;
-        console.log(this.reservasByDate,'reservasByDate');
-        
+        this.reservasByDate = response;        
       },
       (error: any) => {
         console.error('Error al obtener los datos', error);
@@ -138,17 +134,13 @@ export class TableComponent implements OnInit, OnChanges {
    * @param nombre 
    */
   reservar(element: any, nombre: string, pista: any){
-    console.log('Entro', element, nombre,pista);
     this.reservaSeleccionada = {...element,nombre };    
   }
   /**
    * 
    */
   checkReservations(): void {
-    if ( this.instalaciones && this.instalaciones.length && this.reservasByDate) {
-      console.log('Instalaciones antes de actualizar:', this.instalaciones);
-      console.log('Reservas por fecha:', this.reservasByDate);
-      
+    if ( this.instalaciones && this.instalaciones.length && this.reservasByDate) {      
       // Añadir el campo "usuarios_restantes" a cada reserva
       this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number }) => {
         reserva.usuarios_restantes = reserva.n_usuario - reserva.usuarios_apuntados;
@@ -192,14 +184,7 @@ export class TableComponent implements OnInit, OnChanges {
           };
         });
       });
-      // console.log(this.reservaSeleccionada);
-      
-      // this.reservaSeleccionada = [...this.instalaciones]
-       console.log(this.instalaciones,201);
-      
-      //this.setinstalacionesService.setUsuariosReserva(this.instalaciones)
       this.isLoading = false;
-      console.log('Instalaciones después de actualizar:', this.instalaciones);
     }
   }
   

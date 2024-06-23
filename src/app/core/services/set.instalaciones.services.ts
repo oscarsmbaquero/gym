@@ -21,7 +21,6 @@ export class SetinstalacionesService {
 
   // Método para setear las instalaciones con la reserva y usuario
   setUsuariosReserva(instalaciones: any[]): void {
-    console.log(instalaciones);    
     this.instalacionesSubject.next(instalaciones);
   }
 

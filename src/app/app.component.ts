@@ -32,17 +32,10 @@ export class AppComponent implements OnInit {
    
   }
 
-  ngOnInit(): void {
-    console.log('hole');
-    
+  ngOnInit(): void {    
     this.abrirModalSubscription = this.eventService.abrirModal$.subscribe(() => {
-      console.log('abrir');
       this.abrirModal();
     });
-    // this.abrirModalSubscription = this.eventService.abrirModal$.subscribe(() => {
-    //   console.log('abrir');
-    //   this.abrirModal();
-    // });
   }
 
   scrollToTop() {

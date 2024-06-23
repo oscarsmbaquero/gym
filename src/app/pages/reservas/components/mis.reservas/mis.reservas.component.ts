@@ -29,7 +29,6 @@ export class MisReservasComponent implements OnInit {
 
   getMisReservas() {
     this.reservasService.getMisReservas(this.id).subscribe((element) => {
-      console.log(element);
       const hoy = new Date();
       const dosDiasDespues = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() + 2);
   

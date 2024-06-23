@@ -53,9 +53,7 @@ export class ModalJugadoresComponent implements OnInit{
   }
 
 
-  ngOnInit(): void {
-    console.log(this.reservaSeleccionada);
-    
+  ngOnInit(): void {    
     this.horaPista = this.reservaSeleccionada.time;
     this.nombrePista = this.reservaSeleccionada.nombre;
     this.jugadores = this.reservaSeleccionada.usuarios_apuntados;
@@ -72,9 +70,7 @@ export class ModalJugadoresComponent implements OnInit{
     
   }
 
-  onCloseModal() {
-    console.log('Cierro Modal');
-    
+  onCloseModal() {    
     //this.eventService.closeModal();
     this.visible = false;
     this.close.emit();
@@ -91,40 +87,9 @@ export class ModalJugadoresComponent implements OnInit{
 }
 
 handleClick(){
-
-  console.log(this.reservaSeleccionada);
   this.visibleInscripcion = true;  
   // this.visible = false;
 }
-
-// reservar() {
-//   const reserva: any = {
-//     date: this.reservaSeleccionada.fecha,
-//     nombre: this.userActive,
-//     mail: this.userMail,
-//     tipo_reserva: this.reservaSeleccionada.tipo,
-//     numero_pista: this.reservaSeleccionada.nombre,
-//     hora: this.reservaSeleccionada.time,
-//     idPista: this.reservaSeleccionada.idPista,
-//   };
-
-//   this.reservasService.addReserva(reserva).pipe(
-//     catchError(error => {
-//       console.error('Error during reservation:', error);
-//       // Manejo del error, puedes mostrar un mensaje al usuario
-//       return of(null); // Retorna un observable vacío para continuar la cadena
-//     })
-//   ).subscribe((element) => {
-//     if (element) {
-//       console.log(element);
-//       this.router.navigate(['reservar']).then(() => {
-//         window.scrollTo(0, 0);
-//       });
-//     } else {
-//       console.log('Reservation failed');
-//     }
-//   });
-// }
 reservar() {
   const reserva: any = {
     date: this.reservaSeleccionada.fecha,
@@ -138,23 +103,17 @@ reservar() {
 
   this.reservasService.addReserva(reserva).pipe(
     catchError(error => {
-      console.error('Error during reservation:', error);
       // Manejo del error, puedes mostrar un mensaje al usuario
       return of(null); // Retorna un observable vacío para continuar la cadena
     })
   ).subscribe((element) => {
     if (element) {
-      console.log(element);
       this.visibleInscripcion = false;
       this.visible = true; 
       this.router.navigate(['mis-reservas']).then(() => {
         window.scrollTo(0, 0);
         document.body.style.overflow = 'auto'; // Restablecer el overflow
-        console.log('Scroll position:', window.scrollY);
-        console.log('Body overflow:', window.getComputedStyle(document.body).overflow);
       });
-    } else {
-      console.log('Reservation failed');
     }
   });
 }

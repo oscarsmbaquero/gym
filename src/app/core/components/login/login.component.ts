@@ -59,33 +59,15 @@ export class LoginComponent {
       };
       this.usersService.login(user).subscribe(
         (response) => {
-          //this.loading = false;
-          console.log(response,'response');
-          // this.snackBar.open(
-          //   'Usurio Logueado Correctamente',
-          //   'Cerrar',
-          //   {
-          //     duration: 3000,
-          //   }
-          // );
+       
           this.router.navigate(['reservas']);
         },
         (error) => {
           //this.loading = false;
-          console.error('Error al enviar los datos', error);
           if(error.status !== 200){
-            
-          //     this.snackBar.open(
-          //   'Usuario o contraseña incorrectas',
-          //   'Cerrar',
-          //   {
-          //     duration: 3000,
-          //   }
-          // );
           alert('mal login')
           this.router.navigate(['login']);
           }
-          console.log(error.status,'status');
         }
       );
     }
