@@ -14,11 +14,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { InstalacionesService } from '../../../../core/services/instalaciones-services';
 import { ReservasService } from '../../../../core/services/reservas.service';
 import { UsersService } from '../../../../core/services/users.service';
-
 //PRIMENG
-import { CalendarModule } from 'primeng/calendar';
-import { InputTextModule } from 'primeng/inputtext';
-import { FloatLabelModule } from 'primeng/floatlabel';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 //ANGULAR MATERIAL
