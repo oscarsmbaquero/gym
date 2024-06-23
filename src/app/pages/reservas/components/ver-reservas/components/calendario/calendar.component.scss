@@ -19,7 +19,6 @@
 @media (max-width: 768px) {
     .calendar{
       flex-direction: column;
-      background-color: red;
       :host ::ng-deep .p-datepicker {  transform: scale(0.5);}
     }
     }
