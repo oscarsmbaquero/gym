@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 @Component({
   selector: 'app-anadir-reserva',
@@ -42,7 +43,11 @@ import { MatTabsModule } from '@angular/material/tabs';
     CommonModule,
     MessagesModule,
   ],
-  providers: [DatePipe, provideNativeDateAdapter()],
+  providers: [
+    DatePipe, 
+    provideNativeDateAdapter(),
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+  ],
   templateUrl: './anadir-reserva.component.html',
   styleUrl: './anadir-reserva.component.scss',
 })
@@ -121,9 +126,10 @@ export class AnadirReservaComponent implements OnInit {
       this.userMail = this.activeUser.data.mail;
       this.userId = this.activeUser.data.id;
 
-      const fechaSeleccionada = this.convertStringToDate(this.datosSeleccioandosTable.fecha);
+      
       //emitimos los valores para pintar los valores de mail y nombre
       if (this.datosSeleccioandosTable) {
+        const fechaSeleccionada = this.convertStringToDate(this.datosSeleccioandosTable.fecha);
         console.log('datos',this.datosSeleccioandosTable.fecha);
         
         this.registrarReserva.patchValue({
