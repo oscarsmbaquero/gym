@@ -46,7 +46,7 @@
                       'reserved-partial': pista.horas[i]?.reservedPartial,
                      
                     }"
-                     (click)="handleClick(pista.horas[i], pista.nombre, pista)"
+                     (click)="handleClick(pista.horas[i], pista.nombre, pista, pista.fecha)"
                 
                 >
                   {{ pista.horas[i]?.time }}

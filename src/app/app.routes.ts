@@ -12,8 +12,8 @@ export const routes: Routes = [
     {path: 'mis-reservas', component:  MisReservasComponent, canActivate: [AuthGuard]},
     {path: 'reservar', component:  AnadirReservaComponent, canActivate: [AuthGuard]},
     {path: 'inicio', component:  HomeComponent},
-    {path: 'login', component:  LoginComponent},
+    // {path: 'login', component:  LoginComponent},
     // {path: '', redirectTo:'/login', pathMatch:'full'},
-    {path: '**', redirectTo:'inicio', pathMatch:'full'}
+    {path: '**', redirectTo:'', pathMatch:'full'}
 
 ];

@@ -6,6 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 //SERVICIOS
 import { ReservasService } from '../../../../../../core/services/reservas.service';
 import { InstalacionesService } from '../../../../../../core/services/instalaciones-services';
@@ -64,7 +65,8 @@ export class TableComponent implements OnInit, OnChanges {
     private reservasService: ReservasService,
     private instalacionesService :InstalacionesService,
     private eventService: EventService,
-    private setinstalacionesService: SetinstalacionesService
+    private setinstalacionesService: SetinstalacionesService,
+    private router: Router
   ) {
 
     
@@ -208,10 +210,30 @@ export class TableComponent implements OnInit, OnChanges {
     
   }
 
-  handleClick(hora: any, nombre: string, pista: any): void {
+  //TODO CAMBIAR FUNCION PARA RECIBIR PISTA Y NO TANTOS ATRIBUTOS
+  handleClick(hora: any, nombre: string, pista: any,fecha:any): void {
+    console.log(hora);
+    console.log(nombre);
+    console.log(pista);
+    console.log(fecha);
+    console.log(this.dataSelected,'dataSelected');
+    
+    
+    const reservaHoraDia ={
+      hora: hora,
+      nombre: nombre,
+      pista: pista,
+      fecha: this.dataSelected
+    }
+    
+    
+    
     if (hora?.reservedPartial) {
       this.openModal();
       this.reservar(hora, nombre, pista);
+    }else{
+      this.reservasService.setReservaForm(reservaHoraDia);
+      this.router.navigate(['reservar']);
     }
   }
 }

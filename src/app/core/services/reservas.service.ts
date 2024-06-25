@@ -1,9 +1,8 @@
 //import { any } from '../models/product.models';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 //import { any } from '../models/ventas.models';
@@ -12,6 +11,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ReservasService {
+
+  private reservaFormSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public reservaForm$: Observable<any> = this.reservaFormSubject.asObservable();
   
   constructor(private httpClient: HttpClient) {}
   /**
@@ -40,5 +42,23 @@ export class ReservasService {
       `${environment.apiUrl}reservas/addReserva`,
       payload
     );
+  }
+
+  /**
+   * Setear datos para el formulario de reserva
+   * @param reserva Datos de la reserva a setear
+   */
+  public setReservaForm(reserva: any): void {
+    console.log(reserva, 'entro');
+    
+    this.reservaFormSubject.next(reserva);
+  }
+
+  /**
+   * Obtener los datos para el formulario reservar, si el user ha seleccionado agregar en la tabla
+   * @returns Observable con los datos de la reserva
+   */
+  public getReservaForm(): Observable<any> {
+    return this.reservaForm$;
   }
 }

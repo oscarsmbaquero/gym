@@ -64,6 +64,8 @@ export class AnadirReservaComponent implements OnInit {
   private readonly _currentYear = new Date().getFullYear();
   readonly minDate = new Date();
   minDateValue : any;
+  //TODO TIPAR
+  datosSeleccioandosTable: any;
 
   reservasDefecto = [
     '09:30-11:00',
@@ -112,21 +114,43 @@ export class AnadirReservaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getReservaSeleccioada();
     this.usersService.getCurrentUser().subscribe((user) => {
       this.activeUser = user;
       this.userName = this.activeUser.data.user;
       this.userMail = this.activeUser.data.mail;
       this.userId = this.activeUser.data.id;
       //emitimos los valores para pintar los valores de mail y nombre
-      this.registrarReserva.patchValue({
-        nombre: this.userName,
-        mail: this.userMail,
-      });
+      if(this.datosSeleccioandosTable){
+        this.registrarReserva.patchValue({
+          nombre: this.userName,
+          mail: this.userMail,
+          tipo_reserva: this.datosSeleccioandosTable.pista.tipo,
+          n_pista: this.datosSeleccioandosTable.pista.nombre,
+          hora: this.datosSeleccioandosTable.hora.time
+        });  
+      }else{
+        this.registrarReserva.patchValue({
+          nombre: this.userName,
+          mail: this.userMail,
+        });
+      }
+      
     });
     this.minDateValue = new Date();
     // this.messages = [
     //   { severity: 'info', detail: 'Info Message' },
     //   { severity: 'success', detail: 'Success Message' },]
+  }
+
+  getReservaSeleccioada(){
+    this.reservasService.getReservaForm().subscribe((element)=>{
+      console.log(element);
+      this.datosSeleccioandosTable = element;
+      console.log(this.datosSeleccioandosTable,'140');
+      
+      
+    })
   }
 
   /**
