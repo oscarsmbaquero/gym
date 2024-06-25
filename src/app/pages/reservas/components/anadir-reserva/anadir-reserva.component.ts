@@ -63,7 +63,7 @@ export class AnadirReservaComponent implements OnInit {
   showMessage = false;
   private readonly _currentYear = new Date().getFullYear();
   readonly minDate = new Date();
-  minDateValue : any;
+  minDateValue: any;
   //TODO TIPAR
   datosSeleccioandosTable: any;
 
@@ -84,7 +84,7 @@ export class AnadirReservaComponent implements OnInit {
     private reservasService: ReservasService,
     private datePipe: DatePipe,
     private usersService: UsersService,
-    private router: Router,
+    private router: Router
   ) {
     this.registrarReserva = this.formBuilder.group({
       nombre: ['', [Validators.required]],
@@ -93,7 +93,7 @@ export class AnadirReservaComponent implements OnInit {
       tipo_reserva: ['', [Validators.required]],
       n_pista: [{ value: '', disabled: true }],
       comentario: [''],
-      hora: [{value :'',  disabled: true}, [Validators.required]],
+      hora: [{ value: '', disabled: true }, [Validators.required]],
     });
     //suscribimos a los campos del campo fecha
     this.registrarReserva.get('date')?.valueChanges.subscribe((value) => {
@@ -120,22 +120,26 @@ export class AnadirReservaComponent implements OnInit {
       this.userName = this.activeUser.data.user;
       this.userMail = this.activeUser.data.mail;
       this.userId = this.activeUser.data.id;
+
+      const fechaSeleccionada = this.convertStringToDate(this.datosSeleccioandosTable.fecha);
       //emitimos los valores para pintar los valores de mail y nombre
-      if(this.datosSeleccioandosTable){
+      if (this.datosSeleccioandosTable) {
+        console.log('datos',this.datosSeleccioandosTable.fecha);
+        
         this.registrarReserva.patchValue({
+          date: fechaSeleccionada,
           nombre: this.userName,
           mail: this.userMail,
           tipo_reserva: this.datosSeleccioandosTable.pista.tipo,
           n_pista: this.datosSeleccioandosTable.pista.nombre,
-          hora: this.datosSeleccioandosTable.hora.time
-        });  
-      }else{
+          hora: this.datosSeleccioandosTable.hora.time,
+        });
+      } else {
         this.registrarReserva.patchValue({
           nombre: this.userName,
           mail: this.userMail,
         });
       }
-      
     });
     this.minDateValue = new Date();
     // this.messages = [
@@ -143,25 +147,35 @@ export class AnadirReservaComponent implements OnInit {
     //   { severity: 'success', detail: 'Success Message' },]
   }
 
-  getReservaSeleccioada(){
-    this.reservasService.getReservaForm().subscribe((element)=>{
+  getReservaSeleccioada() {
+    this.reservasService.getReservaForm().subscribe((element) => {
       console.log(element);
       this.datosSeleccioandosTable = element;
-      console.log(this.datosSeleccioandosTable,'140');
-      
-      
-    })
+      console.log(this.datosSeleccioandosTable, '140');
+    });
+  }
+/**
+ * Convertir el string de fecha en date
+ * @param dateString 
+ * @returns 
+ */
+  convertStringToDate(dateString: string): Date | null {
+    const [day, month, year] = dateString.split('.').map(part => parseInt(part, 10));
+    if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+      return new Date(year, month - 1, day);
+    }
+    return null;
   }
 
   /**
    * Obtiene las reservas por fecha
    * @param fecha
    */
-  reservasByDate(fecha: string) {    
+  reservasByDate(fecha: string) {
     fecha = this.convertDate(fecha);
     this.reservasService.getReservasByDate(fecha).subscribe((fecha) => {
       this.reservasPorDia = fecha;
-      this.horasDisponibles = this.obtenerHorasDisponibles(this.reservasPorDia);      
+      this.horasDisponibles = this.obtenerHorasDisponibles(this.reservasPorDia);
     });
   }
 
@@ -279,7 +293,7 @@ export class AnadirReservaComponent implements OnInit {
           ];
         }
         setTimeout(() => {
-          this.router.navigate(['home'])
+          this.router.navigate(['home']);
         }, 1000);
       });
     }
@@ -295,35 +309,35 @@ export class AnadirReservaComponent implements OnInit {
     return transformedDate ? transformedDate : ''; // Maneja el caso en que transformedDate es null
   }
 
-   filtrarHorasAnteriores(arrayHoras: any) {
+  filtrarHorasAnteriores(arrayHoras: any) {
     // Obtener la hora actual
     let horaActual = new Date();
 
     // Filtrar los rangos de horas
     let horasFiltradas = arrayHoras.filter((rango: string) => {
-        // Dividir el rango en inicio y fin
-        let partes = rango.split('-');
-        let horaInicio = partes[0].trim();
-        let horaFin = partes[1].trim();
+      // Dividir el rango en inicio y fin
+      let partes = rango.split('-');
+      let horaInicio = partes[0].trim();
+      let horaFin = partes[1].trim();
 
-        // Convertir las horas a objetos Date
-        let horaInicioDate = new Date();
-        let horaFinDate = new Date();
+      // Convertir las horas a objetos Date
+      let horaInicioDate = new Date();
+      let horaFinDate = new Date();
 
-        // Establecer horas y minutos para cada objeto Date
-        horaInicioDate.setHours(parseInt(horaInicio.split(':')[0]));
-        horaInicioDate.setMinutes(parseInt(horaInicio.split(':')[1]));
+      // Establecer horas y minutos para cada objeto Date
+      horaInicioDate.setHours(parseInt(horaInicio.split(':')[0]));
+      horaInicioDate.setMinutes(parseInt(horaInicio.split(':')[1]));
 
-        horaFinDate.setHours(parseInt(horaFin.split(':')[0]));
-        horaFinDate.setMinutes(parseInt(horaFin.split(':')[1]));
+      horaFinDate.setHours(parseInt(horaFin.split(':')[0]));
+      horaFinDate.setMinutes(parseInt(horaFin.split(':')[1]));
 
-        // Comparar con la hora actual
-        return horaFinDate > horaActual;
+      // Comparar con la hora actual
+      return horaFinDate > horaActual;
     });
 
     // Formatear las horas filtradas de nuevo a strings
     let horasFiltradasStrings = horasFiltradas.map((rango: any) => rango);
 
     return horasFiltradasStrings;
-}
+  }
 }
