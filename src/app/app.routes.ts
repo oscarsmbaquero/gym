@@ -5,15 +5,17 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { VerReservasComponent } from './pages/reservas/components/ver-reservas/ver-reservas.component';
 import { MisReservasComponent } from './pages/reservas/components/mis.reservas/mis.reservas.component';
 import { AnadirReservaComponent } from './pages/reservas/components/anadir-reserva/anadir-reserva.component';
+import { RegisterComponent } from './core/components/register/register.component';
 
 export const routes: Routes = [
-    {path: '', component:  LoginComponent},
+    {path: '', component:  HomeComponent},
+    {path: 'login', component:  LoginComponent},
+    {path: 'register', component:  RegisterComponent},
     {path: 'calendario', component:  VerReservasComponent, canActivate: [AuthGuard]},
     {path: 'mis-reservas', component:  MisReservasComponent, canActivate: [AuthGuard]},
     {path: 'reservar', component:  AnadirReservaComponent, canActivate: [AuthGuard]},
-    {path: 'inicio', component:  HomeComponent},
     // {path: 'login', component:  LoginComponent},
-    // {path: '', redirectTo:'/login', pathMatch:'full'},
+    {path: '', redirectTo:'', pathMatch:'full'},
     {path: '**', redirectTo:'', pathMatch:'full'}
 
 ];

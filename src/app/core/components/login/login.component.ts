@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   FormBuilder,
   FormControl,
@@ -9,7 +10,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UsersService } from '../../services/users.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 //ANGULAR MATERIAL
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,6 +32,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatDatepickerModule,
     MatButtonModule,
     CommonModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -49,27 +51,27 @@ export class LoginComponent {
     });
   }
 
-  public onSubmit(): void {
-    // Si el formulario es valido
+  onSubmit(): void {
+    // Si el formulario es válido
     if (this.loginUser.valid) {
-      //TODO TIPAR
       const user: any = {
         mail: this.loginUser.get('mail')?.value,
         password: this.loginUser.get('password')?.value,
       };
       this.usersService.login(user).subscribe(
         (response) => {
-       
-          this.router.navigate(['reservas']);
+          // Redirige a 'home' en caso de éxito
+          this.router.navigate(['']);
         },
         (error) => {
-          //this.loading = false;
-          if(error.status !== 200){
-          alert('mal login')
-          this.router.navigate(['login']);
+          // Si el status de la respuesta no es 200, muestra un mensaje de error
+          if (error.status !== 200) {
+            alert('Mal login');
+            this.router.navigate(['login']);
           }
         }
       );
     }
   }
+  
 }
