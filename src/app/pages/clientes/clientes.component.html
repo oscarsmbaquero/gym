@@ -1,0 +1,28 @@
+
+<div style="padding: 20px; border-radius: 12px; background-color: white" >
+    <p-table 
+            [value]="clientes" 
+            [tableStyle]="{'min-width': '35rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="color:cadetblue">Nombre</th>
+                <th style="color:cadetblue">Dirección</th>
+                <th style="color:cadetblue">Localidad</th>
+                <!-- <th>Quantity</th> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-client>
+            <tr>
+            <td>
+                <span>{{ client.user }}</span>
+              </td>
+              <td>
+                <span>{{ client.address }}</span>
+              </td>
+              <td>
+                <span>{{ client.localidad }}</span>
+              </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>

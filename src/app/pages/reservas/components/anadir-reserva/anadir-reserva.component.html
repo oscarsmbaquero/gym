@@ -59,9 +59,14 @@
                 <mat-option value="gym">Gymnasio</mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <pre>{{ registrarReserva.value | json }}</pre>
+            <mat-form-field *ngIf="datosSeleccioandosTable">
+              <mat-label>Seleccione Pistas</mat-label>
+              <input matInput formControlName="pista" readonly/>
+            </mat-form-field>
+            <mat-form-field *ngIf="!datosSeleccioandosTable">
               <mat-label>Selecciona Pista</mat-label>
-              <mat-select matInput formControlName="n_pista" [disabled]="true">
+              <mat-select matInput formControlName="pista" [disabled]="true">
                 <mat-option *ngFor="let pista of pistasDisponibles" [value]="pista._id">
                   {{ pista.nombre }}
                 </mat-option>

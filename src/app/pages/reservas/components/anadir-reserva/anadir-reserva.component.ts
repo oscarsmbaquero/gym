@@ -71,6 +71,7 @@ export class AnadirReservaComponent implements OnInit {
   minDateValue: any;
   //TODO TIPAR
   datosSeleccioandosTable: any;
+  pistasDisponibleSeleccionada : any;
 
   reservasDefecto = [
     '09:30-11:00',
@@ -96,7 +97,7 @@ export class AnadirReservaComponent implements OnInit {
       date: ['', [Validators.required]],
       mail: ['', [Validators.required]],
       tipo_reserva: ['', [Validators.required]],
-      n_pista: [{ value: '', disabled: true }],
+      pista: [{ value: '', disabled: true }],
       comentario: [''],
       hora: [{ value: '', disabled: true }, [Validators.required]],
     });
@@ -112,7 +113,7 @@ export class AnadirReservaComponent implements OnInit {
         //this.verHorasDisponiblesReservas();
       });
     //suscribimos a los campos del n de pista
-    this.registrarReserva.get('n_pista')?.valueChanges.subscribe((value) => {
+    this.registrarReserva.get('pista')?.valueChanges.subscribe((value) => {
       this.horasDisponiblesPorPista = this.horasDisponiblesPista(value);
       this.registrarReserva.get('hora')?.enable();
     });
@@ -128,29 +129,39 @@ export class AnadirReservaComponent implements OnInit {
 
       
       //emitimos los valores para pintar los valores de mail y nombre
-      if (this.datosSeleccioandosTable) {
-        const fechaSeleccionada = this.convertStringToDate(this.datosSeleccioandosTable.fecha);
-        console.log('datos',this.datosSeleccioandosTable.fecha);
-        
-        this.registrarReserva.patchValue({
-          date: fechaSeleccionada,
-          nombre: this.userName,
-          mail: this.userMail,
-          tipo_reserva: this.datosSeleccioandosTable.pista.tipo,
-          n_pista: this.datosSeleccioandosTable.pista.nombre,
-          hora: this.datosSeleccioandosTable.hora.time,
-        });
-      } else {
-        this.registrarReserva.patchValue({
-          nombre: this.userName,
-          mail: this.userMail,
-        });
-      }
+      
     });
+    this.initForm();
     this.minDateValue = new Date();
     // this.messages = [
     //   { severity: 'info', detail: 'Info Message' },
     //   { severity: 'success', detail: 'Success Message' },]
+  }
+
+  initForm(){
+    if (this.datosSeleccioandosTable) {
+      const fechaSeleccionada = this.convertStringToDate(this.datosSeleccioandosTable.fecha);
+      const nombrePista = this.datosSeleccioandosTable.pista.nombre.trim();      
+                 
+      this.registrarReserva.patchValue({
+        date: fechaSeleccionada,
+        nombre: this.userName,
+        mail: this.userMail,
+        //mail: this.datosSeleccioandosTable.pista.nombre,
+        tipo_reserva: this.datosSeleccioandosTable.pista.tipo,
+        pista: this.datosSeleccioandosTable.pista.nombre,
+        hora: this.datosSeleccioandosTable.hora.time,
+      });
+      console.log(this.registrarReserva.value,'reservaPista');
+      debugger;
+    } else {
+      this.registrarReserva.patchValue({
+        nombre: this.userName,
+        mail: this.userMail,
+        //nPista: this.datosSeleccioandosTable.pista.nombre
+      });
+      console.log(this.registrarReserva.value,'reserva');
+    }
   }
 
   getReservaSeleccioada() {
@@ -241,13 +252,15 @@ export class AnadirReservaComponent implements OnInit {
         .getInstalacionesByType(tipo_reserva)
         .subscribe((pistas) => {
           this.pistasDisponibles = pistas;
-          this.registrarReserva.get('n_pista')?.enable();
-          this.registrarReserva.get('n_pista')?.setValue('');
+          console.log(this.pistasDisponibles);
+          
+          this.registrarReserva.get('pista')?.enable();
+          this.registrarReserva.get('pista')?.setValue('');
         });
     } else {
       this.pistasDisponibles = [];
-      this.registrarReserva.get('n_pista')?.disable();
-      this.registrarReserva.get('n_pista')?.setValue('');
+      this.registrarReserva.get('pista')?.disable();
+      this.registrarReserva.get('pista')?.setValue('');
     }
   }
 
@@ -277,7 +290,7 @@ export class AnadirReservaComponent implements OnInit {
         nombre: this.userId,
         mail: this.registrarReserva.get('mail')?.value,
         tipo_reserva: this.registrarReserva.get('tipo_reserva')?.value,
-        n_pista: this.registrarReserva.get('n_pista')?.value,
+        pista: this.registrarReserva.get('pista')?.value,
         comentario: this.registrarReserva.get('comentario')?.value,
         hora: this.registrarReserva.get('hora')?.value,
       };
