@@ -104,9 +104,13 @@ export class TableComponent implements OnInit, OnChanges {
   /**
    * Funcion para obtener las instalaciones de pistas de tennis y paddle
    */
-  getInstalaciones(){    
+  getInstalaciones(){   
+    console.log(' entro instalaciones');
+     
     this.instalacionesService.getInstalaciones().subscribe((element) =>{
       this.instalaciones = element.filter(instalacion => instalacion.tipo === this.categoria);
+      console.log(this.instalaciones,'instalaciones');
+      
     });
     setTimeout(() => {
       this.checkReservations();   
@@ -121,7 +125,9 @@ export class TableComponent implements OnInit, OnChanges {
   obtenerReservasByDate(date: string) {
     this.reservasService.getReservasByDate(date).subscribe(
       (response: any) => {
-        this.reservasByDate = response;        
+        this.reservasByDate = response;     
+        console.log(this.reservasByDate, 'reservas');
+           
       },
       (error: any) => {
         console.error('Error al obtener los datos', error);

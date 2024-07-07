@@ -153,7 +153,7 @@ export class AnadirReservaComponent implements OnInit {
         hora: this.datosSeleccioandosTable.hora.time,
       });
       console.log(this.registrarReserva.value,'reservaPista');
-      debugger;
+
     } else {
       this.registrarReserva.patchValue({
         nombre: this.userName,
