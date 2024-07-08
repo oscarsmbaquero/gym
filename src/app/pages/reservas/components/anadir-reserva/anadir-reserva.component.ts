@@ -66,6 +66,7 @@ export class AnadirReservaComponent implements OnInit {
   userId: string = '';
   messages!: Message[];
   showMessage = false;
+  nombrePista = '';
   private readonly _currentYear = new Date().getFullYear();
   readonly minDate = new Date();
   minDateValue: any;
@@ -141,7 +142,9 @@ export class AnadirReservaComponent implements OnInit {
   initForm(){
     if (this.datosSeleccioandosTable) {
       const fechaSeleccionada = this.convertStringToDate(this.datosSeleccioandosTable.fecha);
-      const nombrePista = this.datosSeleccioandosTable.pista.nombre.trim();      
+      this.nombrePista = this.datosSeleccioandosTable.pista.nombre.trim();      
+      console.log(this.nombrePista,'nombrePista');
+      
                  
       this.registrarReserva.patchValue({
         date: fechaSeleccionada,
@@ -149,11 +152,11 @@ export class AnadirReservaComponent implements OnInit {
         mail: this.userMail,
         //mail: this.datosSeleccioandosTable.pista.nombre,
         tipo_reserva: this.datosSeleccioandosTable.pista.tipo,
-        pista: this.datosSeleccioandosTable.pista.nombre,
+        pista: this.nombrePista,
         hora: this.datosSeleccioandosTable.hora.time,
       });
-      console.log(this.registrarReserva.value,'reservaPista');
-
+      console.log(this.registrarReserva,'reservaPista');
+      debugger;
     } else {
       this.registrarReserva.patchValue({
         nombre: this.userName,

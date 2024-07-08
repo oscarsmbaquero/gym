@@ -60,12 +60,12 @@
               </mat-select>
             </mat-form-field>
             <!-- <pre>{{ registrarReserva.value | json }}</pre> -->
-            <!-- <mat-form-field *ngIf="datosSeleccioandosTable">
-              <mat-label>Seleccione Pistas</mat-label>
+            <mat-form-field *ngIf="datosSeleccioandosTable">
+              <mat-label readonly>{{nombrePista}}</mat-label>
               <input matInput formControlName="pista" readonly/>
-            </mat-form-field> -->
-            <!-- *ngIf="!datosSeleccioandosTable" -->
-            <mat-form-field>
+            </mat-form-field>
+            
+            <mat-form-field *ngIf="!datosSeleccioandosTable">
               <mat-label>Selecciona Pista *</mat-label>
               <mat-select matInput formControlName="pista" [disabled]="true">
                 <mat-option *ngFor="let pista of pistasDisponibles" [value]="pista._id">
