@@ -47,11 +47,15 @@
     background-color: white;
 }
 .center-service-line {
-    width: 3px;
+    width: 5px;
     height: 100%;
     left: 50%;
     top: 0;
     transform: translateX(-50%);
+}
+
+.prueba{
+    background-color: red;
 }
 .player {
     position: absolute;
