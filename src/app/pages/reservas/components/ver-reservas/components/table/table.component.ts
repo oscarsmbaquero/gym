@@ -32,7 +32,7 @@ interface Intervalo {
   styleUrl: './table.component.scss',
 })
 export class TableComponent implements OnInit, OnChanges {
-[x: string]: any;
+//[x: string]: any;
   @Input() dataSelected: string | undefined;
   @Input() categoria: string | undefined;
 
@@ -57,6 +57,7 @@ export class TableComponent implements OnInit, OnChanges {
   plazasLibres = 0;
   showModal = false;
   reservaSeleccionada : any;
+  previousDataSelected: any;
 
 
 
@@ -77,39 +78,45 @@ export class TableComponent implements OnInit, OnChanges {
     // window.scroll(0, 0);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    const change = changes['dataSelected'];
-    const changeCategoria = changes['categoria'];
+  // ngOnChanges(changes: SimpleChanges) {
+  //   console.log('cambio');
+    
+  //   const change = changes['dataSelected'];
+  //   const changeCategoria = changes['categoria'];
 
+  //   if (change || changeCategoria) {
+  //     this.isLoading = true;
+  //     console.log(`New value: ${change.currentValue}`);
+  //     this.dataSelected = `${change.currentValue}`;
+  //     console.log(this.dataSelected);
+  //     this.obtenerReservasByDate(this.dataSelected);
+  //     this.getInstalaciones();
+  //   }
+  // }
+  ngOnChanges(changes: SimpleChanges) {  
+    const change = changes['dataSelected'];
+    const changeCategoria = changes['categoria'];  
+    // Si hay cambios en dataSelected, actualiza previousDataSelected
+    if (change) {
+      this.previousDataSelected = change.currentValue;
+    }  
+    // Si hay cambios en dataSelected o en categoria, procede
     if (change || changeCategoria) {
-      this.isLoading = true;
-      console.log(`New value: ${change.currentValue}`);
-      this.dataSelected = `${change.currentValue}`;
-      console.log(this.dataSelected);
+      this.isLoading = true;  
+      // Usa el valor anterior de dataSelected si change no tiene cambios
+      const dataSelectedValue = change ? change.currentValue : this.previousDataSelected;  
+      this.dataSelected = `${dataSelectedValue}`;
       this.obtenerReservasByDate(this.dataSelected);
       this.getInstalaciones();
-      // this.checkReservations(); 
-      //this.getInstalaciones();
     }
-    // if(changeCategoria){
-    //   //this.obtenerReservasByDate(this.dataSelected);
-    //   this.getInstalaciones();
-    //   setTimeout(() => {
-    //     this.checkReservations();   
-    //   }, 5000);
-      
-    // }
   }
 
   /**
    * Funcion para obtener las instalaciones de pistas de tennis y paddle
    */
-  getInstalaciones(){   
-    console.log(' entro instalaciones');
-     
+  getInstalaciones(){
     this.instalacionesService.getInstalaciones().subscribe((element) =>{
       this.instalaciones = element.filter(instalacion => instalacion.tipo === this.categoria);
-      console.log(this.instalaciones,'instalaciones');
       
     });
     setTimeout(() => {
