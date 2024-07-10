@@ -28,6 +28,8 @@ export class HeaderComponent implements OnInit {
    */
    palabrasAvatar = '';
 
+   rol = '';
+
 
   constructor(
     private navbarService: NavbarService,
@@ -43,6 +45,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.getCurrentUser().subscribe((user) => {
       this.activeUser = user;
+      this.rol = this.activeUser.data.rol
       this.lettersAvatar(this.activeUser.data.user)
     });
     this.selectOption('home') ;

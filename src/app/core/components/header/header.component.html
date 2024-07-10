@@ -100,7 +100,7 @@
             <span>Mis Reservas</span>
           </a>
         </li>
-        <li
+        <li *ngIf="rol === 'admin'"
           class="nav-item"
           routerLinkActive="active"
           [class.selected]="(selectedOption$ | async) === 'clientes'"
