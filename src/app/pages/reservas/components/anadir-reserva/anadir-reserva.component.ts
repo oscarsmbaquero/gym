@@ -126,11 +126,7 @@ export class AnadirReservaComponent implements OnInit {
       this.activeUser = user;
       this.userName = this.activeUser.data.user;
       this.userMail = this.activeUser.data.mail;
-      this.userId = this.activeUser.data.id;
-
-      
-      //emitimos los valores para pintar los valores de mail y nombre
-      
+      this.userId = this.activeUser.data.id;      
     });
     this.initForm();
     this.minDateValue = new Date();
@@ -139,13 +135,21 @@ export class AnadirReservaComponent implements OnInit {
     //   { severity: 'success', detail: 'Success Message' },]
   }
 
+  /**
+   * Funcion para obtener las reservas seleccionadas
+   */
+  getReservaSeleccioada() {
+    this.reservasService.getReservaForm().subscribe((element) => {
+      console.log(element);
+      this.datosSeleccioandosTable = element;
+      console.log(this.datosSeleccioandosTable, 145);
+    });
+  }
+
   initForm(){
     if (this.datosSeleccioandosTable) {
       const fechaSeleccionada = this.convertStringToDate(this.datosSeleccioandosTable.fecha);
-      this.nombrePista = this.datosSeleccioandosTable.pista.nombre.trim();      
-      console.log(this.nombrePista,'nombrePista');
-      
-                 
+      this.nombrePista = this.datosSeleccioandosTable.pista.nombre.trim();
       this.registrarReserva.patchValue({
         date: fechaSeleccionada,
         nombre: this.userName,
@@ -155,24 +159,16 @@ export class AnadirReservaComponent implements OnInit {
         pista: this.nombrePista,
         hora: this.datosSeleccioandosTable.hora.time,
       });
-      console.log(this.registrarReserva,'reservaPista');
     } else {
       this.registrarReserva.patchValue({
         nombre: this.userName,
         mail: this.userMail,
         //nPista: this.datosSeleccioandosTable.pista.nombre
       });
-      console.log(this.registrarReserva.value,'reserva');
     }
   }
 
-  getReservaSeleccioada() {
-    this.reservasService.getReservaForm().subscribe((element) => {
-      console.log(element);
-      this.datosSeleccioandosTable = element;
-      console.log(this.datosSeleccioandosTable, '140');
-    });
-  }
+  
 /**
  * Convertir el string de fecha en date
  * @param dateString 
