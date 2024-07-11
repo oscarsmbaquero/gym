@@ -45,6 +45,7 @@
                   [ngClass]="{
                       'reserved': pista.horas[i]?.reserved,
                       'reserved-partial': pista.horas[i]?.reservedPartial,
+                      'reserved-anterior': pista.horas[i]?.horaAnterior,
                      
                     }"
                      (click)="handleClick(pista.horas[i], pista.nombre, pista, pista.fecha)"

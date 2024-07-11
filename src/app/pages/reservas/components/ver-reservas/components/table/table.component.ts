@@ -139,55 +139,118 @@ export class TableComponent implements OnInit, OnChanges {
   /**
    * 
    */
+  // checkReservations(): void {
+  //   if ( this.instalaciones && this.instalaciones.length && this.reservasByDate) {      
+  //     // Añadir el campo "usuarios_restantes" a cada reserva
+  //     this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number }) => {
+  //       reserva.usuarios_restantes = reserva.n_usuario - reserva.usuarios_apuntados;
+  //     });
+  //     //Añadir usuario a cada reserva//TODO-TIPAR USUARIO
+  //     // this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number, usuario: any }) => {
+  //     //   reserva.usuario;
+  //     // });
+  //     //Añadir el array de usuarios
+  //     this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number, usuario: any }) => {
+  //       reserva.usuario;
+  //     });
+  //     this.instalaciones.forEach(instalacion => {
+  //       instalacion.horas = instalacion.horas.map((hora: string) => {
+  //         // Encontrar la reserva correspondiente para la instalación y la hora
+  //         const reserva = this.reservasByDate.find((reserva: { instalacion: { _id: any; }; horaInicio: string; horaFin: string; }) =>
+  //           reserva.instalacion._id === instalacion._id &&
+  //           reserva.horaInicio + '-' + reserva.horaFin === hora
+  //         );                               
+  //         // Verificar si la hora está reservada
+  //         const isReserved = reserva && reserva.n_usuario === reserva.usuarios_apuntados;
+  //         const isReservedPartial = reserva && reserva.usuarios_apuntados > 0 && reserva.n_usuario !== reserva.usuarios_apuntados;
+  //         const plazasLibres = reserva ? reserva.usuarios_restantes : 4;
+  //         const usuariosReservado = reserva ? reserva.usuario : '';
+  //         const fechaReserva = reserva ? reserva.fecha : '';
+  //         const tipoPista = reserva ? reserva.instalacion.tipo : '';
+  //         const idPista = reserva ? reserva.instalacion._id : '';          
+  //         const omitirHorasAnteriores = this.obtenerHora(fechaReserva)
+  //         //Seteamos los usuarios para pintarlos en la modal
+  //         // this.setinstalacionesService.setUsuariosReserva(usuariosReservado)
+  //         // Crear un objeto con el string de la hora y el booleano reserved, incluyendo usuarios_restantes si existe
+  //         return {
+  //           time: hora,
+  //           reserved: !!isReserved,
+  //           reservedPartial: !!isReservedPartial,
+  //           usuarios_restantes: plazasLibres,
+  //           usuarios_apuntados: usuariosReservado,
+  //           fecha : fechaReserva,
+  //           tipo : tipoPista,
+  //           idPista : idPista,
+  //           horaAnterior: omitirHorasAnteriores,
+  //         };
+  //       });
+  //     });
+  //   }
+  //   console.log(this.instalaciones,'188');
+    
+  //   this.isLoading = false;
+  // }
   checkReservations(): void {
-    if ( this.instalaciones && this.instalaciones.length && this.reservasByDate) {      
-      // Añadir el campo "usuarios_restantes" a cada reserva
-      this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number }) => {
-        reserva.usuarios_restantes = reserva.n_usuario - reserva.usuarios_apuntados;
-      });
-      //Añadir usuario a cada reserva//TODO-TIPAR USUARIO
-      // this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number, usuario: any }) => {
-      //   reserva.usuario;
-      // });
-      //Añadir el array de usuarios
-      this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number, usuario: any }) => {
-        reserva.usuario;
-      });
-      this.instalaciones.forEach(instalacion => {
-        instalacion.horas = instalacion.horas.map((hora: string) => {
-          // Encontrar la reserva correspondiente para la instalación y la hora
-          const reserva = this.reservasByDate.find((reserva: { instalacion: { _id: any; }; horaInicio: string; horaFin: string; }) =>
-            reserva.instalacion._id === instalacion._id &&
-            reserva.horaInicio + '-' + reserva.horaFin === hora
-          );
-  
-          // Verificar si la hora está reservada
-          const isReserved = reserva && reserva.n_usuario === reserva.usuarios_apuntados;
-          const isReservedPartial = reserva && reserva.usuarios_apuntados > 0 && reserva.n_usuario !== reserva.usuarios_apuntados;
-          const plazasLibres = reserva ? reserva.usuarios_restantes : 4;
-          const usuariosReservado = reserva ? reserva.usuario : '';
-          const fechaReserva = reserva ? reserva.fecha : '';
-          const tipoPista = reserva ? reserva.instalacion.tipo : '';
-          const idPista = reserva ? reserva.instalacion._id : '';
-          //Seteamos los usuarios para pintarlos en la modal
-          // this.setinstalacionesService.setUsuariosReserva(usuariosReservado)
-          // Crear un objeto con el string de la hora y el booleano reserved, incluyendo usuarios_restantes si existe
-          return {
-            time: hora,
-            reserved: !!isReserved,
-            reservedPartial: !!isReservedPartial,
-            usuarios_restantes: plazasLibres,
-            usuarios_apuntados: usuariosReservado,
-            fecha : fechaReserva,
-            tipo : tipoPista,
-            idPista : idPista,
-          };
+    if (this.instalaciones && this.instalaciones.length && this.reservasByDate) {
+        // Añadir el campo "usuarios_restantes" a cada reserva
+        this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number }) => {
+            reserva.usuarios_restantes = reserva.n_usuario - reserva.usuarios_apuntados;
         });
-      });
+
+        // Añadir el array de usuarios
+        this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number, usuario: any }) => {
+            reserva.usuario;
+        });
+
+        this.instalaciones.forEach(instalacion => {
+            instalacion.horas = instalacion.horas.map((hora: string) => {
+                // Obtener la hora actual
+                const currentTime = new Date();
+                const currentHours = currentTime.getHours();
+                const currentMinutes = currentTime.getMinutes();
+
+                // Dividir la hora de la instalación en hora de inicio y fin
+                const [horaInicio, horaFin] = hora.split('-');
+                const [horaInicioHoras, horaInicioMinutos] = horaInicio.split(':').map(Number);
+                const [horaFinHoras, horaFinMinutos] = horaFin.split(':').map(Number);
+
+                // Comparar la hora de inicio con la hora actual
+                const isHoraAnterior = horaInicioHoras < currentHours || (horaInicioHoras === currentHours && horaInicioMinutos < currentMinutes);
+
+                // Encontrar la reserva correspondiente para la instalación y la hora
+                const reserva = this.reservasByDate.find((reserva: { instalacion: { _id: any; }; horaInicio: string; horaFin: string; }) =>
+                    reserva.instalacion._id === instalacion._id &&
+                    reserva.horaInicio + '-' + reserva.horaFin === hora
+                );
+
+                // Verificar si la hora está reservada
+                const isReserved = reserva && reserva.n_usuario === reserva.usuarios_apuntados;
+                const isReservedPartial = reserva && reserva.usuarios_apuntados > 0 && reserva.n_usuario !== reserva.usuarios_apuntados;
+                const plazasLibres = reserva ? reserva.usuarios_restantes : 4;
+                const usuariosReservado = reserva ? reserva.usuario : '';
+                const fechaReserva = reserva ? reserva.fecha : '';
+                const tipoPista = reserva ? reserva.instalacion.tipo : '';
+                const idPista = reserva ? reserva.instalacion._id : '';
+
+                // Crear un objeto con el string de la hora y el booleano reserved, incluyendo usuarios_restantes si existe
+                return {
+                    time: hora,
+                    reserved: !!isReserved,
+                    reservedPartial: !!isReservedPartial,
+                    usuarios_restantes: plazasLibres,
+                    usuarios_apuntados: usuariosReservado,
+                    fecha: fechaReserva,
+                    tipo: tipoPista,
+                    idPista: idPista,
+                    horaAnterior: isHoraAnterior,
+                };
+            });
+        });
     }
+    console.log(this.instalaciones, '188');
     this.isLoading = false;
-  }
-  
+}
+
 
   getTooltipText(hora: any): string {    
     if (hora.reserved) {
@@ -198,6 +261,11 @@ export class TableComponent implements OnInit, OnChanges {
       return 'Hacer clic para reservar';
     }
   }
+
+  // Función para extraer la hora (los dos primeros dígitos) de una cadena en formato "HH:MM"
+ obtenerHora(horaCompleta: string): string {
+  return horaCompleta.split(':')[0];
+}
 
   openModal(){
     this.showModal = true;
