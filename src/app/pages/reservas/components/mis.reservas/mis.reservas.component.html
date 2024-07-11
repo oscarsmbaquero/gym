@@ -1,39 +1,55 @@
-
-<div style="padding: 20px; border-radius: 12px; background-color: white" >
-<p-table 
-        [value]="misReservas" 
-        [tableStyle]="{'min-width': '25rem'}">
-    <ng-template pTemplate="header">
+@if(showTable){
+    <div
+    style="padding: 20px; border-radius: 12px; background-color: white"
+  >
+    <p-table [value]="misReservas" [tableStyle]="{ 'min-width': '25rem' }">
+      <ng-template pTemplate="header">
         <tr>
-            <th style="color:cadetblue">Fecha</th>
-            <th style="color:cadetblue">Hora</th>
-            <th style="color:cadetblue">Pista</th>
-            <!-- <th>Quantity</th> -->
+          <th style="color: cadetblue">Fecha</th>
+          <th style="color: cadetblue">Hora</th>
+          <th style="color: cadetblue">Pista</th>
+          <!-- <th>Quantity</th> -->
         </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-        <tr 
-        *ngIf="!product.vencida"
-        [ngClass]="{'proxima-reserva': product.proxima}"
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr
+          *ngIf="!product.vencida"
+          [ngClass]="{ 'proxima-reserva': product.proxima }"
         >
-        <td>
-            <p-badge *ngIf="product.esHoy" [value]="product.fecha" severity="warning"></p-badge>
+          <td>
+            <p-badge
+              *ngIf="product.esHoy"
+              [value]="product.fecha"
+              severity="warning"
+            ></p-badge>
             <span *ngIf="!product.esHoy">{{ product.fecha }}</span>
           </td>
           <td>
-            <p-badge *ngIf="product.esHoy" [value]="product.hora" severity="warning"></p-badge>
+            <p-badge
+              *ngIf="product.esHoy"
+              [value]="product.hora"
+              severity="warning"
+            ></p-badge>
             <span *ngIf="!product.esHoy">{{ product.hora }}</span>
           </td>
           <td>
-            <p-badge *ngIf="product.esHoy" [value]="product.instalacion.nombre" severity="warning"></p-badge>
+            <p-badge
+              *ngIf="product.esHoy"
+              [value]="product.instalacion.nombre"
+              severity="warning"
+            ></p-badge>
             <span *ngIf="!product.esHoy">{{ product.instalacion.nombre }}</span>
           </td>
-            <!-- <td>
-                <div [ngClass]="{'outofstock': product.quantity === 0, 'lowstock': (product.quantity > 0 && product.quantity < 10),'instock': product.quantity > 10}">
-                    {{product.quantity}}
-                </div>
-            </td> -->
+          <!-- <td>
+                  <div [ngClass]="{'outofstock': product.quantity === 0, 'lowstock': (product.quantity > 0 && product.quantity < 10),'instock': product.quantity > 10}">
+                      {{product.quantity}}
+                  </div>
+              </td> -->
         </tr>
-    </ng-template>
-</p-table>
-</div>
+      </ng-template>
+    </p-table>
+  </div>
+}@else {
+    <app-loader/>
+}
+

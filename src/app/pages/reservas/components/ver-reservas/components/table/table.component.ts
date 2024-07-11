@@ -17,7 +17,7 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 //COMPONENTES
 import { ModalJugadoresComponent } from '../../../modal-jugadores/modal-jugadores.component';
-
+import { LoaderComponent } from '../../../../../../shared/components/loader/loader.component';
 
 interface Intervalo {
   horaInicio: string;
@@ -27,7 +27,7 @@ interface Intervalo {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, CommonModule, TooltipModule, ModalJugadoresComponent],
+  imports: [TableModule, CommonModule, TooltipModule, ModalJugadoresComponent, LoaderComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
@@ -78,21 +78,6 @@ export class TableComponent implements OnInit, OnChanges {
     // window.scroll(0, 0);
   }
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   console.log('cambio');
-    
-  //   const change = changes['dataSelected'];
-  //   const changeCategoria = changes['categoria'];
-
-  //   if (change || changeCategoria) {
-  //     this.isLoading = true;
-  //     console.log(`New value: ${change.currentValue}`);
-  //     this.dataSelected = `${change.currentValue}`;
-  //     console.log(this.dataSelected);
-  //     this.obtenerReservasByDate(this.dataSelected);
-  //     this.getInstalaciones();
-  //   }
-  // }
   ngOnChanges(changes: SimpleChanges) {  
     const change = changes['dataSelected'];
     const changeCategoria = changes['categoria'];  
@@ -161,9 +146,9 @@ export class TableComponent implements OnInit, OnChanges {
         reserva.usuarios_restantes = reserva.n_usuario - reserva.usuarios_apuntados;
       });
       //Añadir usuario a cada reserva//TODO-TIPAR USUARIO
-      this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number, usuario: any }) => {
-        reserva.usuario;
-      });
+      // this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number, usuario: any }) => {
+      //   reserva.usuario;
+      // });
       //Añadir el array de usuarios
       this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number, usuario: any }) => {
         reserva.usuario;
@@ -199,8 +184,8 @@ export class TableComponent implements OnInit, OnChanges {
           };
         });
       });
-      this.isLoading = false;
     }
+    this.isLoading = false;
   }
   
 
