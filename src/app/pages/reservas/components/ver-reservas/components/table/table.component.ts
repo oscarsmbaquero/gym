@@ -58,7 +58,7 @@ export class TableComponent implements OnInit, OnChanges {
   showModal = false;
   reservaSeleccionada : any;
   previousDataSelected: any;
-
+  fechaSeleccionada:any;
 
 
 
@@ -91,6 +91,9 @@ export class TableComponent implements OnInit, OnChanges {
       // Usa el valor anterior de dataSelected si change no tiene cambios
       const dataSelectedValue = change ? change.currentValue : this.previousDataSelected;  
       this.dataSelected = `${dataSelectedValue}`;
+      this.fechaSeleccionada = this.dataSelected;
+      console.log(this.fechaSeleccionada);
+      
       this.obtenerReservasByDate(this.dataSelected);
       this.getInstalaciones();
     }
@@ -191,6 +194,12 @@ export class TableComponent implements OnInit, OnChanges {
   //   this.isLoading = false;
   // }
   checkReservations(): void {
+    console.log('cjeck');
+    
+    const today = new Date();
+    const formattedToday = `${today.getDate().toString().padStart(2, '0')}.${(today.getMonth() + 1).toString().padStart(2, '0')}.${today.getFullYear().toString()}`;
+    console.log(formattedToday);
+    
     if (this.instalaciones && this.instalaciones.length && this.reservasByDate) {
         // Añadir el campo "usuarios_restantes" a cada reserva
         this.reservasByDate.forEach((reserva: { n_usuario: number; usuarios_apuntados: number; usuarios_restantes?: number }) => {
@@ -205,18 +214,17 @@ export class TableComponent implements OnInit, OnChanges {
         this.instalaciones.forEach(instalacion => {
             instalacion.horas = instalacion.horas.map((hora: string) => {
                 // Obtener la hora actual
-                const currentTime = new Date();
-                const currentHours = currentTime.getHours();
-                const currentMinutes = currentTime.getMinutes();
+                const currentHours = today.getHours();
+                const currentMinutes = today.getMinutes();
 
                 // Dividir la hora de la instalación en hora de inicio y fin
                 const [horaInicio, horaFin] = hora.split('-');
                 const [horaInicioHoras, horaInicioMinutos] = horaInicio.split(':').map(Number);
                 const [horaFinHoras, horaFinMinutos] = horaFin.split(':').map(Number);
-
-                // Comparar la hora de inicio con la hora actual
-                const isHoraAnterior = horaInicioHoras < currentHours || (horaInicioHoras === currentHours && horaInicioMinutos < currentMinutes);
-
+                //comparo la fecha de hoy con la seleccionada
+                const isToday = this.fechaSeleccionada === formattedToday;
+                // Comparar la hora de inicio con la hora actual y la fecha de hoy
+                const isHoraAnterior = isToday && horaInicioHoras < currentHours || (horaInicioHoras === currentHours && horaInicioMinutos < currentMinutes);
                 // Encontrar la reserva correspondiente para la instalación y la hora
                 const reserva = this.reservasByDate.find((reserva: { instalacion: { _id: any; }; horaInicio: string; horaFin: string; }) =>
                     reserva.instalacion._id === instalacion._id &&
@@ -252,6 +260,7 @@ export class TableComponent implements OnInit, OnChanges {
 }
 
 
+
   getTooltipText(hora: any): string {    
     if (hora.reserved) {
       return 'Esta hora está completamente reservada';
@@ -283,6 +292,7 @@ export class TableComponent implements OnInit, OnChanges {
     console.log(pista);
     console.log(fecha);
     console.log(this.dataSelected,'dataSelected');
+    this.fechaSeleccionada = fecha;
     
     
     const reservaHoraDia ={
