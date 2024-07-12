@@ -8,6 +8,7 @@
           <th style="color: cadetblue">Fecha</th>
           <th style="color: cadetblue">Hora</th>
           <th style="color: cadetblue">Pista</th>
+          <!-- <th style="color: cadetblue">Instalación</th> -->
           <!-- <th>Quantity</th> -->
         </tr>
       </ng-template>
@@ -40,6 +41,14 @@
             ></p-badge>
             <span *ngIf="!product.esHoy">{{ product.instalacion.nombre }}</span>
           </td>
+          <!-- <td>
+            <p-badge
+              *ngIf="product.esHoy"
+              [value]="product.instalacion.tipo"
+              severity="warning"
+            ></p-badge>
+            <span *ngIf="!product.esHoy">{{ product.instalacion.tipo }}</span>
+          </td> -->
           <!-- <td>
                   <div [ngClass]="{'outofstock': product.quantity === 0, 'lowstock': (product.quantity > 0 && product.quantity < 10),'instock': product.quantity > 10}">
                       {{product.quantity}}

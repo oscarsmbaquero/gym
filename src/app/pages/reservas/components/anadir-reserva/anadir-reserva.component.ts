@@ -140,9 +140,7 @@ export class AnadirReservaComponent implements OnInit {
    */
   getReservaSeleccioada() {
     this.reservasService.getReservaForm().subscribe((element) => {
-      console.log(element);
       this.datosSeleccioandosTable = element;
-      console.log(this.datosSeleccioandosTable, 145);
     });
   }
 
@@ -190,6 +188,8 @@ export class AnadirReservaComponent implements OnInit {
     fecha = this.convertDate(fecha);
     this.reservasService.getReservasByDate(fecha).subscribe((fecha) => {
       this.reservasPorDia = fecha;
+      console.log(this.reservasPorDia);
+      
       this.horasDisponibles = this.obtenerHorasDisponibles(this.reservasPorDia);
     });
   }
@@ -268,10 +268,20 @@ export class AnadirReservaComponent implements OnInit {
    * @returns
    */
   horasDisponiblesPista(pistaBuscada: string): any | undefined {
+    console.log(pistaBuscada);
+    
     const pistaBuscadaNormalized = pistaBuscada.trim().toLowerCase();
+    console.log(pistaBuscadaNormalized);
+    console.log(this.horasDisponibles);
+    
     for (const pista of this.horasDisponibles) {
       const pistaNormalized = pista.id.trim().toLowerCase();
+      console.log(pistaNormalized);
+      
+      
       if (pistaNormalized === pistaBuscadaNormalized) {
+        console.log(pista);
+        
         return pista.horas;
       }
     }

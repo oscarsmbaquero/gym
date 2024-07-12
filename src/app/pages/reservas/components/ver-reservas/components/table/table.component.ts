@@ -256,7 +256,10 @@ export class TableComponent implements OnInit, OnChanges {
         });
     }
     console.log(this.instalaciones, '188');
-    this.isLoading = false;
+    setTimeout(() => {
+      this.isLoading = false;  
+    }, 1000);
+    
 }
 
 
