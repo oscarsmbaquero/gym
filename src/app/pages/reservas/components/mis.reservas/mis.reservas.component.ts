@@ -33,14 +33,19 @@ export class MisReservasComponent implements OnInit {
     this.reservasService.getMisReservas(this.id).subscribe((element) => {        
       const hoy = new Date();
       const dosDiasDespues = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() + 2);
-      
+      //const prueba = reserva.usuario.filter((id : string) => id === this.id) 
       this.misReservas = element.map((reserva) => {
+        console.log(reserva.usuario);
+        
         // Convertir la fecha del formato "dd.MM.yyyy" a un objeto Date
         const [dia, mes, anio] = reserva.fecha.split('.').map(Number);
         const fechaReserva = new Date(anio, mes - 1, dia);
         reserva['proxima'] = fechaReserva < dosDiasDespues;
         reserva['hora'] = `${reserva.horaInicio} - ${reserva.horaFin}`;
         reserva['esHoy'] = fechaReserva.toDateString() === hoy.toDateString();
+        reserva['plazasMias'] = reserva.usuario.filter((id : string) => id === this.id).length
+        
+        
           this.showTable = true;
         // reserva['vencida'] = fechaReserva < hoy;
         return reserva;
