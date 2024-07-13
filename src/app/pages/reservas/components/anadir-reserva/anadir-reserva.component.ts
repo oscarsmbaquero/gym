@@ -17,6 +17,10 @@ import { UsersService } from '../../../../core/services/users.service';
 //PRIMENG
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FloatLabelModule } from 'primeng/floatlabel';
+
 //ANGULAR MATERIAL
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -42,6 +46,10 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
     MatTabsModule,
     CommonModule,
     MessagesModule,
+    CheckboxModule,
+    InputNumberModule,
+    FloatLabelModule
+    
   ],
   providers: [
     DatePipe, 
@@ -73,6 +81,8 @@ export class AnadirReservaComponent implements OnInit {
   //TODO TIPAR
   datosSeleccioandosTable: any;
   pistasDisponibleSeleccionada : any;
+  showInputMultiJugador = false;
+  value1: number = 20;
 
   reservasDefecto = [
     '09:30-11:00',
@@ -99,7 +109,7 @@ export class AnadirReservaComponent implements OnInit {
       mail: ['', [Validators.required]],
       tipo_reserva: ['', [Validators.required]],
       pista: [{ value: '', disabled: true }],
-      comentario: [''],
+      multijugador: [''],
       hora: [{ value: '', disabled: true }, [Validators.required]],
     });
     //suscribimos a los campos del campo fecha
@@ -299,7 +309,7 @@ export class AnadirReservaComponent implements OnInit {
         mail: this.registrarReserva.get('mail')?.value,
         tipo_reserva: this.registrarReserva.get('tipo_reserva')?.value,
         pista: this.registrarReserva.get('pista')?.value,
-        comentario: this.registrarReserva.get('comentario')?.value,
+        multijugador: this.registrarReserva.get('multijugador')?.value,
         hora: this.registrarReserva.get('hora')?.value,
       };
       //convertir la fecha
@@ -319,6 +329,8 @@ export class AnadirReservaComponent implements OnInit {
             { severity: 'info', detail: 'Has sido añadido a la reserva' },
           ];
         }
+        console.log(this.registrarReserva,'op');
+        
         setTimeout(() => {
           this.router.navigate(['home']);
         }, 1000);
@@ -366,5 +378,11 @@ export class AnadirReservaComponent implements OnInit {
     let horasFiltradasStrings = horasFiltradas.map((rango: any) => rango);
 
     return horasFiltradasStrings;
+  }
+
+   // Método para manejar el cambio del checkbox si es necesario
+   onCheckboxChange(event: any) {
+    // console.log('Checkbox value:', event.checked);
+    this.showInputMultiJugador = event.checked
   }
 }
