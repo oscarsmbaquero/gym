@@ -1,12 +1,12 @@
 @if(showTable){
 <div style="padding: 20px; border-radius: 12px; background-color: white">
-  <p-table [value]="misReservas" [tableStyle]="{ 'min-width': '25rem' }">
+  <p-table [value]="misReservas" [tableStyle]="{ 'max-width': '5rem' }">
     <ng-template pTemplate="header">
       <tr>
-        <th class="center" style="color: rgb(99, 95, 160)">Fecha</th>
-        <th class="center" style="color:  rgb(99, 95, 160)">Hora</th>
+        <th class="center" style="color: rgb(99, 95, 160)">Fecha/Hora</th>
+        <!-- <th class="center" style="color:  rgb(99, 95, 160)">Hora</th> -->
         <th class="center" style="color:  rgb(99, 95, 160)">Pista</th>
-        <th class="center" style="color:  rgb(99, 95, 160)">Instalación</th>
+        <!-- <th class="center" style="color:  rgb(99, 95, 160)">Instalación</th> -->
         <th class="center" style="color:  rgb(99, 95, 160)">Plazas</th>
         <!-- <th>Quantity</th> -->
       </tr>
@@ -23,17 +23,18 @@
             [value]="product.fecha"
             severity="warning"
           ></p-badge>
-          <span *ngIf="!product.esHoy">{{ product.fecha }}</span>
+          <span *ngIf="!product.esHoy">{{ product.fecha }}</span><br/>
+          <span *ngIf="!product.esHoy">{{ product.horaInicio }}</span>
         </td>
         <!--hora-->
-        <td class="center">
+        <!-- <td class="center">
           <p-badge
             *ngIf="product.esHoy"
             [value]="product.hora"
             severity="warning"
           ></p-badge>
           <span *ngIf="!product.esHoy">{{ product.hora }}</span>
-        </td>
+        </td> -->
         <!-- Pista -->
         <td class="center">
           <p-badge
@@ -41,17 +42,18 @@
             [value]="product.instalacion.nombre"
             severity="warning"
           ></p-badge>
+          <span *ngIf="!product.esHoy">{{ product.instalacion.tipo | uppercase }}</span><br/>
           <span *ngIf="!product.esHoy">{{ product.instalacion.nombre }}</span>
         </td>
         <!-- Instalación -->
-        <td class="center">
+        <!-- <td class="center">
           <p-badge
             *ngIf="product.esHoy"
             [value]="product.instalacion.tipo"
             severity="warning"
           ></p-badge>
           <span *ngIf="!product.esHoy">{{ product.instalacion.tipo | uppercase }}</span>
-        </td>
+        </td> -->
         <!---->
         <td class="center">
           <p-badge
