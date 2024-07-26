@@ -63,7 +63,6 @@ export class MisReservasComponent implements OnInit {
       return comparacionFecha; // Para orden ascendente
       // return comparacionFecha * -1; // Para orden descendente
   });
-      console.log(this.misReservas);
     });    
   }
 

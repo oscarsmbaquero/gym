@@ -1,6 +1,8 @@
 @if(showTable){
 <div style="padding: 20px; border-radius: 12px; background-color: white">
-  <p-table [value]="misReservas" [tableStyle]="{ 'max-width': '5rem' }">
+  <p-table [value]="misReservas" 
+  [tableStyle]="{'min-width': '20rem'}"
+  >
     <ng-template pTemplate="header">
       <tr>
         <th class="center" style="color: rgb(99, 95, 160)">Fecha/Hora</th>

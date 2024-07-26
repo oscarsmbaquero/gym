@@ -91,8 +91,4 @@ export class HeaderComponent implements OnInit {
     const resultado = letrasExtraidas.join('');
     this.palabrasAvatar = resultado;
   }
-  // selectOption(arg0: string) {
-  //   this.selectedOption = arg0;
-  //   this.toggleNavbar();
-  // }
 }

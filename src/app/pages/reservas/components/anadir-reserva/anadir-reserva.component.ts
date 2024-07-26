@@ -82,7 +82,7 @@ export class AnadirReservaComponent implements OnInit {
   datosSeleccioandosTable: any;
   pistasDisponibleSeleccionada : any;
   showInputMultiJugador = false;
-  value1: number = 1;
+  value1: number = 2;
 
   reservasDefecto = [
     '09:30-11:00',

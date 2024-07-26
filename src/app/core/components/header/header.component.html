@@ -44,7 +44,8 @@
           class="nav-item"
           routerLinkActive="active"
           [class.selected]="(selectedOption$ | async) === 'home'"
-          (click)="selectOption('home')"
+          (click)="selectOption('home')" [class.selected]="selectedOption === 'home'" class="nav-item" routerLinkActive="active"
+          data-target=".navbar-collapse.show"
         >
           <a
             class="nav-link"
